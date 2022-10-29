@@ -1,6 +1,6 @@
 package com.blog.kreator.di
 
-import com.blog.kreator.di.utils.Constants
+import com.blog.kreator.utils.Constants
 import com.blog.kreator.ui.onBoarding.models.AuthResponse
 import com.blog.kreator.ui.onBoarding.models.GetUserDetails
 import com.blog.kreator.ui.onBoarding.models.LoginDetails

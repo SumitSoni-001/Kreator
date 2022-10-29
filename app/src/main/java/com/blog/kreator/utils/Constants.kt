@@ -1,4 +1,4 @@
-package com.blog.kreator.di.utils
+package com.blog.kreator.utils
 
 object Constants {
 
