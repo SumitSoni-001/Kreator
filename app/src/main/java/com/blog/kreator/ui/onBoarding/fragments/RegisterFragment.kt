@@ -15,8 +15,10 @@ import com.blog.kreator.databinding.FragmentRegisterBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -24,6 +26,9 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val authViewModel by activityViewModels<AuthViewModel>()
     private lateinit var loader: KProgressHUD
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,7 +46,6 @@ class RegisterFragment : Fragment() {
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel("Please wait")
             .setCancellable(false)
-//            .setAnimationSpeed(2)
             .setDimAmount(0.5f)
 
         binding.back.setOnClickListener {
@@ -77,7 +81,6 @@ class RegisterFragment : Fragment() {
                 userModel.about = binding.etAbout.text.toString()
 
                 authViewModel.registerUser(userModel)
-//                findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
             }
         }
 
@@ -90,6 +93,11 @@ class RegisterFragment : Fragment() {
             loader.dismiss()
             when (it) {
                 is NetworkResponse.Success -> {
+                    sessionManager.setToken(it.data?.token.toString())
+                    sessionManager.setUserId(it.data?.user?.id.toString())
+                    sessionManager.setUserName(it.data?.user?.name.toString())
+                    sessionManager.setEmail(it.data?.user?.email.toString())
+                    sessionManager.setAbout(it.data?.user?.about.toString())
                     findNavController().navigate(R.id.action_registerFragment_to_mainFragment)
                 }
                 is NetworkResponse.Error -> {

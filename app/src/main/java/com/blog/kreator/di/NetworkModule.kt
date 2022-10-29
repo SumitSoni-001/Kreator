@@ -1,6 +1,6 @@
 package com.blog.kreator.di
 
-import com.blog.kreator.di.utils.Constants
+import com.blog.kreator.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -15,8 +15,10 @@ import com.blog.kreator.databinding.FragmentLoginBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -24,6 +26,9 @@ class LoginFragment : Fragment() {
     private lateinit var binding: FragmentLoginBinding
     private val authViewModel by activityViewModels<AuthViewModel>()
     private lateinit var loader : KProgressHUD
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -60,7 +65,6 @@ class LoginFragment : Fragment() {
                 binding.passwordField.error = "Enter correct password"
             } else {
                 authViewModel.loginUser(LoginDetails(binding.etEmail.text.toString(), binding.etPassword.text.toString()))
-//                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             }
         }
 
@@ -73,6 +77,12 @@ class LoginFragment : Fragment() {
             loader.dismiss()
             when (it) {
                 is NetworkResponse.Success -> {
+                    sessionManager.setToken(it.data?.token.toString())
+                    sessionManager.setUserId(it.data?.user?.id.toString())
+                    sessionManager.setUserName(it.data?.user?.name.toString())
+                    sessionManager.setEmail(it.data?.user?.email.toString())
+                    sessionManager.setAbout(it.data?.user?.about.toString())
+
                     findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
                 }
                 is NetworkResponse.Error -> {

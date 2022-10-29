@@ -6,25 +6,38 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.blog.kreator.MainActivity
 import com.blog.kreator.R
 import com.blog.kreator.databinding.FragmentWelcomeBinding
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.SessionManager
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeBinding
     private lateinit var navController: NavController
+
+    @Inject
+    lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false)
-        (context as MainActivity).window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        (requireActivity()).window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+
+        if (sessionManager.getToken() != null){
+            findNavController().navigate(R.id.mainFragment)
+        }
 
         binding.getStarted.setOnClickListener {
             navController.navigate(R.id.action_welcomeFragment_to_registerFragment)
@@ -36,7 +49,7 @@ class WelcomeFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         // Clear the flag while closing the fragment so that other fragments may not be affected.
-        (context as MainActivity).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
