@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Kreator</string>
+
+    <string name="app_description">Discover stories, thinking, and expertise \nfrom writers on any topic.</string>
+    <string name="TagLine">Think &amp; Enrich \nyour Knowledge</string>
+    <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#3C72F6"> Login Here</font></string>
+    <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
+    <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#3C72F6"> Register Here</font></string>
+
+
+</resources>
