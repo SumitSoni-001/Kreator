@@ -6,6 +6,13 @@
     <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#3C72F6"> Login Here</font></string>
     <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
     <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#3C72F6"> Register Here</font></string>
+    <string name="skip"><u>Skip</u></string>
+    <string name="tv_enrich_knowledge">Enrich Your Knowledge</string>
+    <string name="tv_enrich_knowledge_desc">KREATOR always provide resourceful blog, \ncase studies, business perspective that \nhelps you to grow your knowledge.</string>
+    <string name="tv_save_blogs">Save Blogs That You Like</string>
+    <string name="tv_save_blogs_desc">Just save that blogs that you wanna read\nin future. You will find the saved blogs in\none place.</string>
+    <string name="tv_learn">Learn From Professionals</string>
+    <string name="tv_learn_desc">Our content creators are professionals in their\nfields. They more then work and research\nexperience.</string>
 
 
 </resources>

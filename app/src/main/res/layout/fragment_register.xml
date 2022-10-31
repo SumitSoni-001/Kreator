@@ -71,7 +71,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
-            android:text="Mohit"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:textColor="@color/black" />
@@ -106,7 +105,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
-            android:text="Mohit@dev.com"
             android:inputType="textPersonName"
             android:maxLines="1"
             android:textColor="@color/black" />
@@ -143,7 +141,6 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
             android:inputType="textPassword"
-            android:text="123456"
             android:maxLines="1"
             android:textColor="@color/black" />
 
@@ -175,7 +172,6 @@
             android:fontFamily="@font/lato_regular"
             android:inputType="text"
             android:maxLines="1"
-            android:text="Web Developer"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>

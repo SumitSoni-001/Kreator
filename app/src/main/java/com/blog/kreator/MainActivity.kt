@@ -1,8 +1,7 @@
 package com.blog.kreator
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.blog.kreator.R
+import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -11,4 +10,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+//    override fun onBackPressed() {
+//        val count = supportFragmentManager.backStackEntryCount
+//
+//        if (count == 0) {
+//            super.onBackPressed()
+//            //additional code
+//        } else {
+//            supportFragmentManager.popBackStack()
+//        }
+//    }
+
 }

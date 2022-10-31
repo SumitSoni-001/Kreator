@@ -82,8 +82,7 @@ class LoginFragment : Fragment() {
                     sessionManager.setUserName(it.data?.user?.name.toString())
                     sessionManager.setEmail(it.data?.user?.email.toString())
                     sessionManager.setAbout(it.data?.user?.about.toString())
-
-                    findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
                 }
                 is NetworkResponse.Error -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()

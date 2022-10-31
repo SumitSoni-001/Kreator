@@ -27,7 +27,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     }
 
     fun setToken(token: String) {
-        editor.putString(TOKEN, token).apply()
+        editor.putString(TOKEN, "Bearer $token").apply()
     }
 
     fun getUserName(): String? {

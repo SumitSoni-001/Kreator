@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/saveBlogImg"
+        android:layout_width="0dp"
+        android:layout_height="240dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginHorizontal="30dp"
+        android:src="@drawable/save_blog"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/saveBlog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_save_blogs"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_bold"
+        android:textSize="22sp"
+        android:layout_marginTop="25dp"
+        app:layout_constraintTop_toBottomOf="@id/saveBlogImg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_save_blogs_desc"
+        android:textColor="@color/gray"
+        android:fontFamily="@font/poppins_medium"
+        android:textAlignment="center"
+        android:textSize="15sp"
+        app:layout_constraintTop_toBottomOf="@+id/saveBlog"
+        android:layout_marginTop="10dp"
+        android:lineSpacingExtra="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

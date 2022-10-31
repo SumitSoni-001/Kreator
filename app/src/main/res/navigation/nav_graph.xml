@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/welcomeFragment">
+    app:startDestination="@id/onBoardingFragment">
 
     <fragment
         android:id="@+id/welcomeFragment"
@@ -20,13 +20,13 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true" />
-        <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -34,16 +34,27 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
+            android:id="@+id/action_loginFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.blog.kreator.ui.home.MainFragment"
+        android:name="com.blog.kreator.ui.home.fragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.OnBoardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding" >
+        <action
+            android:id="@+id/action_onBoardingFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 
 </navigation>

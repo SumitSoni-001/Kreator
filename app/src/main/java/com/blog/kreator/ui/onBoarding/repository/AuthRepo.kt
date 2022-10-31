@@ -33,7 +33,7 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
 
         } catch (e: Exception) {
             Log.e("Danger", "Server Error : ${e.localizedMessage}")
-            authResponseLiveData.postValue(NetworkResponse.Error("Something went wrong"))
+            authResponseLiveData.postValue(NetworkResponse.Error("Server Problem : ${e.localizedMessage}"))
         }
     }
 
@@ -45,7 +45,7 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
             handleResponse(response)
         } catch (e: Exception) {
             Log.e("Danger", "Server Error")
-            authResponseLiveData.postValue(NetworkResponse.Error("Something went wrong"))
+            authResponseLiveData.postValue(NetworkResponse.Error("Server Problem : ${e.localizedMessage}"))
         }
     }
 
