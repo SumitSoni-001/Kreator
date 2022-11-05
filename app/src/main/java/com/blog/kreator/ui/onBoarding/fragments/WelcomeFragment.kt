@@ -35,12 +35,15 @@ class WelcomeFragment : Fragment() {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false)
         (requireActivity()).window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        if (sessionManager.getToken() != null){
-            findNavController().navigate(R.id.mainFragment)
+        if (sessionManager.getToken() != null) {
+            findNavController().navigate(R.id.action_welcomeFragment_to_mainFragment)
         }
 
         binding.getStarted.setOnClickListener {
             navController.navigate(R.id.action_welcomeFragment_to_registerFragment)
+        }
+        binding.haveAccount.setOnClickListener {
+            navController.navigate(R.id.action_welcomeFragment_to_loginFragment)
         }
 
         return binding.root

@@ -1,5 +1,7 @@
 package com.blog.kreator.di
 
+import com.blog.kreator.ui.home.models.CommentDetails
+import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.home.models.PostResponse
 import com.blog.kreator.utils.Constants
 import com.blog.kreator.ui.onBoarding.models.AuthResponse
@@ -20,7 +22,7 @@ interface RemoteService {
     suspend fun registerUser(@Body body: UserInput): Response<AuthResponse>
 
     @POST(Constants.LOGIN)
-    suspend fun login(@Body body : LoginDetails) : Response<AuthResponse>
+    suspend fun login(@Body body: LoginDetails): Response<AuthResponse>
 
 //    @GET(Constants.GET_USER)
 //    suspend fun getUserById(@Path("userId") userId:Int):Response<GetUserDetails>
@@ -29,16 +31,26 @@ interface RemoteService {
 //    suspend fun getAllUsers():Response<List<GetUserDetails>>
 
     @GET(Constants.GET_ALL_POST)
-    suspend fun getAllPosts() : Response<PostResponse>
+    suspend fun getAllPosts(): Response<PostResponse>
 
     @GET(Constants.GET_POST_BY_CATEGORY)
-    suspend fun getPostByCategory(@Path("categoryId") categoryId : Int) : Response<PostResponse>
+    suspend fun getPostByCategory(@Path("categoryId") categoryId: Int): Response<PostResponse>
 
     @POST(Constants.UPLOAD_IMAGE)
-    suspend fun uploadImage(@Path("postId") postId : Int) : Response<PostResponse>
+    suspend fun uploadImage(@Path("postId") postId: Int): Response<PostResponse>
 
 //    @GET(Constants.DOWNLOAD_IMAGE)
 //    suspend fun downloadImage(@Path("imageName") imageName : String)
 
+    @GET(Constants.GET_POST_BY_POST_ID)
+    suspend fun getPostByPostId(@Path("postId") postId: Int): Response<PostDetails>
+
+    @POST(Constants.CREATE_COMMENT)
+    suspend fun createComment(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Path("postId") postId: Int,
+        @Path("userId") userId: Int,
+        @Body body: CommentDetails
+    ): Response<CommentDetails>
 
 }

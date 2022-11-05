@@ -11,7 +11,7 @@
         android:id="@+id/skip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
+        android:fontFamily="@font/poppins_medium"
         android:paddingHorizontal="10dp"
         android:paddingVertical="5dp"
         android:text="@string/skip"

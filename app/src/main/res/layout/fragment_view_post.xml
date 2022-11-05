@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/postItemsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.home.fragments.ViewPostFragment">
+
+            <LinearLayout
+                android:id="@+id/actionLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1">
+
+                    <ImageView
+                        android:id="@+id/backToMain"
+                        android:layout_width="30dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/back_arrow" />
+
+                </FrameLayout>
+
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="25dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="20dp"
+                    android:src="@drawable/share" />
+
+                <ImageView
+                    android:id="@+id/bookmarkPost"
+                    android:layout_width="25dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="15dp"
+                    android:src="@drawable/bookmark" />
+
+                <ImageView
+                    android:id="@+id/more"
+                    android:layout_width="30dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/more_options" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/line"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/postStroke"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actionLayout" />
+
+            <TextView
+                android:id="@+id/postTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="The Ultimate guide to finding a Front-End Engineer."
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                app:layout_constraintStart_toStartOf="@id/actionLayout"
+                app:layout_constraintTop_toBottomOf="@id/line" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/userLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:outlineSpotShadowColor="@color/gray"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                app:layout_constraintStart_toStartOf="@id/actionLayout"
+                app:layout_constraintTop_toBottomOf="@id/postTitle">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/main_fragment_bg"
+                    android:paddingHorizontal="5dp"
+                    android:paddingVertical="8dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/userProfile"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="5dp"
+                        android:src="@drawable/user_placeholder"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Sumit Soni"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintStart_toEndOf="@id/userProfile"
+                        app:layout_constraintTop_toTopOf="@id/userProfile" />
+
+                    <TextView
+                        android:id="@+id/postedOn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="-2dp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:text="2 hours ago"
+                        android:textColor="@color/gray"
+                        android:textSize="11sp"
+                        app:layout_constraintStart_toStartOf="@id/username"
+                        app:layout_constraintTop_toBottomOf="@id/username" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/dotActive"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:gravity="center"
+                        android:text="Follow"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="13sp"
+                        app:cornerRadius="20dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/postImageCard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:outlineSpotShadowColor="@color/white"
+                app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                app:layout_constraintStart_toStartOf="@id/actionLayout"
+                app:layout_constraintTop_toBottomOf="@id/userLayout"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/postImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/placeholder" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/postContent"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:focusable="true"
+                android:fontFamily="@font/lato_regular"
+                android:lineSpacingExtra="5dp"
+                android:text="@string/sample_post_content"
+                android:textColor="@color/category_selected_bg"
+                android:textColorHighlight="@color/text_highlight"
+                android:textIsSelectable="true"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                app:layout_constraintStart_toStartOf="@id/actionLayout"
+                app:layout_constraintTop_toBottomOf="@id/postImageCard" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/commentFAB"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="30dp"
+        android:backgroundTint="@color/black"
+        android:drawableTint="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:icon="@drawable/comment"
+        app:iconPadding="8dp"
+        app:iconSize="20dp"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <include
+        android:id="@+id/shimmer"
+        layout="@layout/view_post_shimmer" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

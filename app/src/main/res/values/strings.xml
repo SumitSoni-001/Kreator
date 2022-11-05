@@ -3,9 +3,10 @@
 
     <string name="app_description">Discover stories, thinking, and expertise \nfrom writers on any topic.</string>
     <string name="TagLine">Think &amp; Enrich \nyour Knowledge</string>
-    <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#3C72F6"> Login Here</font></string>
+    <string name="alreadyHaveAccount"><font fgcolor="#FFFFFF">Already have an Account?</font><font fgcolor="#539bf5"> <b>Sign in</b></font></string>
+    <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#3C72F6"> <b>Login here</b></font></string>
     <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
-    <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#3C72F6"> Register Here</font></string>
+    <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#3C72F6"> <b>Sign up</b></font></string>
     <string name="skip"><u>Skip</u></string>
     <string name="tv_enrich_knowledge">Enrich Your Knowledge</string>
     <string name="tv_enrich_knowledge_desc">KREATOR always provide resourceful blog, \ncase studies, business perspective that \nhelps you to grow your knowledge.</string>
@@ -13,6 +14,11 @@
     <string name="tv_save_blogs_desc">Just save that blogs that you wanna read\nin future. You will find the saved blogs in\none place.</string>
     <string name="tv_learn">Learn From Professionals</string>
     <string name="tv_learn_desc">Our content creators are professionals in their\nfields. They more then work and research\nexperience.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="category_screen_desc">Choose a few of your favourite topics, then \nwe\'ll build your personalized feed.</string>
+    <string name="follow_interests">Follow your interests</string>
+    <string name="sample_post_content">Pick the <b><i>Lottie</i></b> for your Android app. You may have your own or you may want to select one from the 1000s of <b>Lottie animations</b> available for free on LottieFiles.It\'s important to test your selected Lottie using the <i>LottieFiles</i> app for Android to make sure the animation you\'ve chosen will play the same Android as sometimes not all animations are built with features supported in the Lottie Android player.Just scan the QR code under the animation on LottieFiles with the app to preview the animation.Pick the <b><i>Lottie</i></b> for your Android app. You may have your own or you may want to select one from the 1000s of <b>Lottie animations</b> available for free on LottieFiles.It\'s important to test your selected Lottie using the <i>LottieFiles</i> app for Android to make sure the animation you\'ve chosen will play the same Android as sometimes not all animations are built with features supported in the Lottie Android player.Just scan the QR code under the animation on LottieFiles with the app to preview the animation.</string>
 
 
 </resources>

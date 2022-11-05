@@ -208,7 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/lato_regular"
+        android:fontFamily="@font/poppins_regular"
         android:text="@string/loginHere"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"

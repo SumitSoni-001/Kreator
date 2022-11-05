@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
 
         loader = KProgressHUD.create(requireActivity())
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-            .setLabel("Please wait")
+            .setLabel("Please wait...")
             .setCancellable(false)
             .setDimAmount(0.5f)
 

@@ -11,6 +11,7 @@ import javax.inject.Inject
 class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewModel() {
 
     val postData get() = postRepo.postData
+    val singlePostData get() = postRepo.singlePostData
 
     fun getAllPosts() {
         viewModelScope.launch {
@@ -21,6 +22,12 @@ class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewMo
     fun getPostByCategory(categoryId: Int) {
         viewModelScope.launch {
             postRepo.getPostsByCategory(categoryId)
+        }
+    }
+
+    fun getPostByPostId(postId : Int){
+        viewModelScope.launch {
+            postRepo.getPostByPostId(postId)
         }
     }
 

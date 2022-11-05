@@ -14,8 +14,10 @@ import androidx.viewpager2.widget.ViewPager2
 import com.blog.kreator.R
 import com.blog.kreator.databinding.FragmentOnboardingBinding
 import com.blog.kreator.ui.onBoarding.adapters.OnBoardingAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
 @RequiresApi(Build.VERSION_CODES.M)
+//@AndroidEntryPoint
 class OnBoardingFragment : Fragment() {
 
     private lateinit var binding: FragmentOnboardingBinding
@@ -53,7 +55,8 @@ class OnBoardingFragment : Fragment() {
                         setUpIndicator(1)
                     }
                     2 -> {
-                        binding.btnNext.text = "Let's Go"
+//                        binding.btnNext.text = "Let's Go"
+                        binding.btnNext.text = "Go Next"
                         binding.skip.visibility = View.INVISIBLE
                         setUpIndicator(2)
                     }
@@ -67,14 +70,15 @@ class OnBoardingFragment : Fragment() {
         }
 
         binding.skip.setOnClickListener {
-            binding.viewPager.setCurrentItem(2 , true)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_categoriesFragment)
+//            binding.viewPager.setCurrentItem(2 , true)
         }
 
     }
 
     private fun nextPage() {
         if (binding.viewPager.currentItem == 2){
-            findNavController().navigate(R.id.action_onBoardingFragment_to_mainFragment)
+            findNavController().navigate(R.id.action_onBoardingFragment_to_categoriesFragment)
         }else{
             binding.viewPager.setCurrentItem(binding.viewPager.currentItem + 1 , true)
         }

@@ -44,11 +44,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:fontFamily="@font/lato_regular"
-        android:lineSpacingExtra="5dp"
+        android:fontFamily="@font/poppins_regular"
         android:text="@string/TagLine"
         android:textColor="@color/white"
-        android:textSize="30sp"
+        android:textSize="28sp"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintTop_toBottomOf="@id/kreator" />
 
@@ -57,7 +56,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/lato_light"
+        android:fontFamily="@font/poppins_extra_light"
         android:lineSpacingExtra="2dp"
         android:text="@string/app_description"
         android:textColor="@color/white"
@@ -70,7 +69,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:backgroundTint="@color/white"
         android:drawableEnd="@drawable/forward_arrow"
         android:fontFamily="@font/lato_bold"
@@ -79,10 +78,23 @@
         android:text="Get Started"
         android:textColor="@color/black"
         app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@id/bottomImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_desc"
-        app:layout_constraintBottom_toTopOf="@id/bottomImg"/>
+        app:layout_constraintTop_toBottomOf="@id/app_desc" />
+
+    <TextView
+        android:id="@+id/haveAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/poppins_light"
+        android:text="@string/alreadyHaveAccount"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/getStarted" />
 
     <ImageView
         android:id="@+id/bottomImg"
