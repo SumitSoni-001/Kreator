@@ -181,7 +181,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:checked="true"
         android:buttonTint="@color/orange"
         android:fontFamily="@font/lato_regular"
         android:text="@string/termService"

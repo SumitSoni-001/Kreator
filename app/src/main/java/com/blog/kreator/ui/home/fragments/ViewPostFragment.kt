@@ -16,6 +16,7 @@ import com.blog.kreator.databinding.FragmentViewPostBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.FormatTime
 import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.squareup.picasso.Picasso
@@ -85,9 +86,9 @@ class ViewPostFragment : Fragment() {
                 is NetworkResponse.Success -> {
                     val postData = it.data
 //                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
-                    val deserializedContent = editor.getContentDeserialized(sessionManager.getContent())
+                    val deserializedContent = editor.getContentDeserialized(postData?.content)
                     binding.postTitle.text = postData?.postTitle
-                    binding.postedOn.text = postData?.date
+                    binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
 
                     /** binding.postContent.text = postData?.content */
                     editor.render(deserializedContent)

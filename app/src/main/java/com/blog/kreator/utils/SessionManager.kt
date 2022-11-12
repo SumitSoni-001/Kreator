@@ -15,8 +15,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     private val ABOUT = "ABOUT"
     private val USERID = "USER_ID"
     private val YOUR_CATEGORIES = "CATEGORIES"
-    private val CONTENT = "CONTENT"
-
+//    private val CONTENT = "CONTENT"
 
     private var prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
     private var editor = prefs.edit()
@@ -26,13 +25,13 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
         editor.apply()
     }
 
-    fun getContent(): String? {
-        return prefs.getString(CONTENT, null)
-    }
-
-    fun setContent(content: String) {
-        editor.putString(CONTENT, content).apply()
-    }
+//    fun getContent(): String? {
+//        return prefs.getString(CONTENT, null)
+//    }
+//
+//    fun setContent(content: String) {
+//        editor.putString(CONTENT, content).apply()
+//    }
 
     fun getToken(): String? {
         return prefs.getString(TOKEN, null)

@@ -41,7 +41,10 @@
                         android:id="@+id/backToMain"
                         android:layout_width="30dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/back_arrow" />
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:src="@drawable/back_arrow"
+                        android:focusable="true" />
 
                 </FrameLayout>
 
@@ -51,22 +54,31 @@
                     android:layout_height="22dp"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/share"
-                    android:tooltipText="Share blog" />
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:tooltipText="Share blog"
+                    android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/bookmarkPost"
                     android:layout_width="25dp"
                     android:layout_height="22dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/bookmark"
-                    android:tooltipText="Bookmark" />
+                    android:tooltipText="Bookmark"
+                    android:focusable="true" />
 
                 <ImageView
                     android:id="@+id/more"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
                     android:src="@drawable/more_options"
-                    android:tooltipText="More Options" />
+                    android:tooltipText="More Options"
+                    android:focusable="true" />
 
             </LinearLayout>
 

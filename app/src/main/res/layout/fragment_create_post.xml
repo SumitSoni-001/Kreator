@@ -22,13 +22,16 @@
                 android:id="@+id/publish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Publish"
-                android:layout_marginEnd="15dp"
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_medium"
-                android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
-                android:textColor="@color/orange"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="15dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Publish"
+                android:textColor="@color/orange"
+                android:textSize="16sp" />
 
             <ImageView
                 android:id="@+id/Back"
@@ -37,53 +40,94 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="15dp"
-                android:src="@drawable/back_arrow"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/back"
+                app:tint="@color/black" />
 
             <View
                 android:id="@+id/line2"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_below="@id/Back"
                 android:layout_marginTop="15dp"
-                android:background="@color/light_gray"
-                android:layout_below="@id/Back"/>
+                android:background="@color/light_gray" />
 
             <ImageView
                 android:id="@+id/addCoverImage"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
+                android:layout_below="@id/line2"
+                android:layout_alignParentStart="true"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_alignParentStart="true"
-                android:src="@drawable/add_cover_image"
-                android:layout_below="@id/line2"/>
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@drawable/add_cover_image" />
+
+<!--
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/categoryLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/line2"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/addCoverImage"
+                android:hint="Category"
+                android:minHeight="30dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/categoryDropdown"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:inputType="none" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+-->
+            <Spinner
+                android:id="@+id/categorySpinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@id/line2"
+                android:background="@drawable/search_bg"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="15dp"
+                android:layout_toEndOf="@id/addCoverImage"
+                android:spinnerMode="dialog"/>
 
             <EditText
                 android:id="@+id/etTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/addCoverImage"
-                android:layout_below="@id/line2"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_below="@id/categorySpinner"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:minHeight="30dp"
-                android:inputType="text|textMultiLine|textNoSuggestions"
+                android:fontFamily="@font/poppins_semibold"
                 android:hint="Add Title.."
-                android:textSize="16sp"
-                android:fontFamily="@font/poppins_semibold"/>
+                android:inputType="text|textMultiLine|textNoSuggestions"
+                android:minHeight="30dp"
+                android:textSize="16sp" />
 
             <com.github.irshulx.Editor
                 android:id="@+id/editor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/etTitle"
                 android:clickable="true"
-                android:paddingTop="10dp"
-                android:paddingHorizontal="15dp"
                 android:focusable="true"
+                android:paddingHorizontal="15dp"
+                android:paddingTop="10dp"
                 android:paddingBottom="100dp"
                 app:placeholder="Start writing here..."
-                app:render_type="Editor"
-                android:layout_below="@id/etTitle"/>
+                app:render_type="Editor" />
 
         </RelativeLayout>
 

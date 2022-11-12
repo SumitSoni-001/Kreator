@@ -4,16 +4,16 @@ import android.app.Dialog
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.icu.text.Transliterator.Position
 import android.net.Uri
 import android.os.Bundle
 import android.os.FileUtils
+import android.os.Handler
 import android.provider.MediaStore
 import android.text.Editable
 import android.util.Log
 import android.view.*
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
@@ -27,6 +27,7 @@ import com.blog.kreator.databinding.FragmentCreatePostBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.home.models.PostInput
 import com.blog.kreator.ui.home.viewModels.PostViewModel
+import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.github.irshulx.EditorListener
@@ -52,7 +53,9 @@ class CreatePostFragment : Fragment() {
     lateinit var sessionManager: SessionManager
     private var coverImgUri : String = ""
     private lateinit var part : MultipartBody.Part
-    private var catId : Int = 4
+
+    private var catId : Int = 1     // Make default catId to "Testing" but don't show this category to user.
+    private lateinit var categoryAdapter : ArrayAdapter<String>
     private var getCoverImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri : Uri? ->
         if (uri != null){
             coverImgUri = uri.toString()
@@ -72,8 +75,7 @@ class CreatePostFragment : Fragment() {
             Toast.makeText(requireContext(), "File not found", Toast.LENGTH_SHORT).show()
         }
     }
-    private var getImage =
-        registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+    private var getImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
                 Toast.makeText(requireContext(), "Success $bitmap", Toast.LENGTH_SHORT).show()
@@ -98,6 +100,18 @@ class CreatePostFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
         postViewModel = ViewModelProvider(context as MainActivity)[PostViewModel::class.java]
 
+        categoryAdapter = ArrayAdapter(requireContext(),R.layout.category_dropdown_menu_item,Constants.ALL_CATEGORIES)
+        categoryAdapter.setDropDownViewResource(R.layout.category_dropdown_menu_item)
+        binding.categorySpinner.adapter = categoryAdapter
+
+        binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                Toast.makeText(requireActivity(),"Selected item : ${position+1} - ${Constants.ALL_CATEGORIES[position]}", Toast.LENGTH_SHORT).show()
+                catId = position+1
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
         editor = binding.editor
         setUpEditor()
 
@@ -110,7 +124,7 @@ class CreatePostFragment : Fragment() {
             val date = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
             val postInput = PostInput(content, date, title)
-            if (title.isNotEmpty() && content.isNotEmpty() && coverImgUri.toString().isNotEmpty()) {
+            if (title.isNotEmpty() && content.isNotEmpty() && coverImgUri.isNotEmpty()) {
                 Log.d("postInput", postInput.toString())
                 postViewModel.createPost(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!,catId, postInput)
             } else {
@@ -204,10 +218,11 @@ class CreatePostFragment : Fragment() {
                         postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!,part)
                     }else{
                         binding.loadingAnime.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Post created Successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Blog created Successfully", Toast.LENGTH_SHORT).show()
                         binding.etTitle.setText("")
                         editor.clearAllContents()
                         coverImgUri = ""
+//                        Handler().postDelayed(Runnable { findNavController().popBackStack() },1000)
                     }
                 }
                 is NetworkResponse.Error -> {

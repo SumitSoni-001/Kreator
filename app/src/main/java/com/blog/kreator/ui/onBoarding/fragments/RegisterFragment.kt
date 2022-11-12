@@ -1,10 +1,12 @@
 package com.blog.kreator.ui.onBoarding.fragments
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -53,26 +55,22 @@ class RegisterFragment : Fragment() {
         }
 
         binding.tvLogin.setOnClickListener {
+            it.hideKeyboard()
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
         binding.btnRegister.setOnClickListener {
             if (binding.etName.text!!.isEmpty()) {
-                binding.nameField.error = "Enter you name"
+                binding.nameField.error = "Enter your name"
             } else if (binding.etEmail.text!!.isEmpty()) {
                 binding.emailField.error = "Enter your Email"
-            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString())
-                    .matches())
+            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
             ) {
                 binding.emailField.error = "Enter correct Email"
             } else if (binding.etPassword.text!!.isEmpty()) {
                 binding.passwordField.error = "Enter a strong password"
             } else if (!binding.termsServices.isChecked) {
-                Toast.makeText(
-                    requireContext(),
-                    "Please Agree to the Terms of Services",
-                    Toast.LENGTH_SHORT
-                ).show()
+                Toast.makeText(requireContext(), "Please Agree to the Terms of Services", Toast.LENGTH_SHORT).show()
             } else {
                 val userModel = UserInput()
                 userModel.name = binding.etName.text.toString()
@@ -80,12 +78,18 @@ class RegisterFragment : Fragment() {
                 userModel.password = binding.etPassword.text.toString()
                 userModel.about = binding.etAbout.text.toString()
 
+                it.hideKeyboard()
                 authViewModel.registerUser(userModel)
             }
         }
 
         authObserver()
 
+    }
+
+    fun View.hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
     private fun authObserver() {

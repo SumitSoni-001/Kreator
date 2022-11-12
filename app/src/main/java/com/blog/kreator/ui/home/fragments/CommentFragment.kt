@@ -100,10 +100,8 @@ class CommentFragment : Fragment() {
         progress.dismiss()
             when(it){
                 is NetworkResponse.Success -> {
-                    Toast.makeText(requireContext(), "Comment Posted successfully", Toast.LENGTH_SHORT).show()
                     postViewModel.getPostByPostId(postId)
                     binding.etComment.setText("")
-//                    val commentData = it.data
                 }
                 is NetworkResponse.Error -> {
                     Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
