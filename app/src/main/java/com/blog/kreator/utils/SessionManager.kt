@@ -6,7 +6,6 @@ import com.google.gson.reflect.TypeToken
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-
 class SessionManager @Inject constructor(@ApplicationContext context: Context) {
 
     private val SHARED_PREFS = "SHARED_PREFS"
@@ -16,6 +15,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     private val ABOUT = "ABOUT"
     private val USERID = "USER_ID"
     private val YOUR_CATEGORIES = "CATEGORIES"
+    private val CONTENT = "CONTENT"
 
 
     private var prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
@@ -24,6 +24,14 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     fun clearData(){
         editor.clear()
         editor.apply()
+    }
+
+    fun getContent(): String? {
+        return prefs.getString(CONTENT, null)
+    }
+
+    fun setContent(content: String) {
+        editor.putString(CONTENT, content).apply()
     }
 
     fun getToken(): String? {

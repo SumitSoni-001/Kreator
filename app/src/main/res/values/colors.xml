@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#000000</color>
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -14,6 +16,7 @@
     <color name="gray">#6D6D6D</color>
     <color name="light_gray">#B5B5B5</color>
     <color name="dark_gray">#464646</color>
+    <color name="orange">#FE6434</color>
     <color name="main_fragment_bg">#F8F8F8</color>
     <color name="transparent">#00000000</color>
     <color name="postStroke">#E8E8E8</color>
@@ -23,5 +26,6 @@
     <color name="dotInactive">#B5B5B5</color>
     <color name="category_selected_bg">#3A3A3A</color>
     <color name="text_highlight">#E5DEFF</color>
+    <color name="successful">#71B521</color>
 
 </resources>

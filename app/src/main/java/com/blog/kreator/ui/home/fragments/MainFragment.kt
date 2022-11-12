@@ -1,9 +1,6 @@
 package com.blog.kreator.ui.home.fragments
 
-import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,11 +32,12 @@ class MainFragment : Fragment() {
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private var postsList: ArrayList<PostDetails> = ArrayList()
-    private var categoryList : ArrayList<String> = ArrayList()
+    private var categoryList: ArrayList<String> = ArrayList()
     private val postViewModel by viewModels<PostViewModel>()
+
     @Inject
-    lateinit var sessionManager : SessionManager
-    private var catId : Int = 0
+    lateinit var sessionManager: SessionManager
+    private var catId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,34 +50,40 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         categoryList.add("All")
         categoryList.addAll(sessionManager.getCategories())
 
         postsAdapter = PostsAdapter(requireContext())
-        val linearLayoutManager = object : LinearLayoutManager(requireContext()){
+        val linearLayoutManager = object : LinearLayoutManager(requireContext()) {
             override fun canScrollVertically(): Boolean = false
         }
         binding.postsRcv.layoutManager = linearLayoutManager
         binding.postsRcv.setHasFixedSize(true)
         binding.postsRcv.adapter = postsAdapter
 
-        categoryAdapter = CategoryAdapter(requireContext() , categoryList)
-        binding.categoryRCV.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
+        categoryAdapter = CategoryAdapter(requireContext(), categoryList)
+        binding.categoryRCV.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.categoryRCV.setHasFixedSize(true)
         binding.categoryRCV.adapter = categoryAdapter
 
-        postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener{
+        postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener {
             override fun onItemClick(position: Int) {
+                categoryList.clear()
                 val bundle = bundleOf("id" to postsList[position].postId)
-                findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment , bundle)
+                findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment, bundle)
             }
+
             override fun onBookmarkClick(position: Int) {
 
             }
         })
-        categoryAdapter.setonItemClickListener(object : CategoryAdapter.ItemClickListener{
-            override fun onItemClick(position : Int , categoryLayout: SampleCategoryLayoutBinding , tvCategoryList : ArrayList<TextView>) {
+        categoryAdapter.setonItemClickListener(object : CategoryAdapter.ItemClickListener {
+            override fun onItemClick(
+                position: Int,
+                categoryLayout: SampleCategoryLayoutBinding,
+                tvCategoryList: ArrayList<TextView>
+            ) {
                 postsList.clear()
 //                for (item in tvCategoryList){
 //                    item.setBackgroundResource(R.drawable.category_default)
@@ -91,7 +95,7 @@ class MainFragment : Fragment() {
                 categoryLayout.category.isPressed = !categoryLayout.category.isPressed
 
                 val currentCategory = categoryList[position]
-                if (position != 0){
+                if (position != 0) {
                     for (item in 0 until Constants.ALL_CATEGORIES.size) {
                         val selectedCategory = currentCategory.equals(
                             Constants.ALL_CATEGORIES[item],
@@ -103,14 +107,20 @@ class MainFragment : Fragment() {
                             postViewModel.getPostByCategory(item + 1)
                         }
                     }
-                } else{
+                } else {
                     postViewModel.getAllPosts()
                 }
             }
         })
-
-        binding.btnRetry.setOnClickListener{
-            postViewModel.getPostByCategory(catId)
+        binding.createBlogFAB.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_createPostFragment)
+        }
+        binding.btnRetry.setOnClickListener {
+            if (catId == 0){
+                postViewModel.getAllPosts()
+            }else{
+                postViewModel.getPostByCategory(catId)
+            }
         }
 
         postViewModel.getAllPosts()
@@ -123,31 +133,37 @@ class MainFragment : Fragment() {
             binding.errorAnime.visibility = View.INVISIBLE
             binding.noBlogFound.visibility = View.INVISIBLE
             binding.btnRetry.visibility = View.INVISIBLE
+            binding.categoryRCV.visibility = View.VISIBLE
+            binding.createBlogFAB.visibility = View.VISIBLE
             binding.postsRcv.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
-                    if (it.data?.postDto != null){
+                    binding.errorAnime.visibility = View.INVISIBLE
+                    binding.btnRetry.visibility = View.INVISIBLE
+                    if (it.data?.postDto != null) {
                         postsList.clear()
                         for (item in 0 until (it.data!!.postDto.size)) {
                             postsList.add(it.data.postDto[item])
                         }
+//                        Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
                         postsAdapter.submitList(postsList)
-                        binding.categoryRCV.visibility = View.VISIBLE
-                    } else{
-                        binding.categoryRCV.visibility = View.GONE
+                    } else {
                         binding.noBlogFound.visibility = View.VISIBLE
                         binding.btnRetry.visibility = View.VISIBLE
                     }
                 }
                 is NetworkResponse.Error -> {
                     binding.categoryRCV.visibility = View.GONE
+                    binding.postsRcv.visibility = View.GONE
+                    binding.createBlogFAB.visibility = View.GONE
                     binding.errorAnime.visibility = View.VISIBLE
                     binding.btnRetry.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
+                        .show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.postsRcv.showShimmerAdapter()
-                    binding.categoryRCV.visibility = View.INVISIBLE
+                    binding.categoryRCV.visibility = View.GONE
                 }
             }
         })

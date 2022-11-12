@@ -75,8 +75,8 @@ class CommentFragment : Fragment() {
     }
 
     private fun commentObserver() {
-        binding.commentRCV.hideShimmerAdapter()
         postViewModel.singlePostData.observe(viewLifecycleOwner) {
+        binding.commentRCV.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
                     val postData = it.data
@@ -96,8 +96,8 @@ class CommentFragment : Fragment() {
     }
 
     private fun commentObserver2() {
-        progress.dismiss()
         commentViewModel.commentData.observe(viewLifecycleOwner , Observer {
+        progress.dismiss()
             when(it){
                 is NetworkResponse.Success -> {
                     Toast.makeText(requireContext(), "Comment Posted successfully", Toast.LENGTH_SHORT).show()

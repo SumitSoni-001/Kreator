@@ -5,8 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.di.RemoteService
 import com.blog.kreator.ui.home.models.PostDetails
+import com.blog.kreator.ui.home.models.PostInput
 import com.blog.kreator.ui.home.models.PostResponse
 import com.blog.kreator.ui.onBoarding.models.AuthResponse
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
@@ -19,7 +21,29 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
     private val singlePostLiveData = MutableLiveData<NetworkResponse<PostDetails>>()
     val singlePostData get() = singlePostLiveData
 
-    suspend fun getAllPosts(){
+    suspend fun createPost(token: String, userId: Int, catId: Int, postInput: PostInput) {
+        singlePostLiveData.postValue(NetworkResponse.Loading())
+        try {
+            val response = remoteService.createPost(token, userId, catId, postInput)
+            Log.d("postData", response.body().toString())
+            handleResponse2(response)
+        } catch (e: Exception) {
+            singlePostData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+        }
+    }
+
+    suspend fun uploadImage(token: String, postId: Int, image: MultipartBody.Part) {
+        singlePostData.postValue(NetworkResponse.Loading())
+        try {
+            val response = remoteService.uploadImage(token,image, postId)
+            Log.d("uploadImage", response.body().toString())
+            handleResponse2(response)
+        } catch (e: Exception) {
+            singlePostData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+        }
+    }
+
+    suspend fun getAllPosts() {
         postLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.getAllPosts()
@@ -30,7 +54,7 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
         }
     }
 
-    suspend fun getPostsByCategory(categoryId : Int){
+    suspend fun getPostsByCategory(categoryId: Int) {
         postLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.getPostByCategory(categoryId)
@@ -41,14 +65,14 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
         }
     }
 
-    suspend fun getPostByPostId(postId : Int){
-        postLiveData.postValue(NetworkResponse.Loading())
+    suspend fun getPostByPostId(postId: Int) {
+        singlePostLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.getPostByPostId(postId)
 //            Log.d("postData" , response.body().toString())
             handleResponse2(response)
         } catch (e: Exception) {
-            postLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+            singlePostLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 

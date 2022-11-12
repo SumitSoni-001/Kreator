@@ -10,7 +10,7 @@ import com.blog.kreator.R
 import com.blog.kreator.databinding.SampleCommentsLayoutBinding
 import com.blog.kreator.ui.home.models.CommentDetails
 import com.blog.kreator.utils.Constants
-import com.bumptech.glide.Glide
+import com.squareup.picasso.Picasso
 
 class CommentAdapter(private val context: Context) : ListAdapter<CommentDetails, CommentAdapter.CommentsViewHolder>(DiffUtil()) {
 
@@ -21,7 +21,8 @@ class CommentAdapter(private val context: Context) : ListAdapter<CommentDetails,
     override fun onBindViewHolder(holder: CommentsViewHolder, position: Int) {
         val item = getItem(position)
         /** Load user profile photo */
-        Glide.with(context).load(Constants.userNameImage("Anonymous")).placeholder(R.drawable.user_placeholder).into(holder.binding.userImage)
+//        Glide.with(context).load(Constants.userNameImage("Anonymous")).placeholder(R.drawable.user_placeholder).into(holder.binding.userImage)
+        Picasso.get().load(Constants.userNameImage("Anonymous")).placeholder(R.drawable.user_placeholder).into(holder.binding.userImage)
 //        holder.binding.name.text = item.user!!.name
         holder.binding.comment.text = item.content
 //        holder.binding.time.text = item.postedOn

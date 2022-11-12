@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_mainFragment_to_viewPostFragment"
             app:destination="@id/viewPostFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
     </fragment>
     <fragment
         android:id="@+id/onBoardingFragment"
@@ -90,6 +93,11 @@
         android:name="com.blog.kreator.ui.home.fragments.CommentFragment"
         android:label="fragment_comment"
         tools:layout="@layout/fragment_comment" />
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.blog.kreator.ui.home.fragments.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
 
 
 </navigation>

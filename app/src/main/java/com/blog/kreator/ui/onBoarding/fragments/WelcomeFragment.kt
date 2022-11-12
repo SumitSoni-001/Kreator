@@ -23,7 +23,7 @@ import javax.inject.Inject
 class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeBinding
-    private lateinit var navController: NavController
+//    private lateinit var navController: NavController
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -40,10 +40,10 @@ class WelcomeFragment : Fragment() {
         }
 
         binding.getStarted.setOnClickListener {
-            navController.navigate(R.id.action_welcomeFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
         }
         binding.haveAccount.setOnClickListener {
-            navController.navigate(R.id.action_welcomeFragment_to_loginFragment)
+            findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
         }
 
         return binding.root
@@ -57,7 +57,7 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        navController = NavHostFragment.findNavController(this)
+//        navController = NavHostFragment.findNavController(this)
     }
 
 }

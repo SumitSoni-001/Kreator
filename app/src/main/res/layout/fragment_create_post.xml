@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.fragments.CreatePostFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="50dp"
+        android:scrollbars="none">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="15dp">
+
+            <TextView
+                android:id="@+id/publish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publish"
+                android:layout_marginEnd="15dp"
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_medium"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/orange"/>
+
+            <ImageView
+                android:id="@+id/Back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/back_arrow"/>
+
+            <View
+                android:id="@+id/line2"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/light_gray"
+                android:layout_below="@id/Back"/>
+
+            <ImageView
+                android:id="@+id/addCoverImage"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="15dp"
+                android:layout_alignParentStart="true"
+                android:src="@drawable/add_cover_image"
+                android:layout_below="@id/line2"/>
+
+            <EditText
+                android:id="@+id/etTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/addCoverImage"
+                android:layout_below="@id/line2"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="15dp"
+                android:minHeight="30dp"
+                android:inputType="text|textMultiLine|textNoSuggestions"
+                android:hint="Add Title.."
+                android:textSize="16sp"
+                android:fontFamily="@font/poppins_semibold"/>
+
+            <com.github.irshulx.Editor
+                android:id="@+id/editor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:paddingTop="10dp"
+                android:paddingHorizontal="15dp"
+                android:focusable="true"
+                android:paddingBottom="100dp"
+                app:placeholder="Start writing here..."
+                app:render_type="Editor"
+                android:layout_below="@id/etTitle"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/main_fragment_bg"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/main_fragment_bg"
+            android:fadingEdge="horizontal"
+            android:fadingEdgeLength="20dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:requiresFadingEdge="horizontal">
+
+            <TextView
+                android:id="@+id/action_h1"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:paddingBottom="1dp"
+                android:text="H1"
+                android:textColor="#444444"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:tooltipText="Heading" />
+
+            <!--
+             <Button
+                 android:id="@+id/action_h2"
+                 android:layout_width="40dp"
+                 android:layout_height="40dp"
+                 android:width="40dp"
+                 android:height="40dp"
+                 android:background="@android:color/transparent"
+                 android:text="H2"
+                 android:textColor="#444444"
+                 android:textSize="16sp"
+                 android:textStyle="bold" />
+
+             <Button
+                 android:id="@+id/action_h3"
+                 android:layout_width="40dp"
+                 android:layout_height="40dp"
+                 android:width="40dp"
+                 android:height="40dp"
+                 android:background="@android:color/transparent"
+                 android:text="H3"
+                 android:textColor="#444444"
+                 android:textSize="16sp"
+                 android:textStyle="bold" />
+         -->
+
+            <ImageButton
+                android:id="@+id/action_bold"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_bold"
+                android:tooltipText="Format Bold" />
+
+            <ImageButton
+                android:id="@+id/action_Italic"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_italic"
+                android:tooltipText="Format Italic" />
+
+            <ImageButton
+                android:id="@+id/action_indent"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_indent"
+                android:tooltipText="Format Indent" />
+
+            <!--            <ImageButton-->
+            <!--                android:id="@+id/action_outdent"-->
+            <!--                android:layout_width="30dp"-->
+            <!--                android:layout_height="30dp"-->
+            <!--                android:background="@android:color/transparent"-->
+            <!--                android:maxWidth="20dp"-->
+            <!--                android:maxHeight="20dp"-->
+            <!--                android:padding="6dp"-->
+            <!--                android:scaleType="centerInside"-->
+            <!--                android:src="@drawable/icon_outdent" />-->
+
+            <ImageButton
+                android:id="@+id/action_blockquote"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_blockquote"
+                android:tooltipText="Format Quote" />
+
+            <ImageButton
+                android:id="@+id/action_bulleted"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_bullet_list"
+                android:tooltipText="Bulleted List" />
+
+            <ImageButton
+                android:id="@+id/action_unordered_numbered"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_numbered_list"
+                android:tooltipText="Numbered List" />
+
+            <ImageButton
+                android:id="@+id/action_insert_image"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginHorizontal="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="6dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_image"
+                android:tooltipText="Insert Image" />
+
+            <ImageButton
+                android:id="@+id/action_insert_link"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="7dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_link"
+                android:tooltipText="Insert Link" />
+
+            <ImageButton
+                android:id="@+id/action_erase"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="10dp"
+                android:background="@android:color/transparent"
+                android:maxWidth="20dp"
+                android:maxHeight="20dp"
+                android:padding="6dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_erase"
+                android:tooltipText="Erase all" />
+
+        </LinearLayout>
+
+    </HorizontalScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/loadingAnime"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/loading" />
+
+</RelativeLayout>

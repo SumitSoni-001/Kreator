@@ -50,20 +50,23 @@
                     android:layout_width="25dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="20dp"
-                    android:src="@drawable/share" />
+                    android:src="@drawable/share"
+                    android:tooltipText="Share blog" />
 
                 <ImageView
                     android:id="@+id/bookmarkPost"
                     android:layout_width="25dp"
                     android:layout_height="22dp"
                     android:layout_marginEnd="15dp"
-                    android:src="@drawable/bookmark" />
+                    android:src="@drawable/bookmark"
+                    android:tooltipText="Bookmark" />
 
                 <ImageView
                     android:id="@+id/more"
                     android:layout_width="30dp"
                     android:layout_height="25dp"
-                    android:src="@drawable/more_options" />
+                    android:src="@drawable/more_options"
+                    android:tooltipText="More Options" />
 
             </LinearLayout>
 
@@ -154,6 +157,7 @@
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="13sp"
+                        android:tooltipText="Follow Creator"
                         app:cornerRadius="20dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -169,10 +173,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:outlineSpotShadowColor="@color/white"
+                app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
-                app:layout_constraintTop_toBottomOf="@id/userLayout"
-                app:cardCornerRadius="10dp">
+                app:layout_constraintTop_toBottomOf="@id/userLayout">
 
                 <ImageView
                     android:id="@+id/postImage"
@@ -182,24 +186,38 @@
                     android:src="@drawable/placeholder" />
 
             </androidx.cardview.widget.CardView>
+            <!--
 
-            <TextView
+                        <TextView
+                            android:id="@+id/postContent"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="20dp"
+                            android:focusable="true"
+                            android:fontFamily="@font/lato_regular"
+                            android:lineSpacingExtra="5dp"
+                            android:tooltipText="Comments"
+                            android:text="@string/sample_post_content"
+                            android:textColor="@color/category_selected_bg"
+                            android:textColorHighlight="@color/text_highlight"
+                            android:textIsSelectable="true"
+                            android:textSize="16sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                            app:layout_constraintStart_toStartOf="@id/actionLayout"
+                            app:layout_constraintTop_toBottomOf="@id/postImageCard" />
+            -->
+
+            <com.github.irshulx.Editor
                 android:id="@+id/postContent"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:focusable="true"
-                android:fontFamily="@font/lato_regular"
-                android:lineSpacingExtra="5dp"
-                android:text="@string/sample_post_content"
-                android:textColor="@color/category_selected_bg"
-                android:textColorHighlight="@color/text_highlight"
-                android:textIsSelectable="true"
-                android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
-                app:layout_constraintTop_toBottomOf="@id/postImageCard" />
+                app:layout_constraintTop_toBottomOf="@id/postImageCard"
+                app:render_type="Renderer" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

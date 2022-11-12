@@ -15,6 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/main_fragment_bg"
@@ -39,6 +40,7 @@
                 android:background="@drawable/search_bg"
                 android:drawableStart="@drawable/search"
                 android:drawablePadding="8dp"
+                android:drawableTint="@color/gray"
                 android:fontFamily="@font/lato_regular"
                 android:hint="Search..."
                 android:inputType="text|textNoSuggestions"
@@ -55,6 +57,7 @@
                 android:layout_width="22dp"
                 android:layout_height="22dp"
                 android:layout_marginEnd="15dp"
+                android:tooltipText="Notification"
                 android:contentDescription="notification"
                 android:src="@drawable/notification"
                 app:layout_constraintBottom_toBottomOf="@id/searchBar"
@@ -92,11 +95,11 @@
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/transparent"
+        android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -106,7 +109,7 @@
             android:id="@+id/noBlogFound"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:visibility="gone"
+            android:visibility="visible"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/not_found" />
@@ -125,17 +128,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_retry_bg"
-            android:text="Retry"
-            android:visibility="gone"
-            android:textColor="@color/dotActive"
             android:fontFamily="@font/poppins_semibold"
-            android:textAllCaps="false"
             android:gravity="center"
-            android:textSize="13sp"
-            android:layout_marginTop="5dp"
             android:paddingHorizontal="20dp"
-            android:paddingVertical="6dp"/>
+            android:paddingVertical="6dp"
+            android:text="Retry"
+            android:textAllCaps="false"
+            android:textColor="@color/dotActive"
+            android:textSize="13sp"
+            android:visibility="gone" />
 
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/createBlogFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        android:tooltipText="Create Blog"
+        android:layout_marginEnd="15dp"
+        app:icon="@drawable/pen"
+        app:iconTint="@color/white"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
