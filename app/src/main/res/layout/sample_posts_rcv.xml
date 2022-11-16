@@ -96,7 +96,7 @@
                         android:maxLines="2"
                         android:text="The Ultimate guide to finding a Front-End Engineer"
                         android:textColor="@color/black"
-                        android:textSize="20sp"
+                        android:textSize="19sp"
                         android:textStyle="bold"
                         app:layout_constraintEnd_toStartOf="@id/postImage"
                         app:layout_constraintStart_toStartOf="@id/profile"
@@ -117,15 +117,28 @@
                         android:id="@+id/content"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
+                        android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppins_regular"
-                        android:maxLines="4"
+                        android:maxLines="3"
                         android:text="You can create swipe views using AndroidX's ViewPager widget. To use ViewPager and tabs, you need to add a dependency on ViewPager and on Material Components to your project."
                         android:textColor="@color/dark_gray"
+                        android:visibility="visible"
                         android:textSize="13sp"
+                        android:paddingEnd="5dp"
                         app:layout_constraintEnd_toEndOf="@id/postImage"
                         app:layout_constraintStart_toStartOf="@id/title"
                         app:layout_constraintTop_toBottomOf="@id/postImage" />
+
+                    <com.github.irshulx.Editor
+                        android:id="@+id/editor"
+                        android:layout_width="0dp"
+                        android:layout_height="60dp"
+                        android:visibility="invisible"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintStart_toStartOf="@id/title"
+                        app:layout_constraintTop_toBottomOf="@id/postImage"
+                        app:render_type="Renderer" />
 
                     <TextView
                         android:id="@+id/time"

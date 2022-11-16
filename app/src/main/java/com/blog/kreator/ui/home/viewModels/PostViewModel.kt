@@ -22,6 +22,18 @@ class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewMo
         }
     }
 
+    fun updatePost(token:String , postId : Int,postInput: PostInput){
+        viewModelScope.launch {
+            postRepo.updatePost(token, postId,postInput)
+        }
+    }
+
+    fun getPostByUser(userId:Int){
+        viewModelScope.launch {
+            postRepo.getPostByUser(userId)
+        }
+    }
+
     fun uploadImage(token:String ,postId:Int,image:MultipartBody.Part) {
         viewModelScope.launch {
             postRepo.uploadImage(token,postId,image)

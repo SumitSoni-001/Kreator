@@ -18,6 +18,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 import java.io.File
@@ -30,11 +31,36 @@ interface RemoteService {
     @POST(Constants.LOGIN)
     suspend fun login(@Body body: LoginDetails): Response<AuthResponse>
 
+    @PUT(Constants.UPDATE_USER)
+    suspend fun updateUser(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Path("userId") userId: Int,
+        @Body body: UserInput
+    ): Response<GetUserDetails>
+
 //    @GET(Constants.GET_USER)
 //    suspend fun getUserById(@Path("userId") userId:Int):Response<GetUserDetails>
 
 //    @GET(Constants.GET_USER)
 //    suspend fun getAllUsers():Response<List<GetUserDetails>>
+
+    @POST(Constants.CREATE_POST)
+    suspend fun createPost(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Path("userId") userId: Int,
+        @Path("categoryId") categoryId: Int,
+        @Body body: PostInput
+    ): Response<PostDetails>
+
+    @PUT(Constants.UPDATE_POST)
+    suspend fun updatePost(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Path("postId") postId: Int,
+        @Body body: PostInput
+    ): Response<PostDetails>
+
+    @GET(Constants.GET_POST_BY_USER)
+    suspend fun getPostByUser(@Path("userId") userId: Int): Response<PostResponse>
 
     @GET(Constants.GET_ALL_POST)
     suspend fun getAllPosts(): Response<PostResponse>
@@ -44,7 +70,11 @@ interface RemoteService {
 
     @Multipart
     @POST(Constants.UPLOAD_IMAGE)
-    suspend fun uploadImage(@Header(Constants.AUTH_TOKEN) token : String, @Part image : MultipartBody.Part, @Path("postId") postId: Int): Response<PostDetails>
+    suspend fun uploadImage(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Part image: MultipartBody.Part,
+        @Path("postId") postId: Int
+    ): Response<PostDetails>
 
 //    @GET(Constants.DOWNLOAD_IMAGE)
 //    suspend fun downloadImage(@Path("imageName") imageName : String)
@@ -59,13 +89,5 @@ interface RemoteService {
         @Path("userId") userId: Int,
         @Body body: CommentDetails
     ): Response<CommentDetails>
-
-    @POST(Constants.CREATE_POST)
-    suspend fun createPost(
-        @Header(Constants.AUTH_TOKEN) token: String,
-        @Path("userId") userId: Int,
-        @Path("categoryId") categoryId: Int,
-        @Body body : PostInput
-    ): Response<PostDetails>
 
 }

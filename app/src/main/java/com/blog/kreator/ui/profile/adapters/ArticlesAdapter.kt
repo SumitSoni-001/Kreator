@@ -1,4 +1,4 @@
-package com.blog.kreator.ui.home.adapters
+package com.blog.kreator.ui.profile.adapters
 
 import android.content.Context
 import android.graphics.Color
@@ -6,11 +6,13 @@ import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.core.view.get
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.blog.kreator.R
+import com.blog.kreator.databinding.SampleArticlesRcvBinding
 import com.blog.kreator.databinding.SamplePostsRcvBinding
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.utils.Constants
@@ -22,13 +24,13 @@ import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
 
-class PostsAdapter(private val context: Context) : ListAdapter<PostDetails, PostsAdapter.PostsViewHolder>(DiffUtil()) {
+class ArticlesAdapter(private val context: Context) : ListAdapter<PostDetails, ArticlesAdapter.PostsViewHolder>(DiffUtil()) {
 
     private lateinit var mListener : ItemClickListener
 
     interface ItemClickListener{
         fun onItemClick(position : Int)
-        fun onBookmarkClick(position : Int)
+        fun onMoreClick(position : Int , moreImg : ImageView)
     }
 
     fun setOnItemClickListener(listener : ItemClickListener){
@@ -36,44 +38,36 @@ class PostsAdapter(private val context: Context) : ListAdapter<PostDetails, Post
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        return PostsViewHolder(SamplePostsRcvBinding.inflate(LayoutInflater.from(context), parent, false) , mListener)
+        return PostsViewHolder(SampleArticlesRcvBinding.inflate(LayoutInflater.from(context), parent, false) , mListener)
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
-//        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
-        /** Load user profile photo */
-        Picasso.get().load(Constants.userNameImage(item.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(Constants.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
-        holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
-        holder.binding.content.text = item.content
-//        holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
-        holder.binding.category.text = item.category?.categoryTitle
-        holder.binding.category.setBackgroundColor(randomColor())
-
+        holder.binding.categoryName.text = item.category?.categoryTitle
+        holder.binding.categoryName.setTextColor(randomColor())
     }
 
     private fun randomColor(): Int {
         val random = Random()
-//        return Color.argb(255, random.nextInt(170), random.nextInt(150), random.nextInt(150))
         return Color.argb(255, random.nextInt(255), random.nextInt(200), random.nextInt(60))
     }
 
-    inner class PostsViewHolder(val binding: SamplePostsRcvBinding, val listener : ItemClickListener) : RecyclerView.ViewHolder(binding.root){
+    inner class PostsViewHolder(val binding: SampleArticlesRcvBinding, val listener : ItemClickListener) : RecyclerView.ViewHolder(binding.root){
         init {
             listener.let {
-                binding.postLayout.setOnClickListener {
+                binding.articleLayout.setOnClickListener {
                     val position = absoluteAdapterPosition
                     if (position != RecyclerView.NO_POSITION){
                         listener.onItemClick(position)
                     }
                 }
-                binding.bookmark.setOnClickListener {
+                binding.more.setOnClickListener {
                     val position = absoluteAdapterPosition
                     if (position != RecyclerView.NO_POSITION){
-                        listener.onBookmarkClick(position)
+                        listener.onMoreClick(position , it as ImageView)
                     }
                 }
             }

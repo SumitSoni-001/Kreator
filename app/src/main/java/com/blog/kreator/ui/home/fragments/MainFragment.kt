@@ -122,6 +122,9 @@ class MainFragment : Fragment() {
                 postViewModel.getPostByCategory(catId)
             }
         }
+        binding.menu.setOnClickListener {
+            findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+        }
 
         postViewModel.getAllPosts()
         postObserver()
@@ -135,6 +138,7 @@ class MainFragment : Fragment() {
             binding.btnRetry.visibility = View.INVISIBLE
             binding.categoryRCV.visibility = View.VISIBLE
             binding.createBlogFAB.visibility = View.VISIBLE
+            binding.postsRcv.visibility = View.VISIBLE
             binding.postsRcv.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
@@ -153,13 +157,12 @@ class MainFragment : Fragment() {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    binding.categoryRCV.visibility = View.GONE
+//                    binding.categoryRCV.visibility = View.GONE
                     binding.postsRcv.visibility = View.GONE
                     binding.createBlogFAB.visibility = View.GONE
-                    binding.errorAnime.visibility = View.VISIBLE
+                    binding.noBlogFound.visibility = View.VISIBLE
                     binding.btnRetry.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.postsRcv.showShimmerAdapter()

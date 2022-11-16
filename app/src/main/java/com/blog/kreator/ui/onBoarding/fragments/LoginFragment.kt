@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
 
     }
 
-    fun View.hideKeyboard() {
+    private fun View.hideKeyboard() {
         val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }

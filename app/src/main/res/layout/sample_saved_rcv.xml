@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/savedLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="15dp"
+    android:paddingHorizontal="20dp"
+    android:layout_marginBottom="1dp"
+    android:background="@color/white">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profile"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/bottom_corner_img"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Sumit Soni"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/profile"
+        app:layout_constraintStart_toEndOf="@id/profile"
+        app:layout_constraintTop_toTopOf="@id/profile" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_medium"
+        android:maxLines="2"
+        android:text="The Ultimate guide to finding a Front-End Engineer"
+        android:textColor="@color/black"
+        android:textSize="19sp"
+        android:textStyle="bold"
+        android:lineSpacingExtra="2dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/postImage"
+        app:layout_constraintBottom_toBottomOf="@id/postImage"
+        app:layout_constraintEnd_toStartOf="@id/postImage"/>
+
+    <ImageView
+        android:id="@+id/postImage"
+        android:layout_width="80dp"
+        android:layout_height="50dp"
+        android:scaleType="fitXY"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profile"/>
+
+    <TextView
+        android:id="@+id/categoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Food"
+        android:textSize="14sp"
+        app:layout_constraintTop_toBottomOf="@id/postImage"
+        app:layout_constraintBottom_toBottomOf="@id/bookmark"
+        app:layout_constraintStart_toStartOf="parent"
+        android:fontFamily="@font/poppins_semibold"
+        android:textColor="@color/light_black"
+        android:layout_marginTop="5dp"/>
+
+    <View
+        android:id="@+id/dot"
+        android:layout_width="3dp"
+        android:layout_height="3dp"
+        android:background="@color/light_gray"
+        app:layout_constraintStart_toEndOf="@id/categoryName"
+        app:layout_constraintTop_toTopOf="@id/time"
+        app:layout_constraintBottom_toBottomOf="@id/time"
+        android:layout_marginStart="10dp"/>
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="2 hours ago"
+        android:textColor="@color/gray"
+        android:layout_marginStart="10dp"
+        android:textSize="12sp"
+        app:layout_constraintStart_toEndOf="@id/dot"
+        app:layout_constraintTop_toTopOf="@id/categoryName"
+        app:layout_constraintBottom_toBottomOf="@id/categoryName"/>
+
+    <ImageView
+        android:id="@+id/bookmark"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:clickable="true"
+        android:src="@drawable/bookmarked"
+        android:tooltipText="More Options"
+        android:focusable="true"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/postImage"
+        app:tint="@color/light_black" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

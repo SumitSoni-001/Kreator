@@ -56,8 +56,9 @@
                     android:src="@drawable/share"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
+                    android:focusable="true"
                     android:tooltipText="Share blog"
-                    android:focusable="true" />
+                    app:tint="@color/light_black" />
 
                 <ImageView
                     android:id="@+id/bookmarkPost"
@@ -68,7 +69,8 @@
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/bookmark"
                     android:tooltipText="Bookmark"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    app:tint="@color/light_black" />
 
                 <ImageView
                     android:id="@+id/more"
@@ -78,7 +80,8 @@
                     android:clickable="true"
                     android:src="@drawable/more_options"
                     android:tooltipText="More Options"
-                    android:focusable="true" />
+                    android:focusable="true"
+                    app:tint="@color/light_black" />
 
             </LinearLayout>
 
@@ -101,11 +104,13 @@
                 android:text="The Ultimate guide to finding a Front-End Engineer."
                 android:textColor="@color/black"
                 android:textSize="22sp"
+                android:lineSpacingExtra="5dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
                 app:layout_constraintTop_toBottomOf="@id/line" />
 
+<!--
             <androidx.cardview.widget.CardView
                 android:id="@+id/userLayout"
                 android:layout_width="0dp"
@@ -178,6 +183,54 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.cardview.widget.CardView>
+-->
+
+            <LinearLayout
+                android:id="@+id/userLayout"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:paddingVertical="5dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="15dp"
+                app:layout_constraintEnd_toEndOf="@id/actionLayout"
+                app:layout_constraintStart_toStartOf="@id/actionLayout"
+                app:layout_constraintTop_toBottomOf="@id/postTitle">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/userProfile"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="5dp"
+                    android:src="@drawable/user_placeholder" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Sumit Soni"
+                    android:textColor="@color/black"
+                    android:textSize="13sp" />
+
+                <View
+                    android:layout_width="5dp"
+                    android:layout_height="5dp"
+                    android:layout_marginStart="10dp"
+                    android:background="@color/light_gray"/>
+
+                <TextView
+                    android:id="@+id/postedOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="2 hours ago"
+                    android:textColor="@color/gray"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/postImageCard"
@@ -185,7 +238,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
                 android:outlineSpotShadowColor="@color/white"
-                app:cardCornerRadius="10dp"
+                app:cardCornerRadius="8dp"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
                 app:layout_constraintTop_toBottomOf="@id/userLayout">
@@ -198,6 +251,7 @@
                     android:src="@drawable/placeholder" />
 
             </androidx.cardview.widget.CardView>
+
             <!--
 
                         <TextView
@@ -241,7 +295,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/green"
         android:drawableTint="@color/white"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"

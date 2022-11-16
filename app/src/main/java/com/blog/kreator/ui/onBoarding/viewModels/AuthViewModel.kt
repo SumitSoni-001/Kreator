@@ -18,6 +18,8 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     val authResponseData : LiveData<NetworkResponse<AuthResponse>>
     get() = authRepo.authResponseData
 
+    val userResponseData get() = authRepo.userResponseData
+
     fun registerUser(userModel: UserInput) {
         viewModelScope.launch {
             authRepo.registerUser(userModel)
@@ -27,6 +29,12 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     fun loginUser(loginDetails: LoginDetails) {
         viewModelScope.launch {
             authRepo.loginUser(loginDetails)
+        }
+    }
+
+    fun updateUser(token:String,userId:Int,userInput: UserInput){
+        viewModelScope.launch {
+            authRepo.updateUser(token,userId,userInput)
         }
     }
 

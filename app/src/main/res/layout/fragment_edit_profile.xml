@@ -5,44 +5,67 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".ui.onBoarding.fragments.RegisterFragment">
+    tools:context=".ui.profile.fragments.EditProfileFragment">
 
     <ImageView
-        android:id="@+id/back"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/back_arrow"
+        android:layout_width="30dp"
+        android:layout_height="22dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/back_arrow"
+        android:src="@drawable/back"
+        app:layout_constraintBottom_toBottomOf="@id/tvPersonalData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPersonalData" />
+
+    <TextView
+        android:id="@+id/tvPersonalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Personal Data"
+        android:textColor="@color/light_black"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvCreateAccount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/suez_one"
-        android:text="Create New Account"
-        android:textColor="@color/light_black"
-        android:textSize="24sp"
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/imageCard"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:outlineSpotShadowColor="@color/white"-->
+    <!--        app:cardCornerRadius="10dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tvPersonalData">-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImg"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/back" />
+        app:layout_constraintTop_toBottomOf="@id/tvPersonalData" />
+
+    <!--    </androidx.cardview.widget.CardView>-->
 
     <TextView
-        android:id="@+id/tvFillDetails"
+        android:id="@+id/tvAddPicture"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/lato_regular"
-        android:text="Fill Your information below to Register"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/add_profile_picture"
+        android:textColor="@color/green"
         android:textSize="13sp"
-        android:textStyle="bold"
-        android:textColor="@color/dark_gray"
-        app:layout_constraintEnd_toEndOf="@id/tvCreateAccount"
-        app:layout_constraintStart_toStartOf="@id/tvCreateAccount"
-        app:layout_constraintTop_toBottomOf="@id/tvCreateAccount" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userImg" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/nameField"
@@ -50,8 +73,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="40dp"
-        android:hint="Username"
+        android:layout_marginTop="30dp"
+        android:hint="Your Name"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
         app:boxStrokeColor="@color/light_black"
@@ -63,7 +86,7 @@
         app:hintTextColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvFillDetails"
+        app:layout_constraintTop_toBottomOf="@id/tvAddPicture"
         app:startIconDrawable="@drawable/user_small"
         app:startIconTint="@color/gray">
 
@@ -84,7 +107,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:hint="Email"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
@@ -113,47 +136,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/passwordField"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
-        android:hint="Password"
-        android:textColorHint="@color/gray"
-        app:boxBackgroundColor="@color/white"
-        app:boxStrokeColor="@color/light_black"
-        app:boxStrokeErrorColor="@color/red"
-        app:boxStrokeWidth="1dp"
-        app:endIconMode="password_toggle"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/error"
-        app:helperTextTextColor="@color/red"
-        app:hintTextColor="@color/gray"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/emailField"
-        app:startIconDrawable="@drawable/lock_small"
-        app:startIconTint="@color/gray">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_regular"
-            android:inputType="textPassword"
-            android:maxLines="1"
-            android:textColor="@color/black" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/aboutField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:hint="About"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
@@ -162,7 +150,7 @@
         app:hintTextColor="@color/gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordField"
+        app:layout_constraintTop_toBottomOf="@id/emailField"
         app:startIconDrawable="@drawable/about_small"
         app:startIconTint="@color/gray">
 
@@ -177,44 +165,21 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.checkbox.MaterialCheckBox
-        android:id="@+id/termsServices"
+    <Button
+        android:id="@+id/btnSaveDetails"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:buttonTint="@color/orange"
-        android:fontFamily="@font/lato_regular"
-        android:text="@string/termService"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="@id/aboutField"
-        app:layout_constraintTop_toBottomOf="@id/aboutField" />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRegister"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/black"
-        android:fontFamily="@font/lato_bold"
-        android:padding="15dp"
-        android:text="Register"
+        android:layout_marginTop="80dp"
+        android:backgroundTint="@color/green"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:text="Save Details"
         android:textAllCaps="false"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/termsServices" />
-
-    <TextView
-        android:id="@+id/tvLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/poppins_regular"
-        android:text="@string/loginHere"
         android:textSize="14sp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnRegister" />
+        app:layout_constraintTop_toBottomOf="@id/aboutField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

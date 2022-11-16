@@ -7,6 +7,5 @@ data class PostInput(
     @SerializedName("content") var content: String? = null,
     @SerializedName("date") var date: String? = null,
 //    @SerializedName("image") var image: String? = null,
-//    @SerializedName("postId") var postId: Int? = null,
     @SerializedName("postTitle") var postTitle: String? = null,
 )

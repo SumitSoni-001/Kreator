@@ -66,7 +66,7 @@ class ViewPostFragment : Fragment() {
             findNavController().popBackStack()
         }
         binding.share.setOnClickListener {
-            // Share the post which contains the playstore url the app
+            // Share the post which contains the play-store url the app
         }
         binding.bookmarkPost.setOnClickListener {
             // Bookmark the post (Create the entity bookmark or add a field in user entity for bookmarked posts)

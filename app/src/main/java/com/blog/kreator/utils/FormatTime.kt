@@ -50,7 +50,7 @@ object FormatTime {
             output = if (org.threeten.bp.LocalDate.of(year, month, day).get(ChronoField.ALIGNED_WEEK_OF_MONTH) == org.threeten.bp.LocalDate.now().get(
                     ChronoField.ALIGNED_WEEK_OF_MONTH)) {
 //                "This Week"
-                (7 - org.threeten.bp.LocalDate.now().dayOfWeek.value).toString() + " days ago"
+                (org.threeten.bp.LocalDate.now().dayOfMonth - day).toString() + " days ago"
             } else {
                 outputFormat.format(getDate!!)
             }

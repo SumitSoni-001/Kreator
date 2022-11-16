@@ -106,7 +106,7 @@ class CreatePostFragment : Fragment() {
 
         binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-                Toast.makeText(requireActivity(),"Selected item : ${position+1} - ${Constants.ALL_CATEGORIES[position]}", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(requireActivity(),"Selected item : ${position+1} - ${Constants.ALL_CATEGORIES[position]}", Toast.LENGTH_SHORT).show()
                 catId = position+1
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -210,27 +210,27 @@ class CreatePostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner, Observer {
+            if (it != null){
 //            binding.loadingAnime.visibility = View.GONE
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val response = it.data
-                    if (response?.image.equals("default.png")){
-                        postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!,part)
-                    }else{
-                        binding.loadingAnime.visibility = View.GONE
-                        Toast.makeText(requireContext(), "Blog created Successfully", Toast.LENGTH_SHORT).show()
-                        binding.etTitle.setText("")
-                        editor.clearAllContents()
-                        coverImgUri = ""
-//                        Handler().postDelayed(Runnable { findNavController().popBackStack() },1000)
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val response = it.data
+                        if (response?.image.equals("default.png")) {
+                            postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
+                        } else {
+                            binding.loadingAnime.visibility = View.GONE
+                            binding.etTitle.setText("")
+                            editor.clearAllContents()
+                            coverImgUri = ""
+                        }
                     }
-                }
-                is NetworkResponse.Error -> {
-                    binding.loadingAnime.visibility = View.GONE
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
-                }
-                is NetworkResponse.Loading -> {
-                    binding.loadingAnime.visibility = View.VISIBLE
+                    is NetworkResponse.Error -> {
+                        binding.loadingAnime.visibility = View.GONE
+                        Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    }
+                    is NetworkResponse.Loading -> {
+                        binding.loadingAnime.visibility = View.VISIBLE
+                    }
                 }
             }
         })
