@@ -1,5 +1,7 @@
 package com.blog.kreator.ui.profile.fragments
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -26,6 +28,7 @@ import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.SessionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.internal.notify
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -36,15 +39,11 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private lateinit var savedAdapter: ArticlesAdapter
     private lateinit var articleList: ArrayList<PostDetails>
     private var clickedPostID = 0
+    private var itemPosition = 0
     private val postViewModel by viewModels<PostViewModel>()
 
     @Inject
     lateinit var sessionManager: SessionManager
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-//        setHasOptionsMenu(true)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -65,7 +64,9 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 val bundle = bundleOf("id" to articleList[position].postId)
                 findNavController().navigate(R.id.action_profileFragment_to_viewPostFragment, bundle)
             }
+
             override fun onMoreClick(position: Int, moreImg: ImageView) {
+                itemPosition = position
                 clickedPostID = articleList[position].postId!!
                 PopupMenu(requireContext(), moreImg).apply {
                     setOnMenuItemClickListener(this@ProfileFragment)
@@ -101,7 +102,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             binding.tvSaved.setTextColor(Color.parseColor("#7D8492"))
             binding.savedSlider.visibility = View.INVISIBLE
             binding.tvNotfound.text = "You don't have any posts."
-            postViewModel.getPostByUser(sessionManager.getUserId()!!.toInt())
+            postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
         }
         binding.tvSaved.setOnClickListener {
             binding.tvSaved.setTextColor(Color.parseColor("#04BB58"))
@@ -111,20 +112,28 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             binding.tvNotfound.text = "You don't have any saved posts."
         }
 
-        postViewModel.getPostByUser(sessionManager.getUserId()!!.toInt())
+        postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
         postObserver()
+        deletePostObserver()
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
         return when (item?.itemId) {
             R.id.edit -> {
-                // Update the blog
-                Toast.makeText(requireContext(), "Update Blog", Toast.LENGTH_SHORT).show()
+                val bundle = bundleOf("id" to articleList[itemPosition].postId)
+                findNavController().navigate(R.id.action_profileFragment_to_updateFragment, bundle)
                 return true
             }
             R.id.delete -> {
-                // delete the post
-                Toast.makeText(requireContext(), "Delete Blog", Toast.LENGTH_SHORT).show()
+                AlertDialog.Builder(requireContext())
+                    .setMessage("Deleted post will not be recovered.Are you sure?")
+                    .setCancelable(false)
+                    .setNegativeButton("CANCEL") { dialog, which -> dialog?.dismiss() }
+                    .setPositiveButton("DELETE") { dialog, which ->
+                        postViewModel.deletePost(sessionManager.getToken()!!, clickedPostID)
+                    }
+                    .show()
+
                 return true
             }
             else -> false
@@ -156,6 +165,27 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 }
                 is NetworkResponse.Loading -> {
                     binding.articlesRcv.showShimmerAdapter()
+                }
+            }
+        }
+    }
+
+    private fun deletePostObserver() {
+        postViewModel.deletePostData.observe(viewLifecycleOwner) {
+            when (it) {
+                is NetworkResponse.Success -> {
+                    val response = it.data
+                    if (response != null) {
+                        Toast.makeText(requireContext(), "${response.message}", Toast.LENGTH_SHORT).show()
+                        articleList.removeAt(itemPosition)
+                        articlesAdapter.notifyItemRemoved(itemPosition)
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResponse.Loading -> {
+
                 }
             }
         }

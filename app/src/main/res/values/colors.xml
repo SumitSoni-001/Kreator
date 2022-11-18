@@ -30,6 +30,7 @@
     <color name="text_highlight">#E5DEFF</color>
     <color name="successful">#71B521</color>
     <color name="turquoise">#04B7CE</color>
-    <color name="green">#04BB58</color>
+<!--    <color name="green">#04BB58</color>-->
+    <color name="green">#2EA043</color>
 
 </resources>

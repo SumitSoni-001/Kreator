@@ -48,12 +48,18 @@
                 android:hint="Search..."
                 android:inputType="text|textNoSuggestions"
                 android:maxLines="1"
+                android:isScrollContainer="true"
+                android:enabled="true"
+                android:focusable="true"
+                android:scrollbars="horizontal"
+                android:scrollIndicators="none"
                 android:padding="12dp"
                 android:textColor="@color/dark_gray"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toStartOf="@id/notification"
                 app:layout_constraintStart_toEndOf="@id/menu"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
 
             <ImageView
                 android:id="@+id/notification"

@@ -104,11 +104,11 @@ class MainFragment : Fragment() {
                         if (selectedCategory) {
 //                        Toast.makeText(requireContext(), "${item+1} :1 $currentCategory", Toast.LENGTH_SHORT).show()
                             catId = item + 1
-                            postViewModel.getPostByCategory(item + 1)
+                            postViewModel.getPostByCategory(sessionManager.getToken().toString(),item + 1)
                         }
                     }
                 } else {
-                    postViewModel.getAllPosts()
+                    postViewModel.getAllPosts(sessionManager.getToken().toString())
                 }
             }
         })
@@ -117,16 +117,16 @@ class MainFragment : Fragment() {
         }
         binding.btnRetry.setOnClickListener {
             if (catId == 0){
-                postViewModel.getAllPosts()
+                postViewModel.getAllPosts(sessionManager.getToken().toString())
             }else{
-                postViewModel.getPostByCategory(catId)
+                postViewModel.getPostByCategory(sessionManager.getToken().toString(),catId)
             }
         }
         binding.menu.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
         }
 
-        postViewModel.getAllPosts()
+        postViewModel.getAllPosts(sessionManager.getToken().toString())
         postObserver()
 
     }

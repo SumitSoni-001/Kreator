@@ -1,10 +1,6 @@
 package com.blog.kreator.di
 
-import android.provider.MediaStore.Images
-import com.blog.kreator.ui.home.models.CommentDetails
-import com.blog.kreator.ui.home.models.PostDetails
-import com.blog.kreator.ui.home.models.PostInput
-import com.blog.kreator.ui.home.models.PostResponse
+import com.blog.kreator.ui.home.models.*
 import com.blog.kreator.utils.Constants
 import com.blog.kreator.ui.onBoarding.models.AuthResponse
 import com.blog.kreator.ui.onBoarding.models.GetUserDetails
@@ -14,6 +10,7 @@ import com.google.android.material.datepicker.CalendarConstraints
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
@@ -59,14 +56,20 @@ interface RemoteService {
         @Body body: PostInput
     ): Response<PostDetails>
 
+    @DELETE(Constants.DELETE_POST)
+    suspend fun deletePost(
+        @Header(Constants.AUTH_TOKEN) token : String,
+        @Path("postId") postId : Int
+    ) : Response<DeleteResponse>
+
     @GET(Constants.GET_POST_BY_USER)
-    suspend fun getPostByUser(@Path("userId") userId: Int): Response<PostResponse>
+    suspend fun getPostByUser(@Header(Constants.AUTH_TOKEN) token : String, @Path("userId") userId: Int): Response<PostResponse>
 
     @GET(Constants.GET_ALL_POST)
-    suspend fun getAllPosts(): Response<PostResponse>
+    suspend fun getAllPosts(@Header(Constants.AUTH_TOKEN) token : String): Response<PostResponse>
 
     @GET(Constants.GET_POST_BY_CATEGORY)
-    suspend fun getPostByCategory(@Path("categoryId") categoryId: Int): Response<PostResponse>
+    suspend fun getPostByCategory(@Header(Constants.AUTH_TOKEN) token : String, @Path("categoryId") categoryId: Int): Response<PostResponse>
 
     @Multipart
     @POST(Constants.UPLOAD_IMAGE)
@@ -77,10 +80,10 @@ interface RemoteService {
     ): Response<PostDetails>
 
 //    @GET(Constants.DOWNLOAD_IMAGE)
-//    suspend fun downloadImage(@Path("imageName") imageName : String)
+//    suspend fun downloadImage(@Header(Constants.AUTH_TOKEN) token : String, @Path("imageName") imageName : String)
 
     @GET(Constants.GET_POST_BY_POST_ID)
-    suspend fun getPostByPostId(@Path("postId") postId: Int): Response<PostDetails>
+    suspend fun getPostByPostId(@Header(Constants.AUTH_TOKEN) token : String, @Path("postId") postId: Int): Response<PostDetails>
 
     @POST(Constants.CREATE_COMMENT)
     suspend fun createComment(

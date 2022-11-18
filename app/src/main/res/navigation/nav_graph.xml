@@ -112,12 +112,20 @@
         <action
             android:id="@+id/action_profileFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/editProfileFragment"
         android:name="com.blog.kreator.ui.profile.fragments.EditProfileFragment"
         android:label="fragment_edit_profile"
         tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.blog.kreator.ui.home.fragments.UpdatePostFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_post_update" />
 
 
 </navigation>

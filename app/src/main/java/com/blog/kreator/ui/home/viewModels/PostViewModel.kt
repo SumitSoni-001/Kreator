@@ -15,6 +15,7 @@ class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewMo
 
     val postData get() = postRepo.postData
     val singlePostData get() = postRepo.singlePostData
+    val deletePostData get() = postRepo.deletePostData
 
     fun createPost(token: String, userId: Int, catId: Int, postInput: PostInput) {
         viewModelScope.launch {
@@ -28,9 +29,15 @@ class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewMo
         }
     }
 
-    fun getPostByUser(userId:Int){
+    fun deletePost(token:String , postId:Int){
         viewModelScope.launch {
-            postRepo.getPostByUser(userId)
+            postRepo.deletePost(token,postId)
+        }
+    }
+
+    fun getPostByUser(token:String,userId:Int){
+        viewModelScope.launch {
+            postRepo.getPostByUser(token,userId)
         }
     }
 
@@ -40,21 +47,21 @@ class PostViewModel @Inject constructor(private val postRepo: PostRepo) : ViewMo
         }
     }
 
-    fun getAllPosts() {
+    fun getAllPosts(token:String) {
         viewModelScope.launch {
-            postRepo.getAllPosts()
+            postRepo.getAllPosts(token)
         }
     }
 
-    fun getPostByCategory(categoryId: Int) {
+    fun getPostByCategory(token:String,categoryId: Int) {
         viewModelScope.launch {
-            postRepo.getPostsByCategory(categoryId)
+            postRepo.getPostsByCategory(token,categoryId)
         }
     }
 
-    fun getPostByPostId(postId: Int) {
+    fun getPostByPostId(token:String,postId: Int) {
         viewModelScope.launch {
-            postRepo.getPostByPostId(postId)
+            postRepo.getPostByPostId(token,postId)
         }
     }
 

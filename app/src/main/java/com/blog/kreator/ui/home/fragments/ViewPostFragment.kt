@@ -2,6 +2,7 @@ package com.blog.kreator.ui.home.fragments
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -55,7 +56,7 @@ class ViewPostFragment : Fragment() {
 //        binding.postContent.contentTypeface = getContentFace()
         editor.setEditorImageLayout(R.layout.editor_image_layout)
 
-        postViewModel.getPostByPostId(postId)
+        postViewModel.getPostByPostId(sessionManager.getToken().toString(),postId)
         postObserver()
 
         binding.commentFAB.setOnClickListener {
@@ -85,6 +86,7 @@ class ViewPostFragment : Fragment() {
             when (it) {
                 is NetworkResponse.Success -> {
                     val postData = it.data
+                    Log.d("viewPostData", postData.toString())
 //                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
                     val deserializedContent = editor.getContentDeserialized(postData?.content)
                     binding.postTitle.text = postData?.postTitle

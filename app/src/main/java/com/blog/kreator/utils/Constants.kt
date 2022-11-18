@@ -7,14 +7,16 @@ object Constants {
     const val REGISTER_USER = "/api/auth/register"
     const val LOGIN = "/api/auth/login"
     const val UPDATE_USER = "/api/users/update/{userId}"
-    const val GET_ALL_POST = "/api/getAllPosts"
-    const val GET_POST_BY_CATEGORY = "/api/categoryId/{categoryId}/getPost"
-    const val UPLOAD_IMAGE = "/api/post/image/uploadImage/{postId}"
-    const val GET_POST_BY_POST_ID = "/api/postId/{postId}/getPost"
-    const val CREATE_COMMENT = "/api/comment/user/{userId}/post/{postId}/create"
     const val CREATE_POST = "/api/user/{userId}/category/{categoryId}/createPost"
     const val UPDATE_POST = "/api/postId/{postId}/updatePost"
+    const val GET_POST_BY_POST_ID = "/api/postId/{postId}/getPost"
+    const val GET_POST_BY_CATEGORY = "/api/categoryId/{categoryId}/getPost"
     const val GET_POST_BY_USER = "/api/userId/{userId}/getPost"
+    const val GET_ALL_POST = "/api/getAllPosts"
+    const val UPLOAD_IMAGE = "/api/post/image/uploadImage/{postId}"
+    const val CREATE_COMMENT = "/api/comment/user/{userId}/post/{postId}/create"
+    const val DELETE_POST = "/api/postId/{postId}/delete"
+
 
 
 

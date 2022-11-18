@@ -52,7 +52,7 @@
                 android:fontFamily="@font/poppins_regular"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="5dp"
-                android:textSize="14sp"/>
+                android:textSize="13sp"/>
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroup"

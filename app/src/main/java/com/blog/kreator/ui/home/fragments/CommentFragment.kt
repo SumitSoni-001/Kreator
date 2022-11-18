@@ -68,7 +68,7 @@ class CommentFragment : Fragment() {
             }
         }
 
-        postViewModel.getPostByPostId(postId)
+        postViewModel.getPostByPostId(sessionManager.getToken().toString(),postId)
         commentObserver()
         commentObserver2()
 
@@ -100,7 +100,7 @@ class CommentFragment : Fragment() {
         progress.dismiss()
             when(it){
                 is NetworkResponse.Success -> {
-                    postViewModel.getPostByPostId(postId)
+                    postViewModel.getPostByPostId(sessionManager.getToken().toString(),postId)
                     binding.etComment.setText("")
                 }
                 is NetworkResponse.Error -> {

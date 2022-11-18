@@ -2,11 +2,8 @@ package com.blog.kreator.ui.home.adapters
 
 import android.content.Context
 import android.graphics.Color
-import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.view.get
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -16,10 +13,6 @@ import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.FormatTime
 import com.squareup.picasso.Picasso
-import org.threeten.bp.temporal.ChronoField
-import java.text.DateFormat
-import java.text.ParseException
-import java.text.SimpleDateFormat
 import java.util.*
 
 class PostsAdapter(private val context: Context) : ListAdapter<PostDetails, PostsAdapter.PostsViewHolder>(DiffUtil()) {
@@ -41,18 +34,16 @@ class PostsAdapter(private val context: Context) : ListAdapter<PostDetails, Post
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
-//        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
-        /** Load user profile photo */
         Picasso.get().load(Constants.userNameImage(item.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(Constants.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
+//        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
         holder.binding.content.text = item.content
 //        holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
         holder.binding.category.text = item.category?.categoryTitle
         holder.binding.category.setBackgroundColor(randomColor())
-
     }
 
     private fun randomColor(): Int {
