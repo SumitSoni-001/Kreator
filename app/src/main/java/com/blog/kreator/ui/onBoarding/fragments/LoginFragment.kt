@@ -91,6 +91,7 @@ class LoginFragment : Fragment() {
                     sessionManager.setUserName(it.data?.user?.name.toString())
                     sessionManager.setEmail(it.data?.user?.email.toString())
                     sessionManager.setAbout(it.data?.user?.about.toString())
+                    sessionManager.setProfilePic(it.data?.user?.userImage?:"default.png")
                     findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
                 }
                 is NetworkResponse.Error -> {

@@ -34,7 +34,9 @@ class PostsAdapter(private val context: Context) : ListAdapter<PostDetails, Post
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
-        Picasso.get().load(Constants.userNameImage(item.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
+
+        val profileUrl = Constants.downloadProfile(item.user?.userImage , item.user?.name.toString())
+        Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(Constants.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle

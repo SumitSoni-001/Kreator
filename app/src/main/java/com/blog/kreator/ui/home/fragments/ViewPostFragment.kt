@@ -1,5 +1,7 @@
 package com.blog.kreator.ui.home.fragments
 
+import android.app.ProgressDialog.show
+import android.content.Intent
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +22,8 @@ import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.FormatTime
 import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import kotlin.collections.HashMap
 import kotlin.collections.Map
@@ -95,15 +99,19 @@ class ViewPostFragment : Fragment() {
                     /** binding.postContent.text = postData?.content */
                     editor.render(deserializedContent)
 
-                    binding.username.text = postData?.user?.name
-                    Picasso.get().load(Constants.downloadImage(postData?.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
-                    val url = Constants.userNameImage(postData?.user?.name.toString())
-                    Picasso.get().load(url).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
+                    binding.username.text = postData.user?.name
+                    Picasso.get().load(Constants.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
+                    val profileUrl = Constants.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
+                    Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
                 }
                 is NetworkResponse.Error -> {
                     binding.postItemsLayout.visibility = View.GONE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
+                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Snackbar.make(binding.root,R.string.loading_snackbar,Snackbar.LENGTH_LONG).setAnimationMode(
+                        BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setAction("check?") {
+                            val intent = Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS)
+                            requireActivity().startActivity(intent)
+                    }.show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.shimmer.shimmerLayout.startShimmerAnimation()

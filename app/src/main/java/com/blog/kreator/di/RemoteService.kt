@@ -56,6 +56,14 @@ interface RemoteService {
         @Body body: PostInput
     ): Response<PostDetails>
 
+    @Multipart
+    @POST(Constants.UPLOAD_PROFILE)
+    suspend fun uploadProfile(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Part image: MultipartBody.Part,
+        @Path("userId") userId: Int
+    ): Response<GetUserDetails>
+
     @DELETE(Constants.DELETE_POST)
     suspend fun deletePost(
         @Header(Constants.AUTH_TOKEN) token : String,

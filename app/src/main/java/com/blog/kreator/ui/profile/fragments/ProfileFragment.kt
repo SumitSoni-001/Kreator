@@ -83,9 +83,8 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         binding.articlesRcv.layoutManager = LinearLayoutManager(requireContext())
         binding.articlesRcv.setHasFixedSize(true)
         binding.articlesRcv.adapter = articlesAdapter
-
-        Picasso.get().load(Constants.userNameImage(sessionManager.getUserName().toString()))
-            .placeholder(R.drawable.user_placeholder).into(binding.userImage)
+        val profileUrl = Constants.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
+        Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImage)
         binding.username.text = sessionManager.getUserName()
         val kreatorUsername = sessionManager.getUserName()?.replace(" ", "")?.lowercase()
         binding.kreatorUsername.text = "@$kreatorUsername"

@@ -215,8 +215,8 @@
                     android:textSize="13sp" />
 
                 <View
-                    android:layout_width="5dp"
-                    android:layout_height="5dp"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
                     android:layout_marginStart="10dp"
                     android:background="@color/light_gray"/>
 
@@ -225,7 +225,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/poppins_medium"
                     android:text="2 hours ago"
                     android:textColor="@color/gray"
                     android:textSize="11sp" />
@@ -247,7 +247,7 @@
                     android:id="@+id/postImage"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:scaleType="fitXY"
+                    android:background="@color/light_black"
                     android:src="@drawable/placeholder" />
 
             </androidx.cardview.widget.CardView>

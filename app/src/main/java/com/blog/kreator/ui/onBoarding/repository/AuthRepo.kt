@@ -11,6 +11,7 @@ import com.blog.kreator.ui.onBoarding.models.GetUserDetails
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import dagger.hilt.android.qualifiers.ApplicationContext
+import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Response
@@ -61,6 +62,17 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
             handleResponse2(response)
         }catch (e:Exception){
             authResponseLiveData.postValue(NetworkResponse.Error("Server Problem : ${e.localizedMessage}"))
+        }
+    }
+
+    suspend fun uploadImage(token: String, userId : Int, profile: MultipartBody.Part) {
+        userResponseLiveData.postValue(NetworkResponse.Loading())
+        try {
+            val response = remoteService.uploadProfile(token,profile, userId)
+            Log.d("uploadProfile", response.body().toString())
+            handleResponse2(response)
+        } catch (e: Exception) {
+            userResponseLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 

@@ -2,7 +2,7 @@ package com.blog.kreator.utils
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.72.65:9090"
+    const val BASE_URL = "http://192.168.80.65:9090"
     const val AUTH_TOKEN = "Authorization"
     const val REGISTER_USER = "/api/auth/register"
     const val LOGIN = "/api/auth/login"
@@ -14,19 +14,64 @@ object Constants {
     const val GET_POST_BY_USER = "/api/userId/{userId}/getPost"
     const val GET_ALL_POST = "/api/getAllPosts"
     const val UPLOAD_IMAGE = "/api/post/image/uploadImage/{postId}"
+    const val UPLOAD_PROFILE = "/api/users/uploadProfilePic/{userId}"
     const val CREATE_COMMENT = "/api/comment/user/{userId}/post/{postId}/create"
     const val DELETE_POST = "/api/postId/{postId}/delete"
 
 
+    val ALL_CATEGORIES = arrayOf(
+        "Travel",
+        "Food",
+        "Psychology",
+        "Books",
+        "Science",
+        "Education",
+        "Android",
+        "ios",
+        "Technology",
+        "Artificial Intelligence",
+        "Movies",
+        "Health",
+        "Software Engineering",
+        "Life",
+        "Work",
+        "Programming",
+        "Business",
+        "Design",
+        "Fashion",
+        "Web Development",
+        "App Development",
+        "Art, Blockchain",
+        "Java Script",
+        "Ui/Ux",
+        "Flutter",
+        "Java",
+        "Relationship",
+        "Philosophy",
+        "History",
+        "Money",
+        "Crypto",
+        "Sports",
+        "Freelancing",
+        "Photography",
+        "Web Framework",
+        "Animals"
+    )
 
-
-    val ALL_CATEGORIES = arrayOf("Travel", "Food", "Psychology", "Books", "Science", "Education", "Android", "ios", "Technology", "Artificial Intelligence", "Movies", "Health", "Software Engineering", "Life", "Work", "Programming", "Business", "Design", "Fashion", "Web Development", "App Development", "Art, Blockchain", "Java Script", "Ui/Ux", "Flutter", "Java", "Relationship", "Philosophy", "History", "Money", "Crypto", "Sports", "Freelancing", "Photography", "Web Framework", "Animals")
-
-    fun userNameImage(name : String) : String{
+    fun userNameImage(name: String): String {
         return "https://ui-avatars.com/api?name=$name&background=random"
     }
-    fun downloadImage(image : String): String{
+
+    fun downloadImage(image: String): String {
         return "$BASE_URL/api/post/downloadImage/$image"
+    }
+
+    fun downloadProfile(image: String?, name: String): String {
+        return if (image == null || image == "default.png") {
+            userNameImage(name)
+        } else {
+            "$BASE_URL/api/users/downloadProfilePic/$image"
+        }
     }
 
 }

@@ -22,6 +22,7 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="add_profile_picture"><u>Add Profile Picture</u></string>
+    <string name="loading_snackbar">Unable to load this Post!! Check your Internet connection</string>
 
 
 </resources>

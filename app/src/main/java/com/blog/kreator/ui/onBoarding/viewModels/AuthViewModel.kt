@@ -10,6 +10,7 @@ import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.repository.AuthRepo
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -35,6 +36,12 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     fun updateUser(token:String,userId:Int,userInput: UserInput){
         viewModelScope.launch {
             authRepo.updateUser(token,userId,userInput)
+        }
+    }
+
+    fun uploadProfile(token:String,userId:Int,profile:MultipartBody.Part){
+        viewModelScope.launch {
+            authRepo.uploadImage(token,userId,profile)
         }
     }
 

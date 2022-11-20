@@ -19,25 +19,44 @@ import com.blog.kreator.databinding.FragmentEditProfileBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import java.io.File
+import java.io.FileOutputStream
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
-    private val profilePic = registerForActivityResult(ActivityResultContracts.GetContent()){uri : Uri? ->
-        if (uri != null){
-            binding.userImg.setImageURI(uri)
-            // Post the Image after creating api
-        }
-    }
     private val userViewModel by viewModels<AuthViewModel>()
     @Inject
     lateinit var sessionManager: SessionManager
     private lateinit var loader: KProgressHUD
+    private var profileUri: String = ""
+    private lateinit var part: MultipartBody.Part
+    private val profilePic = registerForActivityResult(ActivityResultContracts.GetContent()){uri : Uri? ->
+        if (uri != null) {
+            profileUri = uri.toString()
+            binding.userImg.setImageURI(uri)
+           
+            val filesDir = requireContext().applicationContext.filesDir
+            val file = File(filesDir, "profile.png")
+            val inputStream = requireContext().contentResolver.openInputStream(uri)
+            val outputStream = FileOutputStream(file)
+            inputStream!!.copyTo(outputStream)
+            val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
+            part = MultipartBody.Part.createFormData("profile", file.name, requestBody)
+        } else {
+            Toast.makeText(requireContext(), "File not found", Toast.LENGTH_SHORT).show()
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,6 +80,8 @@ class EditProfileFragment : Fragment() {
             binding.etName.setText(getUserName())
             binding.etEmail.setText(getEmail())
             binding.etAbout.setText(getAbout())
+            val profileUrl = Constants.downloadProfile(getProfilePic() , getUserName().toString())
+            Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImg)
         }
 
         binding.backArrow.setOnClickListener {
@@ -85,10 +106,13 @@ class EditProfileFragment : Fragment() {
                 val userModel = UserInput(name=name,email=email,about=about)
                 it.hideKeyboard()
                 userViewModel.updateUser(sessionManager.getToken().toString(), sessionManager.getUserId()!!.toInt(),userModel)
+                if (profileUri.isNotEmpty()) {
+                    userViewModel.uploadProfile(sessionManager.getToken().toString(), sessionManager.getUserId()!!.toInt(),part)
+                    Toast.makeText(requireContext(), "Profile Photo Updated", Toast.LENGTH_SHORT).show()
+                }
             }
         }
         userObserver()
-
     }
 
     private fun View.hideKeyboard() {
@@ -104,6 +128,8 @@ class EditProfileFragment : Fragment() {
                     sessionManager.setUserName(it.data?.name.toString())
                     sessionManager.setEmail(it.data?.email.toString())
                     sessionManager.setAbout(it.data?.about.toString())
+                    sessionManager.setProfilePic(it.data?.userImage.toString())
+                    Toast.makeText(requireContext(), "Details Updated", Toast.LENGTH_SHORT).show()
                 }
                 is NetworkResponse.Error -> {
                     Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
