@@ -16,6 +16,7 @@ import com.blog.kreator.databinding.SampleArticlesRcvBinding
 import com.blog.kreator.databinding.SamplePostsRcvBinding
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.FormatTime
 import com.squareup.picasso.Picasso
 import org.threeten.bp.temporal.ChronoField
@@ -43,7 +44,7 @@ class ArticlesAdapter(private val context: Context) : ListAdapter<PostDetails, A
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
-        Picasso.get().load(Constants.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
+        Picasso.get().load(CustomImage.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
         holder.binding.categoryName.text = item.category?.categoryTitle

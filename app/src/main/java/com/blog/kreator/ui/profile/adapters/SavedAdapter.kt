@@ -15,6 +15,7 @@ import com.blog.kreator.databinding.SamplePostsRcvBinding
 import com.blog.kreator.databinding.SampleSavedRcvBinding
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.FormatTime
 import com.squareup.picasso.Picasso
 import org.threeten.bp.temporal.ChronoField
@@ -42,8 +43,8 @@ class SavedAdapter(private val context: Context) : ListAdapter<PostDetails, Save
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
-        Picasso.get().load(Constants.userNameImage(item.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
-        Picasso.get().load(Constants.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
+        Picasso.get().load(CustomImage.downloadProfile(item.user?.userImage,item.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
+        Picasso.get().load(CustomImage.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)

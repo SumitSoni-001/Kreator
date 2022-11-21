@@ -101,4 +101,17 @@ interface RemoteService {
         @Body body: CommentDetails
     ): Response<CommentDetails>
 
+    @PUT(Constants.UPDATE_COMMENT)
+    suspend fun updateComment(
+        @Header(Constants.AUTH_TOKEN) token: String,
+        @Path("commentId") commentId: Int,
+        @Body body : CommentDetails
+    ): Response<CommentDetails>
+
+    @DELETE(Constants.DELETE_COMMENT)
+    suspend fun deleteComment(@Header(Constants.AUTH_TOKEN) token : String, @Path("commentId") commentId : Int) : Response<DeleteResponse>
+
+    @GET(Constants.GET_COMMENTS_BY_POST_ID)
+    suspend fun getCommentByPostId(@Header(Constants.AUTH_TOKEN) token : String, @Path("postId") postId : Int) : Response<ArrayList<CommentDetails>>
+
 }

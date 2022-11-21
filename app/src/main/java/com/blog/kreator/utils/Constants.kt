@@ -2,7 +2,7 @@ package com.blog.kreator.utils
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.80.65:9090"
+    const val BASE_URL = "http://192.168.84.65:9090"
     const val AUTH_TOKEN = "Authorization"
     const val REGISTER_USER = "/api/auth/register"
     const val LOGIN = "/api/auth/login"
@@ -13,10 +13,13 @@ object Constants {
     const val GET_POST_BY_CATEGORY = "/api/categoryId/{categoryId}/getPost"
     const val GET_POST_BY_USER = "/api/userId/{userId}/getPost"
     const val GET_ALL_POST = "/api/getAllPosts"
+    const val DELETE_POST = "/api/postId/{postId}/delete"
     const val UPLOAD_IMAGE = "/api/post/image/uploadImage/{postId}"
     const val UPLOAD_PROFILE = "/api/users/uploadProfilePic/{userId}"
     const val CREATE_COMMENT = "/api/comment/user/{userId}/post/{postId}/create"
-    const val DELETE_POST = "/api/postId/{postId}/delete"
+    const val UPDATE_COMMENT = "api/comment/{commentId}/updateComment"
+    const val GET_COMMENTS_BY_POST_ID = "/api/comment/postId/{postId}/getComments"
+    const val DELETE_COMMENT = "/api/comment/delete/{commentId}"
 
 
     val ALL_CATEGORIES = arrayOf(
@@ -57,21 +60,5 @@ object Constants {
         "Web Framework",
         "Animals"
     )
-
-    fun userNameImage(name: String): String {
-        return "https://ui-avatars.com/api?name=$name&background=random"
-    }
-
-    fun downloadImage(image: String): String {
-        return "$BASE_URL/api/post/downloadImage/$image"
-    }
-
-    fun downloadProfile(image: String?, name: String): String {
-        return if (image == null || image == "default.png") {
-            userNameImage(name)
-        } else {
-            "$BASE_URL/api/users/downloadProfilePic/$image"
-        }
-    }
 
 }

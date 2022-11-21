@@ -20,6 +20,7 @@ import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.squareup.picasso.Picasso
@@ -80,7 +81,7 @@ class EditProfileFragment : Fragment() {
             binding.etName.setText(getUserName())
             binding.etEmail.setText(getEmail())
             binding.etAbout.setText(getAbout())
-            val profileUrl = Constants.downloadProfile(getProfilePic() , getUserName().toString())
+            val profileUrl = CustomImage.downloadProfile(getProfilePic() , getUserName().toString())
             Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImg)
         }
 

@@ -25,6 +25,7 @@ import com.blog.kreator.ui.home.models.PostResponse
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.ui.profile.adapters.ArticlesAdapter
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +84,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         binding.articlesRcv.layoutManager = LinearLayoutManager(requireContext())
         binding.articlesRcv.setHasFixedSize(true)
         binding.articlesRcv.adapter = articlesAdapter
-        val profileUrl = Constants.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
+        val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
         Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImage)
         binding.username.text = sessionManager.getUserName()
         val kreatorUsername = sessionManager.getUserName()?.replace(" ", "")?.lowercase()
@@ -150,7 +151,6 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                     if (response != null) {
                         articleList.clear()
                         articleList.addAll(response)
-//                        Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
                         articlesAdapter.submitList(articleList)
                     } else {
                         binding.notFound.visibility = View.VISIBLE
@@ -183,9 +183,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 is NetworkResponse.Error -> {
                     Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
                 }
-                is NetworkResponse.Loading -> {
-
-                }
+                is NetworkResponse.Loading -> {}
             }
         }
     }

@@ -22,6 +22,7 @@ import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.home.models.PostInput
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.github.irshulx.EditorListener
@@ -214,7 +215,7 @@ class UpdatePostFragment : Fragment() {
                             Toast.makeText(requireContext(), "Post updated successfully", Toast.LENGTH_SHORT).show()
                         } else {
                             if (!response?.image.equals("default.png") && response?.image != null) {
-                                Picasso.get().load(Constants.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
+                                Picasso.get().load(CustomImage.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
                             } else {
                                 binding.coverImage.setImageResource(R.drawable.placeholder)
                             }

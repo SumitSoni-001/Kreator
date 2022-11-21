@@ -19,6 +19,7 @@ import com.blog.kreator.databinding.FragmentViewPostBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.FormatTime
 import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
@@ -100,8 +101,8 @@ class ViewPostFragment : Fragment() {
                     editor.render(deserializedContent)
 
                     binding.username.text = postData.user?.name
-                    Picasso.get().load(Constants.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
-                    val profileUrl = Constants.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
+                    Picasso.get().load(CustomImage.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
+                    val profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
                     Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
                 }
                 is NetworkResponse.Error -> {
