@@ -116,7 +116,8 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                         }
                         commentsList.clear()
                         commentsList.addAll(commentData)
-                        commentAdapter.submitList(commentData)
+//                        commentAdapter.submitList(commentData)
+                        commentAdapter.submitList(commentsList)
                     }
                 }
                 is NetworkResponse.Error -> {
@@ -134,10 +135,12 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             progress.dismiss()
             when (it) {
                 is NetworkResponse.Success -> {
-                    commentViewModel.getCommentByPostId(
-                        sessionManager.getToken().toString(),
-                        postId
-                    )
+//                    commentViewModel.getCommentByPostId(sessionManager.getToken().toString(), postId)
+                    if (!updatingComment){
+                        commentsList.add(it.data!!)
+                        commentAdapter.notifyItemInserted(it.data.id!!)
+                    }
+                    commentAdapter.notifyItemChanged(itemPosition)
                     binding.etComment.setText("")
                 }
                 is NetworkResponse.Error -> {
@@ -155,7 +158,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             when (it) {
                 is NetworkResponse.Success -> {
                     val response = it.data
-                    if (response != null) {
+                    if (response?.status == true) {
                         Toast.makeText(requireContext(), "${response.message}", Toast.LENGTH_SHORT).show()
                         commentsList.removeAt(itemPosition)
                         commentAdapter.notifyItemRemoved(itemPosition)

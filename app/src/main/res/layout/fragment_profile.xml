@@ -173,7 +173,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="Article"
         android:textColor="@color/green"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="@id/goBack"
         app:layout_constraintTop_toBottomOf="@id/followStatus" />
 
@@ -185,7 +185,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="Saved"
         android:textColor="@color/gray"
-        android:textSize="16sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toEndOf="@id/tvArticle"
         app:layout_constraintTop_toTopOf="@id/tvArticle" />
 
@@ -230,7 +230,7 @@
         app:shimmer_demo_angle="15"
         app:shimmer_demo_layout="@layout/post_shimmer"
         app:shimmer_demo_layout_manager_type="linear_vertical"
-        app:shimmer_demo_shimmer_color="@color/main_fragment_bg"
+        app:shimmer_demo_shimmer_color="@color/postStroke"
         tools:listitem="@layout/sample_saved_rcv" />
 
     <com.airbnb.lottie.LottieAnimationView

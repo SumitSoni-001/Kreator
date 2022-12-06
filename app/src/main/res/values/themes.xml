@@ -13,6 +13,16 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
         <!-- Customize your theme here. -->
+
+<!--        <item name="android:windowActivityTransitions">true</item>-->
+<!--        <item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+
+<!--        <item name="android:windowEnterTransition">@transition/fade_transition</item>-->
+<!--        <item name="android:windowExitTransition">@transition/fade_transition</item>-->
+
+<!--        <item name="android:windowSharedElementEnterTransition">@transition/fade_transition</item>-->
+<!--        <item name="android:windowSharedElementExitTransition">@transition/fade_transition</item>-->
+
     </style>
 
     <style name="fullScreen" parent="Theme.MaterialComponents.DayNight.NoActionBar">

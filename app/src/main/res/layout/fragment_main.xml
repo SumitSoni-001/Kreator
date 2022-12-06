@@ -21,18 +21,42 @@
             android:background="@color/white"
             tools:context=".ui.home.fragments.MainFragment">
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/menu"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/menu"
-                app:layout_constraintBottom_toBottomOf="@id/searchBar"
+                android:src="@drawable/user_placeholder"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/searchBar" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Hello,"
+                android:textColor="@color/light_black"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@id/menu"
+                app:layout_constraintTop_toTopOf="@id/menu" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sumit"
+                android:textColor="@color/light_black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@id/menu"
+                app:layout_constraintStart_toStartOf="@id/tvHello"
+                app:layout_constraintTop_toBottomOf="@id/tvHello" />
 
             <EditText
                 android:id="@+id/searchBar"
@@ -44,18 +68,19 @@
                 android:drawableStart="@drawable/search"
                 android:drawablePadding="8dp"
                 android:drawableTint="@color/gray"
+                android:enabled="true"
+                android:focusable="true"
                 android:fontFamily="@font/lato_regular"
                 android:hint="Search..."
                 android:inputType="text|textNoSuggestions"
-                android:maxLines="1"
                 android:isScrollContainer="true"
-                android:enabled="true"
-                android:focusable="true"
-                android:scrollbars="horizontal"
-                android:scrollIndicators="none"
+                android:maxLines="1"
                 android:padding="12dp"
+                android:scrollIndicators="none"
+                android:scrollbars="horizontal"
                 android:textColor="@color/dark_gray"
                 android:textSize="16sp"
+                android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@id/notification"
                 app:layout_constraintStart_toEndOf="@id/menu"
                 app:layout_constraintTop_toTopOf="parent"
@@ -71,6 +96,7 @@
                 android:focusable="true"
                 android:src="@drawable/notification"
                 android:tooltipText="Notification"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="@id/searchBar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/searchBar" />
@@ -79,11 +105,12 @@
                 android:id="@+id/categoryRCV"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
                 android:paddingVertical="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/menu"
-                app:layout_constraintTop_toBottomOf="@id/searchBar" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu" />
 
             <com.cooltechworks.views.shimmer.ShimmerRecyclerView
                 android:id="@+id/postsRcv"
@@ -98,8 +125,14 @@
                 app:shimmer_demo_angle="15"
                 app:shimmer_demo_layout="@layout/post_shimmer"
                 app:shimmer_demo_layout_manager_type="linear_vertical"
-                app:shimmer_demo_shimmer_color="@color/light_gray"
+                app:shimmer_demo_shimmer_color="@color/postStroke"
                 tools:listitem="@layout/sample_posts_rcv" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/helloGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvHello,tvName" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -110,11 +143,11 @@
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:visibility="invisible"
-        app:lottie_autoPlay="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/not_found" />
 
@@ -122,11 +155,11 @@
         android:id="@+id/errorAnime"
         android:layout_width="250dp"
         android:layout_height="250dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/error404" />
@@ -142,12 +175,12 @@
         android:paddingVertical="6dp"
         android:text="Retry"
         android:textAllCaps="false"
-        app:layout_constraintStart_toStartOf="@id/errorAnime"
-        app:layout_constraintEnd_toEndOf="@id/errorAnime"
-        app:layout_constraintTop_toBottomOf="@id/errorAnime"
         android:textColor="@color/dotActive"
         android:textSize="13sp"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/errorAnime"
+        app:layout_constraintStart_toStartOf="@id/errorAnime"
+        app:layout_constraintTop_toBottomOf="@id/errorAnime" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/createBlogFAB"

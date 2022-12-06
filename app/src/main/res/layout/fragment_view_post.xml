@@ -99,7 +99,7 @@
                 android:id="@+id/postTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="25dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="The Ultimate guide to finding a Front-End Engineer."
                 android:textColor="@color/black"

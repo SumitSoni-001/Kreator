@@ -20,8 +20,12 @@ import com.blog.kreator.ui.home.adapters.CategoryAdapter
 import com.blog.kreator.ui.home.adapters.PostsAdapter
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.home.viewModels.PostViewModel
+import com.blog.kreator.ui.profile.models.BookmarkResponse
+import com.blog.kreator.ui.profile.viewModels.BookmarkViewModel
 import com.blog.kreator.utils.Constants
+import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
+import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -32,8 +36,13 @@ class MainFragment : Fragment() {
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private var postsList: ArrayList<PostDetails> = ArrayList()
+    private var bookmarkedPostsList: ArrayList<BookmarkResponse> = ArrayList()
     private var categoryList: ArrayList<String> = ArrayList()
     private val postViewModel by viewModels<PostViewModel>()
+    private val bookmarkViewModel by viewModels<BookmarkViewModel>()
+    private var isBookmarked = false
+    private var bookmarkedPostPosition = -1
+    private var postPosition = -1
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -50,10 +59,11 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        categoryList.clear()
         categoryList.add("All")
         categoryList.addAll(sessionManager.getCategories())
 
-        postsAdapter = PostsAdapter(requireContext())
+        postsAdapter = PostsAdapter(requireContext(),bookmarkedPostsList)
         val linearLayoutManager = object : LinearLayoutManager(requireContext()) {
             override fun canScrollVertically(): Boolean = false
         }
@@ -62,20 +72,27 @@ class MainFragment : Fragment() {
         binding.postsRcv.adapter = postsAdapter
 
         categoryAdapter = CategoryAdapter(requireContext(), categoryList)
-        binding.categoryRCV.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRCV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.categoryRCV.setHasFixedSize(true)
         binding.categoryRCV.adapter = categoryAdapter
 
         postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener {
-            override fun onItemClick(position: Int) {
-                categoryList.clear()
-                val bundle = bundleOf("id" to postsList[position].postId)
+            override fun onItemClick(position: Int, bookmarkPosition: Int) {
+//                categoryList.clear()
+                isBookmarked = bookmarkPosition != -1
+                val bundle = bundleOf("id" to postsList[position].postId, "isBookmarked" to isBookmarked, "bookmarkPos" to bookmarkPosition)
                 findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment, bundle)
             }
-
-            override fun onBookmarkClick(position: Int) {
-
+            override fun onBookmarkClick(position: Int, bookmarkPosition: Int) {
+                bookmarkedPostPosition = bookmarkPosition
+                postPosition = position
+                if (bookmarkPosition == -1){
+                    isBookmarked = true
+                    bookmarkViewModel.addBookmark(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!, postsList[position].postId!!)
+                }else{
+                    isBookmarked = false
+                    bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkedPostsList[bookmarkPosition].id!!)
+                }
             }
         })
         categoryAdapter.setonItemClickListener(object : CategoryAdapter.ItemClickListener {
@@ -127,8 +144,11 @@ class MainFragment : Fragment() {
         }
 
         postViewModel.getAllPosts(sessionManager.getToken().toString())
-        postObserver()
+        bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
 
+        postObserver()
+        bookmarkedPostsObserver()
+        bookmarkObserver()
     }
 
     private fun postObserver() {
@@ -139,17 +159,22 @@ class MainFragment : Fragment() {
             binding.categoryRCV.visibility = View.VISIBLE
             binding.createBlogFAB.visibility = View.VISIBLE
             binding.postsRcv.visibility = View.VISIBLE
+            binding.helloGroup.visibility = View.GONE
             binding.postsRcv.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
                     binding.errorAnime.visibility = View.INVISIBLE
                     binding.btnRetry.visibility = View.INVISIBLE
+                    binding.helloGroup.visibility = View.VISIBLE
+                    binding.tvName.text = sessionManager.getUserName().toString()
+                    val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
+                    Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.menu)
                     if (it.data?.postDto != null) {
                         postsList.clear()
-                        for (item in 0 until (it.data!!.postDto.size)) {
-                            postsList.add(it.data.postDto[item])
-                        }
-//                        Toast.makeText(requireContext(), "Successful", Toast.LENGTH_SHORT).show()
+                        postsList.addAll(it.data.postDto)
+//                        for (item in 0 until (it.data!!.postDto.size)) {
+//                            postsList.add(it.data.postDto[item])
+//                        }
                         postsAdapter.submitList(postsList)
                     } else {
                         binding.noBlogFound.visibility = View.VISIBLE
@@ -170,6 +195,48 @@ class MainFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun bookmarkObserver(){
+        bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner) {
+            when(it){
+                is NetworkResponse.Success -> {
+                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
+                    if (!isBookmarked){ // delete bookmark
+                        if (it.data?.status == true) {
+                            bookmarkedPostsList.removeAt(bookmarkedPostPosition)
+                            postsAdapter.notifyItemChanged(postPosition)
+                        }
+                    }else{  // Add Bookmark
+                        if (it.data?.status == true){
+                            // change bookmark icon to bookmarked
+                            postsAdapter.notifyItemChanged(postPosition)
+                        }
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResponse.Loading -> {}
+            }
+        }
+    }
+
+    private fun bookmarkedPostsObserver(){
+        bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner){
+            when(it){
+                is NetworkResponse.Success -> {
+                    if (it.data != null){
+                        bookmarkedPostsList.clear()
+                        bookmarkedPostsList.addAll(it.data)
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResponse.Loading -> {}
+            }
+        }
     }
 
 }

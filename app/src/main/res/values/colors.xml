@@ -22,7 +22,7 @@
     <color name="main_fragment_bg">#F8F8F8</color>
     <color name="transparent">#00000000</color>
     <color name="postStroke">#E8E8E8</color>
-    <color name="shimmerColor">#E8E8E8</color>
+    <color name="shimmerColor">#EFEFEF</color>
     <color name="dotActive">#539bf5</color>
     <color name="dotActive2">#4A7EF9</color>
     <color name="dotInactive">#B5B5B5</color>

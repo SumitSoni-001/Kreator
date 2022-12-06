@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -24,6 +26,9 @@ import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.home.models.PostResponse
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.ui.profile.adapters.ArticlesAdapter
+import com.blog.kreator.ui.profile.adapters.SavedAdapter
+import com.blog.kreator.ui.profile.models.BookmarkResponse
+import com.blog.kreator.ui.profile.viewModels.BookmarkViewModel
 import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
@@ -37,11 +42,14 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private lateinit var binding: FragmentProfileBinding
     private lateinit var articlesAdapter: ArticlesAdapter
-    private lateinit var savedAdapter: ArticlesAdapter
     private lateinit var articleList: ArrayList<PostDetails>
+    private lateinit var bookmarkList : ArrayList<BookmarkResponse>
+    private lateinit var savedAdapter: SavedAdapter
     private var clickedPostID = 0
     private var itemPosition = 0
+    private var bookmarkPosition = 0
     private val postViewModel by viewModels<PostViewModel>()
+    private val bookmarkViewModel by viewModels<BookmarkViewModel>()
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -81,14 +89,30 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             }
         })
 
+        bookmarkList = ArrayList()
+        savedAdapter = SavedAdapter(requireContext())
+        savedAdapter.setOnItemClickListener(object : SavedAdapter.ItemClickListener{
+            override fun onItemClick(position: Int) {
+                val bundle = bundleOf("id" to articleList[position].postId)
+                findNavController().navigate(R.id.action_profileFragment_to_viewPostFragment, bundle)
+            }
+            override fun onBookmarkClick(position: Int) {
+                bookmarkPosition = position
+                bookmarkViewModel.deleteBookmark(sessionManager.getToken().toString(), bookmarkList[position].id!!)
+            }
+        })
+
         binding.articlesRcv.layoutManager = LinearLayoutManager(requireContext())
         binding.articlesRcv.setHasFixedSize(true)
         binding.articlesRcv.adapter = articlesAdapter
+
         val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
         Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImage)
         binding.username.text = sessionManager.getUserName()
         val kreatorUsername = sessionManager.getUserName()?.replace(" ", "")?.lowercase()
         binding.kreatorUsername.text = "@$kreatorUsername"
+
+        postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
 
         binding.tvEdit.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
@@ -97,6 +121,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             findNavController().popBackStack()
         }
         binding.tvArticle.setOnClickListener {
+            binding.articlesRcv.adapter = articlesAdapter
             binding.tvArticle.setTextColor(Color.parseColor("#04BB58"))
             binding.articleSlider.visibility = View.VISIBLE
             binding.tvSaved.setTextColor(Color.parseColor("#7D8492"))
@@ -105,16 +130,20 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
         }
         binding.tvSaved.setOnClickListener {
+            binding.articlesRcv.adapter = savedAdapter
             binding.tvSaved.setTextColor(Color.parseColor("#04BB58"))
             binding.savedSlider.visibility = View.VISIBLE
             binding.tvArticle.setTextColor(Color.parseColor("#7D8492"))
             binding.articleSlider.visibility = View.INVISIBLE
             binding.tvNotfound.text = "You don't have any saved posts."
+            bookmarkViewModel.getBookmarkByUser(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!)
+//            bookmarkViewModel.getBookmarkedPosts(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!)
         }
 
-        postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
         postObserver()
         deletePostObserver()
+        bookmarkObserver()
+        deleteBookmarkObserver()
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -178,6 +207,53 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                         Toast.makeText(requireContext(), "${response.message}", Toast.LENGTH_SHORT).show()
                         articleList.removeAt(itemPosition)
                         articlesAdapter.notifyItemRemoved(itemPosition)
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResponse.Loading -> {}
+            }
+        }
+    }
+
+    private fun bookmarkObserver(){
+        bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner) {
+            binding.articlesRcv.hideShimmerAdapter()
+            binding.notFound.visibility = View.INVISIBLE
+            binding.tvNotfound.visibility = View.INVISIBLE
+            when(it){
+                is NetworkResponse.Success -> {
+                    val bookmarkData = it.data
+                    if (bookmarkData != null){
+                        bookmarkList.clear()
+                        bookmarkList.addAll(bookmarkData)
+                        savedAdapter.submitList(bookmarkList)
+                    }else {
+                        binding.notFound.visibility = View.VISIBLE
+                        binding.tvNotfound.visibility = View.VISIBLE
+                    }
+                }
+                is NetworkResponse.Error -> {
+                    binding.notFound.visibility = View.VISIBLE
+                    binding.tvNotfound.visibility = View.VISIBLE
+                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                }
+                is NetworkResponse.Loading -> {
+                    binding.articlesRcv.hideShimmerAdapter()
+                }
+            }
+        }
+    }
+
+    private fun deleteBookmarkObserver(){
+        bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner){
+            when(it){
+                is NetworkResponse.Success -> {
+                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
+                    if (it.data?.status == true){
+                        bookmarkList.removeAt(bookmarkPosition)
+                        savedAdapter.notifyItemRemoved(bookmarkPosition)
                     }
                 }
                 is NetworkResponse.Error -> {

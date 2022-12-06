@@ -2,7 +2,7 @@ package com.blog.kreator.utils
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.84.65:9090"
+    const val BASE_URL = "http://192.168.246.65:9090"
     const val AUTH_TOKEN = "Authorization"
     const val REGISTER_USER = "/api/auth/register"
     const val LOGIN = "/api/auth/login"
@@ -20,6 +20,10 @@ object Constants {
     const val UPDATE_COMMENT = "api/comment/{commentId}/updateComment"
     const val GET_COMMENTS_BY_POST_ID = "/api/comment/postId/{postId}/getComments"
     const val DELETE_COMMENT = "/api/comment/delete/{commentId}"
+    const val ADD_BOOKMARK = "/api/bookmark/userId/{userId}/postId/{postId}/createBookmark"
+    const val GET_BOOKMARK_BY_USER = "/api/bookmark/userId/{userId}/geBookmarksByUser"
+    const val GET_BOOKMARKED_POSTS = "/api/post/userId/{userId}/bookmarkedPosts"
+    const val DELETE_BOOKMARK = "/api/bookmark/bookmarkId/{bookmarkId}/deleteBookmark"
 
 
     val ALL_CATEGORIES = arrayOf(

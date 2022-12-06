@@ -6,7 +6,7 @@ import com.blog.kreator.ui.onBoarding.models.AuthResponse
 import com.blog.kreator.ui.onBoarding.models.GetUserDetails
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.models.UserInput
-import com.google.android.material.datepicker.CalendarConstraints
+import com.blog.kreator.ui.profile.models.BookmarkResponse
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -18,7 +18,6 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
-import java.io.File
 
 interface RemoteService {
 
@@ -113,5 +112,17 @@ interface RemoteService {
 
     @GET(Constants.GET_COMMENTS_BY_POST_ID)
     suspend fun getCommentByPostId(@Header(Constants.AUTH_TOKEN) token : String, @Path("postId") postId : Int) : Response<ArrayList<CommentDetails>>
+
+    @POST(Constants.ADD_BOOKMARK)
+    suspend fun addBookmark(@Header(Constants.AUTH_TOKEN) token : String, @Path("userId") userId : Int, @Path("postId") postId : Int) : Response<DeleteResponse>
+
+    @GET(Constants.GET_BOOKMARK_BY_USER)
+    suspend fun getBookmarksByUser(@Header(Constants.AUTH_TOKEN) token : String, @Path("userId") userId : Int) : Response<ArrayList<BookmarkResponse>>
+
+    @GET(Constants.GET_BOOKMARKED_POSTS)
+    suspend fun getBookmarkedPosts(@Header(Constants.AUTH_TOKEN) token : String, @Path("userId") userId : Int) : Response<ArrayList<PostDetails>>
+
+    @DELETE(Constants.DELETE_BOOKMARK)
+    suspend fun deleteBookmark(@Header(Constants.AUTH_TOKEN) token : String, @Path("bookmarkId") bookmarkId : Int) : Response<DeleteResponse>
 
 }

@@ -81,7 +81,8 @@ class CommentRepo @Inject constructor(private val remoteService: RemoteService) 
         if (response.isSuccessful && response.body() != null) {
             commentsByPostLiveData.postValue(NetworkResponse.Success(response.body()!!))
         } else if (response.errorBody() != null) {
-            commentsByPostLiveData.postValue(NetworkResponse.Error("Something went wrong!!"))
+            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+            commentsByPostLiveData.postValue(NetworkResponse.Error(errorObj.getString("message")))
         } else {
             commentsByPostLiveData.postValue(NetworkResponse.Error("Something went wrong!!"))
         }
