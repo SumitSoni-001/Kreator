@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -45,8 +46,8 @@
         android:id="@+id/userImg"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:scaleType="centerCrop"
         android:layout_marginTop="30dp"
+        android:scaleType="centerCrop"
         android:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -181,5 +182,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/aboutField" />
+
+    <TextView
+        android:id="@+id/btnCrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:padding="5dp"
+        android:text="Crop"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.canhub.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCrop" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/cropGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="btnCrop,cropImageView" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/editProfileGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="back_arrow,tvPersonalData,userImg,tvAddPicture,nameField,emailField,aboutField,btnSaveDetails" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
