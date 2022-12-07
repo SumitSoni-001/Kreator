@@ -2,7 +2,7 @@ package com.blog.kreator.utils
 
 object Constants {
 
-    const val BASE_URL = "http://192.168.246.65:9090"
+    const val BASE_URL = "http://192.168.164.65:9090"
     const val AUTH_TOKEN = "Authorization"
     const val REGISTER_USER = "/api/auth/register"
     const val LOGIN = "/api/auth/login"
@@ -48,7 +48,8 @@ object Constants {
         "Fashion",
         "Web Development",
         "App Development",
-        "Art, Blockchain",
+        "Art",
+        "Blockchain",
         "Java Script",
         "Ui/Ux",
         "Flutter",

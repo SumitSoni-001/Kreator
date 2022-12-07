@@ -2,10 +2,12 @@ package com.blog.kreator.ui.onBoarding.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -43,6 +45,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
         loader = KProgressHUD.create(requireActivity())
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
@@ -50,15 +53,14 @@ class LoginFragment : Fragment() {
             .setCancellable(false)
             .setDimAmount(0.5f)
 
+        binding.securityLinks.movementMethod = LinkMovementMethod.getInstance()
         binding.backImg.setOnClickListener{
             findNavController().popBackStack()
         }
-
         binding.tvRegister.setOnClickListener {
             it.hideKeyboard()
             findNavController().navigate(R.id.registerFragment)
         }
-
         binding.btnLogin.setOnClickListener {
             if (binding.etEmail.text!!.isEmpty()) {
                 binding.emailField.error = "Enter registered email"

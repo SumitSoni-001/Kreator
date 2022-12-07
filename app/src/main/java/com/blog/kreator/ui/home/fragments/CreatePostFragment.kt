@@ -53,7 +53,7 @@ class CreatePostFragment : Fragment() {
     lateinit var sessionManager: SessionManager
     private var coverImgUri : String = ""
     private lateinit var part : MultipartBody.Part
-    private var catId : Int = 4     // Make default catId to "Testing" but don't show this category to user.
+    private var catId : Int = 0     // Make default catId to "Testing" but don't show this category to user.
     private lateinit var categoryAdapter : ArrayAdapter<String>
     private var getCoverImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri : Uri? ->
         if (uri != null){
@@ -107,7 +107,7 @@ class CreatePostFragment : Fragment() {
         binding.categorySpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
 //                Toast.makeText(requireActivity(),"Selected item : ${position+1} - ${Constants.ALL_CATEGORIES[position]}", Toast.LENGTH_SHORT).show()
-//                catId = position+1
+                catId = position+1
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
@@ -125,8 +125,12 @@ class CreatePostFragment : Fragment() {
 
             val postInput = PostInput(content, date, title)
             if (title.isNotEmpty() && content.isNotEmpty() && coverImgUri.isNotEmpty()) {
-                Log.d("postInput", postInput.toString())
-                postViewModel.createPost(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!,catId, postInput)
+                if (catId != 0) {
+                    Log.d("postInput", postInput.toString())
+                    postViewModel.createPost(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!,catId, postInput)
+                } else {
+                    Toast.makeText(requireContext(), "Select Category", Toast.LENGTH_SHORT).show()
+                }
             } else {
                 Toast.makeText(requireContext(), "Add all the Details", Toast.LENGTH_SHORT).show()
             }
@@ -210,8 +214,8 @@ class CreatePostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner, Observer {
+            binding.loadingAnime.visibility = View.GONE
             if (it != null){
-//            binding.loadingAnime.visibility = View.GONE
                 when (it) {
                     is NetworkResponse.Success -> {
                         val response = it.data

@@ -2,6 +2,7 @@ package com.blog.kreator.ui.home.adapters
 
 import android.content.Context
 import android.graphics.Color
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
@@ -46,9 +47,9 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
-//        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
-        holder.binding.content.text = item.content
-//        holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
+        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
+//        holder.binding.content.text = item.content
+        holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
         holder.binding.category.text = item.category?.categoryTitle
         holder.binding.category.setBackgroundColor(randomColor())
 

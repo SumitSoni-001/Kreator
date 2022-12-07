@@ -12,7 +12,7 @@
         android:layout_width="30dp"
         android:layout_height="20dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:src="@drawable/back_arrow"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -37,9 +37,9 @@
         android:layout_marginTop="5dp"
         android:fontFamily="@font/lato_regular"
         android:text="Please Sign in to continue"
+        android:textColor="@color/dark_gray"
         android:textSize="13sp"
         android:textStyle="bold"
-        android:textColor="@color/dark_gray"
         app:layout_constraintEnd_toEndOf="@id/tvWelcome"
         app:layout_constraintStart_toStartOf="@id/tvWelcome"
         app:layout_constraintTop_toBottomOf="@id/tvWelcome" />
@@ -140,5 +140,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+    <TextView
+        android:id="@+id/securityLinks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/termsService_privacyPolicy2"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

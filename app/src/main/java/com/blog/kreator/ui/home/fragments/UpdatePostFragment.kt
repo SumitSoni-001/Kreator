@@ -212,6 +212,7 @@ class UpdatePostFragment : Fragment() {
                                 postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
                                 Toast.makeText(requireContext(), "Image updated successfully", Toast.LENGTH_SHORT).show()
                             }
+                            binding.loadingAnime.visibility = View.GONE
                             Toast.makeText(requireContext(), "Post updated successfully", Toast.LENGTH_SHORT).show()
                         } else {
                             if (!response?.image.equals("default.png") && response?.image != null) {

@@ -41,6 +41,7 @@ class MainFragment : Fragment() {
     private val postViewModel by viewModels<PostViewModel>()
     private val bookmarkViewModel by viewModels<BookmarkViewModel>()
     private var isBookmarked = false
+    private var isDataLoaded = false
     private var bookmarkedPostPosition = -1
     private var postPosition = -1
 
@@ -140,7 +141,9 @@ class MainFragment : Fragment() {
             }
         }
         binding.menu.setOnClickListener {
-            findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+            if (isDataLoaded) {
+                findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
+            }
         }
 
         postViewModel.getAllPosts(sessionManager.getToken().toString())
@@ -169,13 +172,14 @@ class MainFragment : Fragment() {
                     binding.tvName.text = sessionManager.getUserName().toString()
                     val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
                     Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.menu)
-                    if (it.data?.postDto != null) {
+                    if (it.data?.postDto != null && it.data.postDto.isNotEmpty()) {
                         postsList.clear()
                         postsList.addAll(it.data.postDto)
 //                        for (item in 0 until (it.data!!.postDto.size)) {
 //                            postsList.add(it.data.postDto[item])
 //                        }
                         postsAdapter.submitList(postsList)
+                        isDataLoaded=true
                     } else {
                         binding.noBlogFound.visibility = View.VISIBLE
                         binding.btnRetry.visibility = View.VISIBLE

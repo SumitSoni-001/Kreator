@@ -69,7 +69,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="0dp"
         android:backgroundTint="@color/white"
         android:drawableEnd="@drawable/forward_arrow"
         android:fontFamily="@font/lato_bold"
@@ -78,7 +77,7 @@
         android:text="Get Started"
         android:textColor="@color/black"
         app:cornerRadius="10dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomImg"
+        app:layout_constraintBottom_toTopOf="@id/securityLinks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/app_desc" />
@@ -92,17 +91,35 @@
         android:text="@string/alreadyHaveAccount"
         android:textColor="@color/white"
         android:textSize="14sp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/getStarted" />
 
     <ImageView
         android:id="@+id/bottomImg"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:rotation="90"
+        android:visibility="invisible"
         android:src="@drawable/bottom_corner_img"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/securityLinks"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:lineSpacingExtra="5dp"
+        android:text="@string/termsService_privacyPolicy1"
+        android:textSize="13sp"
+        android:textColorLink="@color/dotActive"
+        app:layout_goneMarginTop="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
