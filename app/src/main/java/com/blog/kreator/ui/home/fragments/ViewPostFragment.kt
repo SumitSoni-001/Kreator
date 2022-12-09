@@ -36,7 +36,8 @@ import kotlin.collections.set
 
 //@AndroidEntryPoint
 class ViewPostFragment : Fragment() {
-    private lateinit var binding: FragmentViewPostBinding
+    private var _binding: FragmentViewPostBinding? = null
+    private val binding get() = _binding!!
 //    private val postViewModel by viewModels<PostViewModel>()
     private lateinit var postViewModel : PostViewModel
     private lateinit var bookmarkViewModel : BookmarkViewModel
@@ -52,7 +53,7 @@ class ViewPostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentViewPostBinding.inflate(inflater)
+        _binding = FragmentViewPostBinding.inflate(inflater)
 
         return binding.root
     }
@@ -207,6 +208,11 @@ class ViewPostFragment : Fragment() {
         typefaceMap[Typeface.ITALIC] = "fonts/poppins_medium_italic.ttf"
         typefaceMap[Typeface.BOLD_ITALIC] = "fonts/poppins_semibold_italic.ttf"
         return typefaceMap
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

@@ -125,7 +125,7 @@ class CreatePostFragment : Fragment() {
 
             val postInput = PostInput(content, date, title)
             if (title.isNotEmpty() && content.isNotEmpty() && coverImgUri.isNotEmpty()) {
-                if (catId != 0) {
+                if (catId > 0) {
                     Log.d("postInput", postInput.toString())
                     postViewModel.createPost(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!,catId, postInput)
                 } else {

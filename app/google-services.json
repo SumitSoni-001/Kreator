@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "96389220305",
+    "project_id": "kreator-1cb9a",
+    "storage_bucket": "kreator-1cb9a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96389220305:android:b77b77f1e5c6f581b7c2f0",
+        "android_client_info": {
+          "package_name": "com.blog.kreator"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96389220305-6a6nepasu8pm6nrvbfd1is250un6e35s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blog.kreator",
+            "certificate_hash": "6fca4349f4b36cd1afe6b29716e4b4706413d2ac"
+          }
+        },
+        {
+          "client_id": "96389220305-anf28krchbuoqri8fojb5nj5ooonb4sb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCKZ6yKpD3iIIB50JFwq85sVF3QcK9L4M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96389220305-anf28krchbuoqri8fojb5nj5ooonb4sb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

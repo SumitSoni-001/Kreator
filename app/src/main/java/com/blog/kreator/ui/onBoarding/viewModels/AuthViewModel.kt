@@ -1,6 +1,8 @@
 package com.blog.kreator.ui.onBoarding.viewModels
 
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.blog.kreator.di.NetworkResponse
@@ -8,6 +10,8 @@ import com.blog.kreator.ui.onBoarding.models.AuthResponse
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.repository.AuthRepo
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -20,6 +24,24 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     get() = authRepo.authResponseData
 
     val userResponseData get() = authRepo.userResponseData
+
+    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
+    var anonymousLiveData = MutableLiveData<FirebaseUser>()
+
+    fun firebaseSignInForAnonymous() {
+        firebaseAuth.signInAnonymously()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d("Anonymous", "signInAnonymously:success")
+                    val firebaseUser = task.result.user
+                    if (firebaseUser != null) {
+                        anonymousLiveData.value = firebaseUser!!
+                    }
+                } else {
+                    Log.w("Anonymous", "signInAnonymously:failure", task.exception)
+                }
+            }
+    }
 
     fun registerUser(userModel: UserInput) {
         viewModelScope.launch {
