@@ -28,14 +28,14 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var anonymousLiveData = MutableLiveData<FirebaseUser>()
 
-    fun firebaseSignInForAnonymous() {
+    fun firebaseAnonymousSignIn() {
         firebaseAuth.signInAnonymously()
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d("Anonymous", "signInAnonymously:success")
                     val firebaseUser = task.result.user
                     if (firebaseUser != null) {
-                        anonymousLiveData.value = firebaseUser!!
+                        anonymousLiveData.value = firebaseUser
                     }
                 } else {
                     Log.w("Anonymous", "signInAnonymously:failure", task.exception)

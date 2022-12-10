@@ -14,11 +14,13 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.blog.kreator.MainActivity
 import com.blog.kreator.R
 import com.blog.kreator.databinding.FragmentRegisterBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.GetIdToken
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,7 @@ class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
     private val authViewModel by activityViewModels<AuthViewModel>()
     private lateinit var loader: KProgressHUD
+    private var signedIn = false
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -53,6 +56,13 @@ class RegisterFragment : Fragment() {
             .setLabel("Please wait...")
             .setCancellable(false)
             .setDimAmount(0.5f)
+
+        authViewModel.firebaseAnonymousSignIn()
+        authViewModel.anonymousLiveData.observe(viewLifecycleOwner){
+            if (it != null){
+                signedIn = true
+            }
+        }
 
         binding.back.setOnClickListener {
             findNavController().popBackStack()
@@ -89,6 +99,20 @@ class RegisterFragment : Fragment() {
 
         authObserver()
 
+    }
+
+    private fun generateToken(/*email: String*/) {
+        if (signedIn) {
+            val token = GetIdToken(object : GetIdToken.AuthToken {
+                override fun getAuthIdToken(token: String) {
+                    val authToken = "Bearer $token"
+                    Toast.makeText(requireContext(), "$authToken", Toast.LENGTH_SHORT).show()
+                }
+            })
+            token.getToken()
+        } else {
+            Toast.makeText(requireContext(), "Error Connecting, Please try again later", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun View.hideKeyboard() {
