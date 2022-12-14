@@ -24,8 +24,6 @@ import javax.inject.Inject
 class WelcomeFragment : Fragment() {
 
     private lateinit var binding: FragmentWelcomeBinding
-//    private lateinit var navController: NavController
-
     @Inject
     lateinit var sessionManager: SessionManager
 
@@ -59,7 +57,10 @@ class WelcomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-//        navController = NavHostFragment.findNavController(this)
+
+        if (sessionManager.getToken() == null && sessionManager.getVerifiedEmail()){
+            findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
+        }
     }
 
 }

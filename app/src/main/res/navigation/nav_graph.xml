@@ -46,6 +46,9 @@
             app:destination="@id/onBoardingFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true"/>
+        <action
+            android:id="@+id/action_loginFragment_to_requestEmailFragment"
+            app:destination="@id/requestEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
@@ -126,6 +129,35 @@
         android:name="com.blog.kreator.ui.home.fragments.UpdatePostFragment"
         android:label="fragment_update"
         tools:layout="@layout/fragment_post_update" />
+    <fragment
+        android:id="@+id/requestEmailFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.RequestEmailFragment"
+        android:label="fragment_request_email"
+        tools:layout="@layout/fragment_request_email" >
+        <action
+            android:id="@+id/action_requestEmailFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password" >
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_passwordResetSuccessFragment"
+            app:destination="@id/passwordResetSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordResetSuccessFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.PasswordResetSuccessFragment"
+        android:label="fragment_password_reset_success"
+        tools:layout="@layout/fragment_password_reset_success" >
+        <action
+            android:id="@+id/action_passwordResetSuccessFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
 
 </navigation>

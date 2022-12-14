@@ -65,6 +65,17 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
         }
     }
 
+    suspend fun getUserByEmail(email:String){
+        userResponseLiveData.postValue(NetworkResponse.Loading())
+        try {
+            val response = remoteService.getUserByEmail(email)
+            Log.d("getUserByEmail" , response.body().toString())
+            handleResponse(response)
+        }catch (e:Exception){
+            authResponseLiveData.postValue(NetworkResponse.Error("Server Problem : ${e.localizedMessage}"))
+        }
+    }
+
     suspend fun uploadImage(token: String, userId : Int, profile: MultipartBody.Part) {
         userResponseLiveData.postValue(NetworkResponse.Loading())
         try {

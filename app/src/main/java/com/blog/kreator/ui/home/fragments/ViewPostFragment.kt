@@ -45,6 +45,7 @@ class ViewPostFragment : Fragment() {
     private var postId: Int = 0
     private var isBookmarked : Boolean = false
     private var bookmarkPosition = -1
+    private var bookmarkId = 0
     private lateinit var editor : Editor
 //    @Inject
     lateinit var sessionManager: SessionManager
@@ -60,6 +61,7 @@ class ViewPostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         postViewModel = ViewModelProvider(context as MainActivity)[PostViewModel::class.java]
         bookmarkViewModel = ViewModelProvider(context as MainActivity)[BookmarkViewModel::class.java]
         sessionManager = SessionManager(requireContext())
@@ -94,8 +96,8 @@ class ViewPostFragment : Fragment() {
         }
         binding.bookmarkPost.setOnClickListener {
             if (isBookmarked){
-//                Toast.makeText(requireContext(), "${bookmarkedPostsList[bookmarkPosition].id!!}", Toast.LENGTH_SHORT).show()
-                bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkedPostsList[bookmarkPosition].id!!)
+//                bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkedPostsList[bookmarkPosition].id!!)
+                bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkId)
                 binding.bookmarkPost.setImageResource(R.drawable.bookmark)
             }else{
                 bookmarkViewModel.addBookmark(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!, postId)
@@ -157,13 +159,15 @@ class ViewPostFragment : Fragment() {
                 is NetworkResponse.Success -> {
                     if (isBookmarked){
                         if (it.data?.status == true){
-                            Toast.makeText(requireContext(), "${it.data.message}", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(requireContext(), "${it.data.message}", Toast.LENGTH_SHORT).show()
                             binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
+                            bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!)
                         }
                     }else{
                         if (it.data?.status == true){
-                            Toast.makeText(requireContext(), "${it.data.message}", Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(requireContext(), "${it.data.message}", Toast.LENGTH_SHORT).show()
                             binding.bookmarkPost.setImageResource(R.drawable.bookmark)
+                            bookmarkedPostsList.removeAt(bookmarkPosition)
                         }
                     }
                 }
@@ -182,6 +186,12 @@ class ViewPostFragment : Fragment() {
                     if (it.data != null){
                         bookmarkedPostsList.clear()
                         bookmarkedPostsList.addAll(it.data)
+                        bookmarkedPostsList.forEach { bookmarkResponse ->
+                            if (postId == bookmarkResponse.post?.postId){
+                                bookmarkPosition = bookmarkedPostsList.indexOf(bookmarkResponse)
+                                bookmarkId = bookmarkedPostsList[bookmarkPosition].id!!
+                            }
+                        }
                     }
                 }
                 is NetworkResponse.Error -> {

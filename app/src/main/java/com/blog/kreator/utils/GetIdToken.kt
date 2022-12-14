@@ -4,10 +4,11 @@ import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
 class GetIdToken(tokenCallback: AuthToken) {
-    var tokenCallback: AuthToken? = tokenCallback
+    private var tokenCallback: AuthToken? = tokenCallback
 
     fun getToken(): String? {
         var token: String? = null
+
         FirebaseAuth.getInstance().currentUser?.getIdToken(true)
             ?.addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -18,6 +19,7 @@ class GetIdToken(tokenCallback: AuthToken) {
                     Log.e("TokenError", task.exception?.localizedMessage.toString())
                 }
             }
+
         return token
     }
 

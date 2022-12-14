@@ -11,6 +11,7 @@
     <color name="white">#FFFFFFFF</color>
 
 
+    <color name="mainColor">#2EA043</color>
     <color name="linkColor">#3C72F6</color>
     <color name="red">#EB0C0C</color>
 <!--    <color name="gray">#6D6D6D</color>-->

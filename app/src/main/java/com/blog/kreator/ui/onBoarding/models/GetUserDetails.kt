@@ -8,6 +8,7 @@ data class GetUserDetails(
     @SerializedName("name") var name: String? = null,
     @SerializedName("email") var email: String? = null,
 //    @SerializedName("password") var password: String? = null,
+    @SerializedName("isVerified") var isVerified: Boolean? = null,
     @SerializedName("userImage") var userImage: String? = null,
     @SerializedName("about") var about: String? = null,
     @SerializedName("comments") var comments: ArrayList<CommentDetails> = arrayListOf(),

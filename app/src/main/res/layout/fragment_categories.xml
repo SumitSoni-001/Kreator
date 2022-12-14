@@ -628,17 +628,17 @@
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="30dp"
         android:text="Let's Go"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="15dp"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:paddingVertical="15dp"
+        android:paddingVertical="12dp"
         android:clickable="true"
         android:textSize="14sp"
         android:fontFamily="@font/poppins_semibold"
-        android:backgroundTint="@color/black"
+        android:backgroundTint="@color/mainColor"
         app:cornerRadius="30dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

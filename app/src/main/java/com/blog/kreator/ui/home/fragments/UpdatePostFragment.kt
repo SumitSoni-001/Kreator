@@ -151,10 +151,10 @@ class UpdatePostFragment : Fragment() {
         binding.actionUnorderedNumbered.setOnClickListener {
             editor.insertList(true)
         }
-        binding.actionInsertImage.setOnClickListener {
-//            editor.openImagePicker()
-            getImage.launch("image/*")
-        }
+//        binding.actionInsertImage.setOnClickListener {
+////            editor.openImagePicker()
+//            getImage.launch("image/*")
+//        }
         binding.actionInsertLink.setOnClickListener {
             val linkDialog = Dialog(requireContext())
             linkDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

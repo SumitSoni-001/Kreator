@@ -205,7 +205,7 @@ class MainFragment : Fragment() {
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner) {
             when(it){
                 is NetworkResponse.Success -> {
-                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
                     if (!isBookmarked){ // delete bookmark
                         if (it.data?.status == true) {
                             bookmarkedPostsList.removeAt(bookmarkedPostPosition)

@@ -7,6 +7,7 @@ import com.blog.kreator.ui.onBoarding.models.GetUserDetails
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.profile.models.BookmarkResponse
+import com.google.android.gms.common.internal.safeparcel.SafeParcelable.Param
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -18,6 +19,7 @@ import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface RemoteService {
 
@@ -34,8 +36,9 @@ interface RemoteService {
         @Body body: UserInput
     ): Response<GetUserDetails>
 
-//    @GET(Constants.GET_USER)
-//    suspend fun getUserById(@Path("userId") userId:Int):Response<GetUserDetails>
+    @GET(Constants.GET_USER_BY_EMAIL)
+    suspend fun getUserByEmail(@Query("email") email:String):Response<AuthResponse>
+//    suspend fun getUserByEmail(@Header(Constants.AUTH_TOKEN) token : String, @Query("email") email:String):Response<GetUserDetails>
 
 //    @GET(Constants.GET_USER)
 //    suspend fun getAllUsers():Response<List<GetUserDetails>>

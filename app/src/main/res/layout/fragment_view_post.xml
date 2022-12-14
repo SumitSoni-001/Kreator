@@ -295,7 +295,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="30dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/mainColor"
         android:drawableTint="@color/white"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"

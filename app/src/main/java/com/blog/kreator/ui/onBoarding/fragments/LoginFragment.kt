@@ -65,7 +65,7 @@ class LoginFragment : Fragment() {
             if (binding.etEmail.text!!.isEmpty()) {
                 binding.emailField.error = "Enter registered email"
             } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())){
-                binding.emailField.error = "Enter correct email"
+                binding.emailField.error = "Enter a valid email address"
             }else if (binding.etPassword.text!!.isEmpty()) {
                 binding.passwordField.error = "Enter correct password"
             } else {
@@ -73,9 +73,11 @@ class LoginFragment : Fragment() {
                 authViewModel.loginUser(LoginDetails(binding.etEmail.text.toString(), binding.etPassword.text.toString()))
             }
         }
+        binding.forgotPassword.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_requestEmailFragment)
+        }
 
         authObserver()
-
     }
 
     private fun View.hideKeyboard() {
@@ -94,6 +96,7 @@ class LoginFragment : Fragment() {
                     sessionManager.setEmail(it.data?.user?.email.toString())
                     sessionManager.setAbout(it.data?.user?.about.toString())
                     sessionManager.setProfilePic(it.data?.user?.userImage?:"default.png")
+                    sessionManager.setVerifiedEmail(it.data?.user?.isVerified?:false)
                     findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
                 }
                 is NetworkResponse.Error -> {

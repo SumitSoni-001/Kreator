@@ -61,6 +61,12 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
         }
     }
 
+    fun getUserByEmail(email:String){
+        viewModelScope.launch {
+            authRepo.getUserByEmail(email)
+        }
+    }
+
     fun uploadProfile(token:String,userId:Int,profile:MultipartBody.Part){
         viewModelScope.launch {
             authRepo.uploadImage(token,userId,profile)

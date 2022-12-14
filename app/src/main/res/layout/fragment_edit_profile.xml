@@ -62,7 +62,7 @@
         android:layout_marginTop="20dp"
         android:fontFamily="@font/poppins_medium"
         android:text="@string/add_profile_picture"
-        android:textColor="@color/green"
+        android:textColor="@color/mainColor"
         android:textSize="13sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -78,6 +78,10 @@
         android:hint="Your Name"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/light_black"
         app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="1dp"
@@ -98,7 +102,8 @@
             android:fontFamily="@font/lato_regular"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:textColor="@color/black" />
+            android:padding="20dp"
+            android:textColor="@color/light_black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -112,6 +117,10 @@
         android:hint="Email"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/light_black"
         app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="1dp"
@@ -129,10 +138,18 @@
             android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
             android:fontFamily="@font/lato_regular"
             android:inputType="textPersonName"
             android:maxLines="1"
-            android:textColor="@color/black" />
+            android:padding="20dp"
+            android:selectAllOnFocus="false"
+            android:textColor="@color/gray"
+            android:textIsSelectable="false" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -146,6 +163,10 @@
         android:hint="About"
         android:textColorHint="@color/gray"
         app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
         app:boxStrokeColor="@color/light_black"
         app:boxStrokeWidth="1dp"
         app:hintTextColor="@color/gray"
@@ -162,7 +183,8 @@
             android:fontFamily="@font/lato_regular"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="@color/black" />
+            android:padding="20dp"
+            android:textColor="@color/light_black" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,7 +193,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:backgroundTint="@color/green"
+        android:backgroundTint="@color/mainColor"
         android:fontFamily="@font/poppins_medium"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
@@ -187,11 +209,11 @@
         android:id="@+id/btnCrop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:fontFamily="@font/poppins_semibold"
         android:padding="5dp"
         android:text="Crop"
-        android:layout_marginTop="15dp"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

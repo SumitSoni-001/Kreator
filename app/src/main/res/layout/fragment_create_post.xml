@@ -30,7 +30,7 @@
                 android:focusable="true"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Publish"
-                android:textColor="@color/green"
+                android:textColor="@color/mainColor"
                 android:textSize="16sp" />
 
             <ImageView
@@ -294,6 +294,7 @@
                 android:src="@drawable/icon_numbered_list"
                 android:tooltipText="Numbered List" />
 
+<!--
             <ImageButton
                 android:id="@+id/action_insert_image"
                 android:layout_width="30dp"
@@ -306,6 +307,7 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_image"
                 android:tooltipText="Insert Image" />
+-->
 
             <ImageButton
                 android:id="@+id/action_insert_link"

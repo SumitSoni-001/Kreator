@@ -32,6 +32,7 @@ import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.github.irshulx.EditorListener
 import com.github.irshulx.models.EditorTextStyle
+import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -55,6 +56,7 @@ class CreatePostFragment : Fragment() {
     private lateinit var part : MultipartBody.Part
     private var catId : Int = 0     // Make default catId to "Testing" but don't show this category to user.
     private lateinit var categoryAdapter : ArrayAdapter<String>
+    private lateinit var loader : KProgressHUD
     private var getCoverImage = registerForActivityResult(ActivityResultContracts.GetContent()){ uri : Uri? ->
         if (uri != null){
             coverImgUri = uri.toString()
@@ -95,10 +97,17 @@ class CreatePostFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         sessionManager = SessionManager(requireContext())
         postViewModel = ViewModelProvider(context as MainActivity)[PostViewModel::class.java]
+
+        loader = KProgressHUD.create(requireActivity())
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setLabel("Publishing...")
+            .setCancellable(false)
+            .setDimAmount(0.5f)
 
         categoryAdapter = ArrayAdapter(requireContext(),R.layout.category_dropdown_menu_item,Constants.ALL_CATEGORIES)
         categoryAdapter.setDropDownViewResource(R.layout.category_dropdown_menu_item)
@@ -164,10 +173,10 @@ class CreatePostFragment : Fragment() {
         binding.actionUnorderedNumbered.setOnClickListener {
             editor.insertList(true)
         }
-        binding.actionInsertImage.setOnClickListener {
-//            editor.openImagePicker()
-            getImage.launch("image/*")
-        }
+//        binding.actionInsertImage.setOnClickListener {
+////            editor.openImagePicker()
+//            getImage.launch("image/*")
+//        }
         binding.actionInsertLink.setOnClickListener {
             val linkDialog = Dialog(requireContext())
             linkDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -214,7 +223,8 @@ class CreatePostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner, Observer {
-            binding.loadingAnime.visibility = View.GONE
+//            binding.loadingAnime.visibility = View.GONE
+            loader.dismiss()
             if (it != null){
                 when (it) {
                     is NetworkResponse.Success -> {
@@ -230,11 +240,12 @@ class CreatePostFragment : Fragment() {
                         }
                     }
                     is NetworkResponse.Error -> {
-                        binding.loadingAnime.visibility = View.GONE
+//                        binding.loadingAnime.visibility = View.GONE
                         Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
                     }
                     is NetworkResponse.Loading -> {
-                        binding.loadingAnime.visibility = View.VISIBLE
+//                        binding.loadingAnime.visibility = View.VISIBLE
+                        loader.show()
                     }
                 }
             }

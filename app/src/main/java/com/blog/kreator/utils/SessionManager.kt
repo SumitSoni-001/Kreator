@@ -16,6 +16,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     private val USERID = "USER_ID"
     private val PROFILE_PIC = "PROFILE_PIC"
     private val YOUR_CATEGORIES = "CATEGORIES"
+    private val VERIFIED_EMAIL = "VERIFIED_EMAIL"
 //    private val CONTENT = "CONTENT"
 
     private var prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
@@ -72,6 +73,14 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
 
     fun setAbout(about: String) {
         editor.putString(ABOUT, about).apply()
+    }
+
+    fun getVerifiedEmail():Boolean{
+        return prefs.getBoolean(VERIFIED_EMAIL,false)
+    }
+
+    fun setVerifiedEmail(verified : Boolean){
+        editor.putBoolean(VERIFIED_EMAIL,verified).apply()
     }
 
     fun getProfilePic(): String? {

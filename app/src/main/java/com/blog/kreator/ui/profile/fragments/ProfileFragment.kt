@@ -93,7 +93,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         savedAdapter = SavedAdapter(requireContext())
         savedAdapter.setOnItemClickListener(object : SavedAdapter.ItemClickListener{
             override fun onItemClick(position: Int) {
-                val bundle = bundleOf("id" to articleList[position].postId)
+                val bundle = bundleOf("id" to bookmarkList[position].post?.postId)
                 findNavController().navigate(R.id.action_profileFragment_to_viewPostFragment, bundle)
             }
             override fun onBookmarkClick(position: Int) {
@@ -177,7 +177,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             when (it) {
                 is NetworkResponse.Success -> {
                     val response = it.data?.postDto
-                    if (response != null) {
+                    if (response?.isNotEmpty() == true) {
                         articleList.clear()
                         articleList.addAll(response)
                         articlesAdapter.submitList(articleList)
@@ -225,7 +225,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             when(it){
                 is NetworkResponse.Success -> {
                     val bookmarkData = it.data
-                    if (bookmarkData != null){
+                    if (bookmarkData?.isNotEmpty() == true){
                         bookmarkList.clear()
                         bookmarkList.addAll(bookmarkData)
                         savedAdapter.submitList(bookmarkList)
@@ -250,7 +250,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner){
             when(it){
                 is NetworkResponse.Success -> {
-                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
                     if (it.data?.status == true){
                         bookmarkList.removeAt(bookmarkPosition)
                         savedAdapter.notifyItemRemoved(bookmarkPosition)
