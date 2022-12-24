@@ -34,6 +34,7 @@ import com.github.irshulx.EditorListener
 import com.github.irshulx.models.EditorTextStyle
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -74,16 +75,16 @@ class CreatePostFragment : Fragment() {
             val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
             part = MultipartBody.Part.createFormData("image",file.name,requestBody)
         }else{
-            Toast.makeText(requireContext(), "File not found", Toast.LENGTH_SHORT).show()
+            Toasty.error(requireContext(), "File not found", Toasty.LENGTH_SHORT,true).show()
         }
     }
     private var getImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
                 val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                Toast.makeText(requireContext(), "Success $bitmap", Toast.LENGTH_SHORT).show()
+                Toasty.success(requireContext(), "Success $bitmap", Toasty.LENGTH_SHORT,true).show()
                 editor.insertImage(bitmap)
             } else {
-                Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT).show()
+                Toasty.error(requireContext(), "Error Occurred", Toasty.LENGTH_SHORT,true).show()
             }
         }
 
@@ -138,10 +139,10 @@ class CreatePostFragment : Fragment() {
                     Log.d("postInput", postInput.toString())
                     postViewModel.createPost(sessionManager.getToken().toString(), sessionManager.getUserId()?.toInt()!!,catId, postInput)
                 } else {
-                    Toast.makeText(requireContext(), "Select Category", Toast.LENGTH_SHORT).show()
+                    Toasty.warning(requireContext(), "Select Category", Toasty.LENGTH_SHORT, true).show()
                 }
             } else {
-                Toast.makeText(requireContext(), "Add all the Details", Toast.LENGTH_SHORT).show()
+                Toasty.warning(requireContext(), "Add all the Details", Toasty.LENGTH_SHORT, true).show()
             }
         }
         binding.addCoverImage.setOnClickListener {
@@ -241,7 +242,7 @@ class CreatePostFragment : Fragment() {
                     }
                     is NetworkResponse.Error -> {
 //                        binding.loadingAnime.visibility = View.GONE
-                        Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
                     is NetworkResponse.Loading -> {
 //                        binding.loadingAnime.visibility = View.VISIBLE

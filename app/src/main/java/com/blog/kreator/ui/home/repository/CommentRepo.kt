@@ -1,6 +1,7 @@
 package com.blog.kreator.ui.home.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.di.RemoteService
@@ -13,13 +14,16 @@ import javax.inject.Inject
 class CommentRepo @Inject constructor(private val remoteService: RemoteService) {
 
     private var commentLiveData = MutableLiveData<NetworkResponse<CommentDetails>>()
-    val commentData get() = commentLiveData
+    val commentData : LiveData<NetworkResponse<CommentDetails>>
+    get() = commentLiveData
 
     private var commentsByPostLiveData = MutableLiveData<NetworkResponse<ArrayList<CommentDetails>>>()
-    val commentByPostData get() = commentsByPostLiveData
+    val commentByPostData : LiveData<NetworkResponse<ArrayList<CommentDetails>>>
+    get() = commentsByPostLiveData
 
     private var deleteCommentLiveData = MutableLiveData<NetworkResponse<DeleteResponse>>()
-    val deleteCommentData get() = deleteCommentLiveData
+    val deleteCommentData : LiveData<NetworkResponse<DeleteResponse>>
+    get() = deleteCommentLiveData
 
     suspend fun createComment(token: String, userId: Int, postId: Int , commentDetails: CommentDetails) {
         commentLiveData.postValue(NetworkResponse.Loading())

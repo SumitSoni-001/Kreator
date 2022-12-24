@@ -19,6 +19,7 @@ import com.blog.kreator.databinding.FragmentRegisterBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
+import com.blog.kreator.utils.CustomToast
 import com.blog.kreator.utils.GetIdToken
 import com.blog.kreator.utils.SessionManager
 import com.google.firebase.auth.ActionCodeSettings
@@ -28,8 +29,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class RegisterFragment : Fragment() {
@@ -62,16 +63,16 @@ class RegisterFragment : Fragment() {
         (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         (requireActivity()).window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
-//        if (name!=null && email!=null&&password!=null){
-//            binding.etName.setText(name)
-//            binding.etEmail.setText(email)
-//            binding.etPassword.setText(password)
-//            binding.etAbout.setText(about)
+//        if (sessionManager.getVerifiedEmail()) {
+//            Toasty.success(requireContext(), "Email Verified Successfully", Toasty.LENGTH_SHORT, true).show()
 //        }
 
-//        if (sessionManager.getVerifiedEmail()) {
-//            Toast.makeText(requireContext(), "Email Verified Successfully", Toast.LENGTH_SHORT).show()
-//        }
+        sessionManager.apply {
+            binding.etName.setText(getUserName())
+            binding.etEmail.setText(getEmail())
+            binding.etPassword.setText(getCode())
+            binding.etAbout.setText(getAbout())
+        }
 
         auth = FirebaseAuth.getInstance()
         loader = KProgressHUD.create(requireActivity())
@@ -79,24 +80,17 @@ class RegisterFragment : Fragment() {
             .setLabel("Please wait...")
             .setCancellable(false)
             .setDimAmount(0.5f)
+//        CustomToast.initialize()
 
-        actionCodeSettings = ActionCodeSettings.newBuilder() // URL you want to redirect back to. The domain (www.example.com) for this
-                .setUrl("https://kreator.page.link/verifyemail") // This must be true
+        actionCodeSettings = ActionCodeSettings.newBuilder()
+                .setUrl("https://kreator.page.link/verifyemail")
+//                .setUrl("https://kreator.page.link")
                 .setHandleCodeInApp(true)
                 .setAndroidPackageName(
                     "com.blog.kreator",
                     true,
                     null
                 ).build()
-
-/*
-        authViewModel.firebaseAnonymousSignIn()
-        authViewModel.anonymousLiveData.observe(viewLifecycleOwner){
-            if (it != null){
-                signedIn = true
-            }
-        }
-*/
 
         binding.back.setOnClickListener {
             findNavController().popBackStack()
@@ -108,66 +102,34 @@ class RegisterFragment : Fragment() {
         }
 
         binding.btnRegister.setOnClickListener {
-            if (binding.etName.text!!.isEmpty()) {
+            if (binding.etName.text.toString().trim().isEmpty()) {
                 binding.nameField.error = "Enter your name"
-            } else if (binding.etEmail.text!!.isEmpty()) {
+            } else if (binding.etEmail.text.toString().trim().isEmpty()) {
                 binding.emailField.error = "Enter your Email"
-            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())
+            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString().trim()).matches())
             ) {
                 binding.emailField.error = "Enter a valid email address"
-            } else if (binding.etPassword.text!!.isEmpty()) {
+            } else if (binding.etPassword.text.toString().trim().isEmpty()) {
                 binding.passwordField.error = "Enter a strong password"
             } else if (!binding.termsServices.isChecked) {
-                Toast.makeText(requireContext(), "Please Agree to the Terms of Services", Toast.LENGTH_SHORT).show()
+                Toasty.info(requireContext(), "Please Agree to the Terms of Services", Toasty.LENGTH_LONG, true).show()
             } else {
 
-                name= binding.etName.text.toString()
-                email = binding.etEmail.text.toString()
-                password = binding.etPassword.text.toString()
-                about = binding.etAbout.text.toString()
+                name= binding.etName.text.toString().trim()
+                email = binding.etEmail.text.toString().trim()
+                password = binding.etPassword.text.toString().trim()
+                about = binding.etAbout.text.toString().trim()
 
                 val userModel = UserInput(name = name, email = email, password = password, about = about, isVerified = false)
 
                 it.hideKeyboard()
 
                 if (!sessionManager.getVerifiedEmail()) {
-                    sendVerificationEmail(binding.etEmail.text.toString())
+                    sendVerificationEmail(binding.etEmail.text.toString().trim())
                 } else {
                     userModel.isVerified = true
                     authViewModel.registerUser(userModel)
                 }
-
-                /*
-                if (auth.currentUser == null) {
-                    auth.createUserWithEmailAndPassword(binding.etEmail.text.toString(), binding.etPassword.text.toString())
-                        .addOnCompleteListener(requireActivity()) { task ->
-                            if (task.isSuccessful) {
-                                // Sign in success, update UI with the signed-in user's information
-                                Log.d("firebaseAuth", "createUserWithEmail:success")
-                                val user: FirebaseUser = auth.currentUser!!
-                                user.sendEmailVerification().addOnCompleteListener { task ->
-                                    if (task.isSuccessful) {
-                                        Toast.makeText(requireContext(), "Verification email sent, Please verify your Email", Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(requireContext(), "Email not sent", Toast.LENGTH_SHORT).show()
-                                    }
-                                }
-                            } else {
-                                Toast.makeText(requireContext(), "Authentication failed.", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                }else{
-                    auth.signInWithEmailAndPassword(binding.etEmail.text.toString(),binding.etPassword.text.toString()).addOnCompleteListener {
-                        if (auth.currentUser!!.isEmailVerified){
-                            Toast.makeText(requireContext(), " User Registerer Successfully", Toast.LENGTH_SHORT).show()
-//                        authViewModel.registerUser(userModel)
-                        }else{
-                            Log.d("verificationError", it.exception.toString())
-                            Toast.makeText(requireContext(), "Verify your email", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-                */
             }
         }
 
@@ -180,12 +142,11 @@ class RegisterFragment : Fragment() {
             val token = GetIdToken(object : GetIdToken.AuthToken {
                 override fun getAuthIdToken(token: String) {
                     val authToken = "Bearer $token"
-                    Toast.makeText(requireContext(), "$authToken", Toast.LENGTH_SHORT).show()
                 }
             })
             token.getToken()
         } else {
-            Toast.makeText(requireContext(), "Error Connecting, Please try again later", Toast.LENGTH_SHORT).show()
+            Toasty.error(requireContext(), "Error Connecting, Please try again later", Toasty.LENGTH_SHORT, true).show()
         }
     }
 
@@ -209,7 +170,8 @@ class RegisterFragment : Fragment() {
                     findNavController().navigate(R.id.action_registerFragment_to_onBoardingFragment)
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+//                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     loader.show()
@@ -222,11 +184,16 @@ class RegisterFragment : Fragment() {
         Firebase.auth.sendSignInLinkToEmail(email, actionCodeSettings)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-//                    sessionManager.setEmail(binding.etEmail.text.toString())
                     sessionManager.setEmail(email)
-                    Toast.makeText(requireContext(), "Verification Email sent", Toast.LENGTH_SHORT).show()
+                    Toasty.info(requireContext(), "Verification Email sent", Toasty.LENGTH_LONG, true).show()
+                    sessionManager.apply {
+                        setUserName(name)
+                        setEmail(email)
+                        setCode(password)
+                        setAbout(about)
+                    }
                 } else {
-                    Toast.makeText(requireContext(), "Error", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "Something went wrong", Toasty.LENGTH_LONG, true).show()
                 }
             }.addOnFailureListener {
                 it.localizedMessage?.let { it1 ->

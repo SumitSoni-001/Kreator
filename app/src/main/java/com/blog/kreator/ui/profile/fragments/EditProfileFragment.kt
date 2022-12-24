@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.viewModels
@@ -33,6 +34,7 @@ import com.canhub.cropper.CropImageView
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -75,7 +77,7 @@ class EditProfileFragment : Fragment() {
 //            val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
 //            part = MultipartBody.Part.createFormData("profile", file.name, requestBody)
             } else {
-                Toast.makeText(requireContext(), "File not found", Toast.LENGTH_SHORT).show()
+                Toasty.error(requireContext(), "File not found", Toasty.LENGTH_SHORT,true).show()
             }
         }
 
@@ -140,8 +142,7 @@ class EditProfileFragment : Fragment() {
                         sessionManager.getUserId()!!.toInt(),
                         part
                     )
-                    Toast.makeText(requireContext(), "Profile Photo Updated", Toast.LENGTH_SHORT)
-                        .show()
+                    Toasty.success(requireContext(), "Profile Photo Updated", Toasty.LENGTH_SHORT, true).show()
                 }
             }
         }
@@ -209,11 +210,10 @@ class EditProfileFragment : Fragment() {
                     sessionManager.setEmail(it.data?.email.toString())
                     sessionManager.setAbout(it.data?.about.toString())
                     sessionManager.setProfilePic(it.data?.userImage.toString())
-                    Toast.makeText(requireContext(), "Details Updated", Toast.LENGTH_SHORT).show()
+                    Toasty.success(requireContext(), "Profile Updated Successfully", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     loader.show()

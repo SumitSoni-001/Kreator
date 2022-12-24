@@ -18,15 +18,16 @@ import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
 
 @AndroidEntryPoint
 class ResetPasswordFragment : Fragment() {
+
     private lateinit var _binding: FragmentResetPasswordBinding
     private val binding get() = _binding
     private val authViewModel by viewModels<AuthViewModel>()
-
     @Inject
     lateinit var sessionManager: SessionManager
     private lateinit var loader: KProgressHUD
@@ -59,20 +60,13 @@ class ResetPasswordFragment : Fragment() {
                 binding.newPasswordField.error = "Enter a strong password"
             } else if (binding.etNewPassword.text.toString().length < 8) {
                 binding.newPasswordField.error = "Password must be of atleast 8 character."
-            } else if (!binding.etNewPassword.text.toString()
-                    .equals(binding.etConfirmPassword.text.toString(), false)
-            ) {
+            } else if (!binding.etNewPassword.text.toString().equals(binding.etConfirmPassword.text.toString(), false)) {
                 binding.confirmNewPasswordField.error = "Password not matching"
             } else {
                 val password = binding.etNewPassword.text.toString()
                 val updatedUserDetails: UserInput
                 sessionManager.apply {
-                    updatedUserDetails = UserInput(
-                        name = getUserName(),
-                        email = getEmail(),
-                        password = password,
-                        about = getAbout()
-                    )
+                    updatedUserDetails = UserInput(name = getUserName(), email = getEmail(), password = password, about = getAbout())
                 }
                 authViewModel.updateUser(
                     token,
@@ -86,8 +80,6 @@ class ResetPasswordFragment : Fragment() {
 
     private fun userObserver() {
         authViewModel.userResponseData.observe(viewLifecycleOwner) {
-//            binding.loading.cancelAnimation()
-//            binding.loading.visibility = View.GONE
             loader.dismiss()
             when (it) {
                 is NetworkResponse.Success -> {
@@ -100,13 +92,10 @@ class ResetPasswordFragment : Fragment() {
                     findNavController().navigate(R.id.action_resetPasswordFragment_to_passwordResetSuccessFragment)
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT)
-                        .show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     loader.show()
-//                    binding.loading.playAnimation()
-//                    binding.loading.visibility = View.VISIBLE
                 }
             }
         }

@@ -1,6 +1,7 @@
 package com.blog.kreator.ui.profile.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.di.RemoteService
@@ -13,10 +14,12 @@ import javax.inject.Inject
 
 class BookmarkRepo @Inject constructor(private val remoteService: RemoteService) {
     private val bookmarkLiveData = MutableLiveData<NetworkResponse<DeleteResponse>>()
-    val bookmarkData get() = bookmarkLiveData
+    val bookmarkData : LiveData<NetworkResponse<DeleteResponse>>
+    get() = bookmarkLiveData
 
     private val bookmarksListLiveData = MutableLiveData<NetworkResponse<ArrayList<BookmarkResponse>>>()
-    val bookmarksListData get() = bookmarksListLiveData
+    val bookmarksListData : LiveData<NetworkResponse<ArrayList<BookmarkResponse>>>
+    get() = bookmarksListLiveData
 
 //    private val deleteBookmarkLiveData = MutableLiveData<NetworkResponse<DeleteResponse>>()
 //    val deleteBookmarkData get() = deleteBookmarkLiveData
@@ -33,6 +36,7 @@ class BookmarkRepo @Inject constructor(private val remoteService: RemoteService)
     }
 
     suspend fun getBookmarksByUser(token: String, userId: Int){
+        bookmarksListLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.getBookmarksByUser(token, userId)
             Log.d("getBookmarkByUser", response.body().toString())

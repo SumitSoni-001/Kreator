@@ -23,11 +23,11 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
 
     private val authResponseLiveData = MutableLiveData<NetworkResponse<AuthResponse>>()
     val authResponseData: LiveData<NetworkResponse<AuthResponse>>
-        get() = authResponseLiveData
+    get() = authResponseLiveData
 
     private val userResponseLiveData = MutableLiveData<NetworkResponse<GetUserDetails>>()
-    val userResponseData get() = userResponseLiveData
-
+    val userResponseData : LiveData<NetworkResponse<GetUserDetails>>
+    get() = userResponseLiveData
 
     suspend fun registerUser(userModel: UserInput) {
         authResponseLiveData.postValue(NetworkResponse.Loading())

@@ -28,6 +28,7 @@ import com.github.irshulx.Editor
 import com.github.irshulx.EditorListener
 import com.github.irshulx.models.EditorTextStyle
 import com.squareup.picasso.Picasso
+import es.dmoral.toasty.Toasty
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -66,18 +67,17 @@ class UpdatePostFragment : Fragment() {
                 val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
                 part = MultipartBody.Part.createFormData("image", file.name, requestBody)
             } else {
-                Toast.makeText(requireContext(), "File not found", Toast.LENGTH_SHORT).show()
+                Toasty.error(requireContext(), "File not found", Toasty.LENGTH_SHORT, true).show()
             }
         }
     private var getImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
             if (uri != null) {
-                val bitmap =
-                    MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
-                Toast.makeText(requireContext(), "Success $bitmap", Toast.LENGTH_SHORT).show()
+                val bitmap = MediaStore.Images.Media.getBitmap(requireContext().contentResolver, uri)
+                Toasty.success(requireContext(), "Success $bitmap", Toasty.LENGTH_SHORT, true).show()
                 editor.insertImage(bitmap)
             } else {
-                Toast.makeText(requireContext(), "Error Occurred", Toast.LENGTH_SHORT).show()
+                Toasty.error(requireContext(), "Error Occurred", Toasty.LENGTH_SHORT, true).show()
             }
         }
 
@@ -118,7 +118,7 @@ class UpdatePostFragment : Fragment() {
                 updated = true
                 postViewModel.updatePost(sessionManager.getToken().toString(), postId, postInput)
             } else {
-                Toast.makeText(requireContext(), "Add all the Details", Toast.LENGTH_SHORT).show()
+                Toasty.warning(requireContext(), "Add all the Details", Toasty.LENGTH_SHORT,true).show()
             }
         }
         binding.addCoverImage.setOnClickListener {
@@ -210,10 +210,10 @@ class UpdatePostFragment : Fragment() {
                         if (updated) {
                             if (coverImgUri.isNotEmpty()) {
                                 postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
-                                Toast.makeText(requireContext(), "Image updated successfully", Toast.LENGTH_SHORT).show()
+                                Toasty.success(requireContext(), "Image updated successfully", Toasty.LENGTH_SHORT,true).show()
                             }
                             binding.loadingAnime.visibility = View.GONE
-                            Toast.makeText(requireContext(), "Post updated successfully", Toast.LENGTH_SHORT).show()
+                            Toasty.success(requireContext(), "Post updated successfully", Toasty.LENGTH_SHORT, true).show()
                         } else {
                             if (!response?.image.equals("default.png") && response?.image != null) {
                                 Picasso.get().load(CustomImage.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
@@ -226,7 +226,7 @@ class UpdatePostFragment : Fragment() {
                         }
                     }
                     is NetworkResponse.Error -> {
-                        Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
                     is NetworkResponse.Loading -> {
                         binding.loadingAnime.visibility = View.VISIBLE

@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -27,6 +30,7 @@ import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -62,7 +66,10 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         categoryList.clear()
         categoryList.add("All")
-        categoryList.addAll(sessionManager.getCategories())
+        categoryList.addAll(sessionManager.getCategories()!!)
+
+        postViewModel.getAllPosts(sessionManager.getToken().toString())
+        bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
 
         postsAdapter = PostsAdapter(requireContext(),bookmarkedPostsList)
         val linearLayoutManager = object : LinearLayoutManager(requireContext()) {
@@ -74,26 +81,28 @@ class MainFragment : Fragment() {
 
         categoryAdapter = CategoryAdapter(requireContext(), categoryList)
         binding.categoryRCV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-        binding.categoryRCV.setHasFixedSize(true)
+//        binding.categoryRCV.setHasFixedSize(true)
         binding.categoryRCV.adapter = categoryAdapter
 
         postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener {
             override fun onItemClick(position: Int, bookmarkPosition: Int) {
 //                categoryList.clear()
                 isBookmarked = bookmarkPosition != -1
-                val bundle = bundleOf("id" to postsList[position].postId, "isBookmarked" to isBookmarked, "bookmarkPos" to bookmarkPosition)
+                val bundle = bundleOf("id" to postsList[position].postId/*, "isBookmarked" to isBookmarked, "bookmarkPos" to bookmarkPosition*/)
                 findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment, bundle)
             }
-            override fun onBookmarkClick(position: Int, bookmarkPosition: Int) {
+            override fun onBookmarkClick(position: Int, bookmarkPosition: Int, bookmarkImg: ImageView) {
                 bookmarkedPostPosition = bookmarkPosition
                 postPosition = position
                 if (bookmarkPosition == -1){
                     isBookmarked = true
+                    bookmarkImg.setImageResource(R.drawable.bookmarked)
                     bookmarkViewModel.addBookmark(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!, postsList[position].postId!!)
                 }else{
                     isBookmarked = false
                     bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkedPostsList[bookmarkPosition].id!!)
                 }
+//                bookmarkObserver()
             }
         })
         categoryAdapter.setonItemClickListener(object : CategoryAdapter.ItemClickListener {
@@ -113,6 +122,8 @@ class MainFragment : Fragment() {
                 categoryLayout.category.isPressed = !categoryLayout.category.isPressed
 
                 val currentCategory = categoryList[position]
+
+                bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
                 if (position != 0) {
                     for (item in 0 until Constants.ALL_CATEGORIES.size) {
                         val selectedCategory = currentCategory.equals(
@@ -146,12 +157,9 @@ class MainFragment : Fragment() {
             }
         }
 
-        postViewModel.getAllPosts(sessionManager.getToken().toString())
-        bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
-
         postObserver()
-        bookmarkedPostsObserver()
         bookmarkObserver()
+        bookmarkedPostsObserver()
     }
 
     private fun postObserver() {
@@ -191,7 +199,7 @@ class MainFragment : Fragment() {
                     binding.createBlogFAB.visibility = View.GONE
                     binding.noBlogFound.visibility = View.VISIBLE
                     binding.btnRetry.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.postsRcv.showShimmerAdapter()
@@ -202,28 +210,30 @@ class MainFragment : Fragment() {
     }
 
     private fun bookmarkObserver(){
-        bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner) {
+        bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner, Observer {
+//        bookmarkViewModel.bookmarkData.observeOnceAfterInit(viewLifecycleOwner) {
             when(it){
                 is NetworkResponse.Success -> {
-//                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
+//                    Toasty.info(requireContext(), "${it.data?.message}", Toasty.LENGTH_SHORT, true).show()
                     if (!isBookmarked){ // delete bookmark
-                        if (it.data?.status == true) {
+                        if (it.data?.status == true && bookmarkedPostPosition != -1) {
                             bookmarkedPostsList.removeAt(bookmarkedPostPosition)
                             postsAdapter.notifyItemChanged(postPosition)
                         }
-                    }else{  // Add Bookmark
+                    }
+                    else{  // Add Bookmark
                         if (it.data?.status == true){
-                            // change bookmark icon to bookmarked
-                            postsAdapter.notifyItemChanged(postPosition)
+                            Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
+//                            postsAdapter.notifyItemChanged(postPosition)
                         }
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {}
             }
-        }
+        })
     }
 
     private fun bookmarkedPostsObserver(){
@@ -236,11 +246,31 @@ class MainFragment : Fragment() {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {}
             }
         }
     }
 
+//    private fun <T> LiveData<T>.observeOnceAfterInit(owner: LifecycleOwner, observer: (T) -> Unit) {
+//        var firstObservation = true
+//
+//        observe(owner, object : Observer<T> {
+//            override fun onChanged(value: T) {
+//                if (firstObservation) {
+//                    firstObservation = false
+//                } else {
+//                    removeObserver(this)
+//                    observer(value)
+//                }
+//            }
+//        })
+//    }
+
 }
+
+/**
+ * Observer error
+ * Change Verification fLow
+ */

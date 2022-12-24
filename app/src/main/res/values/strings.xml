@@ -10,7 +10,7 @@
     <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
     <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#2EA043"> <b>Sign up</b></font></string>
     <string name="skip"><u>Skip</u></string>
-<!--    <string name="enterEmailPasswordReset">Please enter your email address \nto request a password reset.</string>-->
+    <!--    <string name="enterEmailPasswordReset">Please enter your email address \nto request a password reset.</string>-->
     <string name="enterEmailPasswordReset">Enter the email address associated with \nyour account to request a password reset.</string>
     <string name="passwordGuideline">Your new password must be \ndifferent from previous use passwords.</string>
     <string name="resetPassword">Forgot\nYour Password?</string>

@@ -22,6 +22,7 @@ import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -59,18 +60,18 @@ class LoginFragment : Fragment() {
         }
         binding.tvRegister.setOnClickListener {
             it.hideKeyboard()
-            findNavController().navigate(R.id.registerFragment)
+            findNavController().popBackStack()
         }
         binding.btnLogin.setOnClickListener {
-            if (binding.etEmail.text!!.isEmpty()) {
+            if (binding.etEmail.text.toString().trim().isEmpty()) {
                 binding.emailField.error = "Enter registered email"
-            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString()).matches())){
+            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString().trim()).matches())){
                 binding.emailField.error = "Enter a valid email address"
-            }else if (binding.etPassword.text!!.isEmpty()) {
+            }else if (binding.etPassword.text.toString().trim().isEmpty()) {
                 binding.passwordField.error = "Enter correct password"
             } else {
                 it.hideKeyboard()
-                authViewModel.loginUser(LoginDetails(binding.etEmail.text.toString(), binding.etPassword.text.toString()))
+                authViewModel.loginUser(LoginDetails(binding.etEmail.text.toString().trim(), binding.etPassword.text.toString().trim()))
             }
         }
         binding.forgotPassword.setOnClickListener {
@@ -100,7 +101,7 @@ class LoginFragment : Fragment() {
                     findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     loader.show()

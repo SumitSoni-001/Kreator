@@ -17,6 +17,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     private val PROFILE_PIC = "PROFILE_PIC"
     private val YOUR_CATEGORIES = "CATEGORIES"
     private val VERIFIED_EMAIL = "VERIFIED_EMAIL"
+    private val CODE = "CODE"
 //    private val CONTENT = "CONTENT"
 
     private var prefs = context.getSharedPreferences(SHARED_PREFS, Context.MODE_PRIVATE)
@@ -59,6 +60,14 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
         editor.putString(EMAIL, email).apply()
     }
 
+    fun getCode(): String? {
+        return prefs.getString(CODE, null)
+    }
+
+    fun setCode(code: String) {
+        editor.putString(CODE, code).apply()
+    }
+
     fun getUserId(): String? {
         return prefs.getString(USERID, null)
     }
@@ -91,7 +100,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
         editor.putString(PROFILE_PIC, profile).apply()
     }
 
-    fun getCategories(): ArrayList<String> {
+    fun getCategories(): ArrayList<String>? {
 //        return prefs.getStringSet(YOUR_CATEGORIES , null) as Set<String>
         var categories: ArrayList<String>? = null
         val serializedObject = prefs.getString(YOUR_CATEGORIES, null)
@@ -100,7 +109,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
             val type = object : TypeToken<List<String>?>() {}.type
             categories = gson.fromJson(serializedObject, type)
         }
-        return categories!!
+        return categories
     }
 
     fun setCategories(catList: ArrayList<String>) {

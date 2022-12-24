@@ -17,6 +17,7 @@ import com.blog.kreator.databinding.FragmentCategoriesBinding
 import com.blog.kreator.utils.SessionManager
 import com.google.android.material.chip.Chip
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.util.Collections.addAll
 import javax.inject.Inject
 import kotlin.math.log
@@ -54,8 +55,12 @@ class CategoriesFragment : Fragment() {
                     selectedCategoriesList.add(chip.text.toString())
                 }
             }
-            sessionManager.setCategories(selectedCategoriesList)
-            findNavController().navigate(R.id.action_categoriesFragment_to_mainFragment)
+            if (selectedCategoriesList.isNotEmpty()) {
+                sessionManager.setCategories(selectedCategoriesList)
+                findNavController().navigate(R.id.action_categoriesFragment_to_mainFragment)
+            } else {
+                Toasty.warning(requireContext(),"Select some topics",Toasty.LENGTH_LONG,true).show()
+            }
         }
 
     }

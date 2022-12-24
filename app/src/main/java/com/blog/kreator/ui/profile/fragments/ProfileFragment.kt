@@ -34,6 +34,8 @@ import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
+import es.dmoral.toasty.Toasty.info
 import okhttp3.internal.notify
 import javax.inject.Inject
 
@@ -189,7 +191,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 is NetworkResponse.Error -> {
                     binding.notFound.visibility = View.VISIBLE
                     binding.tvNotfound.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.articlesRcv.showShimmerAdapter()
@@ -204,13 +206,13 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 is NetworkResponse.Success -> {
                     val response = it.data
                     if (response != null) {
-                        Toast.makeText(requireContext(), "${response.message}", Toast.LENGTH_SHORT).show()
+                        Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT).show()
                         articleList.removeAt(itemPosition)
                         articlesAdapter.notifyItemRemoved(itemPosition)
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {}
             }
@@ -237,7 +239,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 is NetworkResponse.Error -> {
                     binding.notFound.visibility = View.VISIBLE
                     binding.tvNotfound.visibility = View.VISIBLE
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.articlesRcv.hideShimmerAdapter()
@@ -257,7 +259,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {}
             }

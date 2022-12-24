@@ -24,6 +24,7 @@ import com.blog.kreator.ui.home.viewModels.CommentsViewModel
 import com.blog.kreator.utils.SessionManager
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
+import es.dmoral.toasty.Toasty
 import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
@@ -82,6 +83,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         binding.commentRCV.adapter = commentAdapter
 
         binding.backToPost.setOnClickListener {
+            it.hideKeyboard()
             findNavController().popBackStack()
         }
         binding.send.setOnClickListener {
@@ -101,10 +103,9 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         commentObserver()
         commentObserver2()
         deleteCommentObserver()
-
     }
 
-    private fun commentObserver() {
+    private fun commentObserver() { // Fetching comments by postId
         commentViewModel.commentByPostData.observe(viewLifecycleOwner) {
             binding.commentRCV.hideShimmerAdapter()
             when (it) {
@@ -121,7 +122,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     binding.commentRCV.showShimmerAdapter()
@@ -130,13 +131,13 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun commentObserver2() {
+    private fun commentObserver2() { // Adding or Updating Comment
         commentViewModel.commentData.observe(viewLifecycleOwner) {
             progress.dismiss()
             when (it) {
                 is NetworkResponse.Success -> {
 //                    commentViewModel.getCommentByPostId(sessionManager.getToken().toString(), postId)
-                    if (!updatingComment){
+                    if (!updatingComment){// New Comment
                         commentsList.add(it.data!!)
                         commentAdapter.notifyItemInserted(it.data.id!!)
                     }
@@ -144,7 +145,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                     binding.etComment.setText("")
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
 //                    progress.show()
@@ -159,13 +160,13 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                 is NetworkResponse.Success -> {
                     val response = it.data
                     if (response?.status == true) {
-                        Toast.makeText(requireContext(), "${response.message}", Toast.LENGTH_SHORT).show()
+                        Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT,true).show()
                         commentsList.removeAt(itemPosition)
                         commentAdapter.notifyItemRemoved(itemPosition)
                     }
                 }
                 is NetworkResponse.Error -> {
-                    Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {}
             }
@@ -201,6 +202,11 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private fun showKeyboard() {
         val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
+    }
+
+    private fun View.hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
 }

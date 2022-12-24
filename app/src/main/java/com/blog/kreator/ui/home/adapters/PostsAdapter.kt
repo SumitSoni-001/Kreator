@@ -6,6 +6,7 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -26,7 +27,7 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
 
     interface ItemClickListener{
         fun onItemClick(position : Int,bookmarkPosition : Int)
-        fun onBookmarkClick(position : Int, bookmarkPosition : Int)
+        fun onBookmarkClick(position : Int, bookmarkPosition : Int, bookmarkImg: ImageView)
     }
 
     fun setOnItemClickListener(listener : ItemClickListener){
@@ -91,7 +92,7 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
 //                        else { -1 }
                     }
                     if (position != RecyclerView.NO_POSITION) {
-                        listener.onBookmarkClick(position, bookmarkPosition)
+                        listener.onBookmarkClick(position, bookmarkPosition,binding.bookmark)
                     }
                 }
             }

@@ -1,6 +1,7 @@
 package com.blog.kreator.ui.home.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.di.RemoteService
@@ -17,13 +18,16 @@ import javax.inject.Inject
 class PostRepo @Inject constructor(private val remoteService: RemoteService) {
 
     private val postLiveData = MutableLiveData<NetworkResponse<PostResponse>>()
-    val postData get() = postLiveData
+    val postData : LiveData<NetworkResponse<PostResponse>>
+    get() = postLiveData
 
     private val singlePostLiveData = MutableLiveData<NetworkResponse<PostDetails>>()
-    val singlePostData get() = singlePostLiveData
+    val singlePostData : LiveData<NetworkResponse<PostDetails>>
+    get() = singlePostLiveData
 
     private val deletePostLiveData = MutableLiveData<NetworkResponse<DeleteResponse>>()
-    val deletePostData get() = deletePostLiveData
+    val deletePostData : LiveData<NetworkResponse<DeleteResponse>>
+    get() = deletePostLiveData
 
     suspend fun createPost(token: String, userId: Int, catId: Int, postInput: PostInput) {
         singlePostLiveData.postValue(NetworkResponse.Loading())
@@ -32,7 +36,7 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
             Log.d("createPostData", response.body().toString())
             handleResponse2(response)
         } catch (e: Exception) {
-            singlePostData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+            singlePostLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 
@@ -43,7 +47,7 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
             Log.d("updatedPostData", response.body().toString())
             handleResponse2(response)
         } catch (e: Exception) {
-            singlePostData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+            singlePostLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 
@@ -59,13 +63,13 @@ class PostRepo @Inject constructor(private val remoteService: RemoteService) {
     }
 
     suspend fun uploadImage(token: String, postId: Int, image: MultipartBody.Part) {
-        singlePostData.postValue(NetworkResponse.Loading())
+        singlePostLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.uploadImage(token,image, postId)
             Log.d("uploadImage", response.body().toString())
             handleResponse2(response)
         } catch (e: Exception) {
-            singlePostData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+            singlePostLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 
