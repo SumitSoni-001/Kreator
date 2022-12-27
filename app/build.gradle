@@ -91,7 +91,7 @@ dependencies {
 //    implementation 'com.github.bumptech.glide:glide:4.14.2'
 //    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.squareup.picasso:picasso:2.8'
-    implementation "com.airbnb.android:lottie:3.4.0"
+    implementation "com.airbnb.android:lottie:4.2.0"
 //    implementation 'com.ogaclejapan.smarttablayout:library:2.0.0@aar'
     implementation 'xyz.peridy.shimmer:shimmerlayout:1.1'
     implementation 'com.github.sharish:ShimmerRecyclerView:v1.3'

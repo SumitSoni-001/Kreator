@@ -29,6 +29,7 @@
     <color name="dotInactive">#B5B5B5</color>
     <color name="category_selected_bg">#3A3A3A</color>
     <color name="text_highlight">#E5DEFF</color>
+    <color name="snackBarTextColor">#2E296B</color>
     <color name="successful">#71B521</color>
     <color name="turquoise">#04B7CE</color>
 <!--    <color name="green">#04BB58</color>-->

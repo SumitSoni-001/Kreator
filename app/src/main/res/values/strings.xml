@@ -28,7 +28,9 @@
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
     <string name="add_profile_picture"><u>Add Profile Picture</u></string>
-    <string name="loading_snackbar">Unable to load this Post!! Check your Internet connection</string>
+    <string name="loading_snackbar"><b><font fgcolor="#2E296B" size="16">Unable to load this Post!!</font></b><font fgcolor="#2E296B" size="13">Check your Internet connection</font></string>
+    <string name="noConnection"><b><font fgcolor="#2E296B" size="16">Couldn\'t connect to internet!!</font></b><font fgcolor="#2E296B" size="13">\nPlease check your internet connection</font></string>
+    <string name="tryAgain"><b><font size="14">Try Again</font></b></string>
     <string name="passwordConfirmed">New password \nconfirmed successfully</string>
     <string name="passwordRestGuide">You have successfully confirm your new \npassword. Please, use your new password \nwhen logging in.</string>
     <string name="set_new_password">Set new \nPassword</string>

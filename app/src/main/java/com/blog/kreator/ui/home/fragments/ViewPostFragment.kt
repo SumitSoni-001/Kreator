@@ -1,6 +1,7 @@
 package com.blog.kreator.ui.home.fragments
 
 import android.content.Intent
+import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
 import android.util.Log
@@ -136,7 +137,8 @@ class ViewPostFragment : Fragment() {
                     binding.postItemsLayout.visibility = View.GONE
                     Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     Snackbar.make(binding.root,R.string.loading_snackbar,Snackbar.LENGTH_LONG).setAnimationMode(
-                        BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setAction("check?") {
+                        BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setBackgroundTint(Color.parseColor("#E5DEFF"))
+                        .setActionTextColor(Color.parseColor("#2E296B")).setAction(R.string.tryAgain) {
                             val intent = Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS)
                             requireActivity().startActivity(intent)
                     }.show()

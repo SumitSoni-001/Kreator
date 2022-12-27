@@ -1,6 +1,9 @@
 package com.blog.kreator.ui.home.fragments
 
+import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,11 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.os.bundleOf
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blog.kreator.R
@@ -27,16 +32,21 @@ import com.blog.kreator.ui.profile.models.BookmarkResponse
 import com.blog.kreator.ui.profile.viewModels.BookmarkViewModel
 import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.CustomImage
+import com.blog.kreator.utils.NetworkListener
 import com.blog.kreator.utils.SessionManager
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
-    private lateinit var binding: FragmentMainBinding
+    private var _binding: FragmentMainBinding? = null
+    private val binding get() = _binding!!
     private lateinit var postsAdapter: PostsAdapter
     private lateinit var categoryAdapter: CategoryAdapter
     private var postsList: ArrayList<PostDetails> = ArrayList()
@@ -51,13 +61,15 @@ class MainFragment : Fragment() {
 
     @Inject
     lateinit var sessionManager: SessionManager
+    @Inject
+    lateinit var networkListener: NetworkListener
     private var catId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentMainBinding.inflate(inflater, container, false)
+        _binding = FragmentMainBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -67,6 +79,22 @@ class MainFragment : Fragment() {
         categoryList.clear()
         categoryList.add("All")
         categoryList.addAll(sessionManager.getCategories()!!)
+
+        lifecycleScope.launchWhenCreated {
+            val snackbar = Snackbar.make(binding.root,R.string.noConnection,Snackbar.LENGTH_INDEFINITE).setAnimationMode(
+                BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setBackgroundTint(Color.parseColor("#E5DEFF"))
+                .setActionTextColor(Color.parseColor("#2E296B")).setAction(R.string.tryAgain) {
+                val intent = Intent(Settings.ACTION_DATA_ROAMING_SETTINGS)
+                requireActivity().startActivity(intent)
+            }
+            networkListener.isConnected.collectLatest {
+                if (it){
+                    snackbar.dismiss()
+                }else{
+                    snackbar.show()
+                }
+            }
+        }
 
         postViewModel.getAllPosts(sessionManager.getToken().toString())
         bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
@@ -253,6 +281,11 @@ class MainFragment : Fragment() {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
 //    private fun <T> LiveData<T>.observeOnceAfterInit(owner: LifecycleOwner, observer: (T) -> Unit) {
 //        var firstObservation = true
 //
@@ -269,8 +302,3 @@ class MainFragment : Fragment() {
 //    }
 
 }
-
-/**
- * Observer error
- * Change Verification fLow
- */
