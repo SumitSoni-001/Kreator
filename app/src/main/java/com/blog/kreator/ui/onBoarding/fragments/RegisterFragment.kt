@@ -43,8 +43,6 @@ class RegisterFragment : Fragment() {
     private var email : String = ""
     private var password : String = ""
     private var about : String = ""
-    private lateinit var auth : FirebaseAuth
-    private lateinit var actionCodeSettings : ActionCodeSettings
 
     @Inject
     lateinit var sessionManager: SessionManager
@@ -60,37 +58,20 @@ class RegisterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        (requireActivity()).window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 
 //        if (sessionManager.getVerifiedEmail()) {
 //            Toasty.success(requireContext(), "Email Verified Successfully", Toasty.LENGTH_SHORT, true).show()
 //        }
+        binding.etEmail.setText(sessionManager.getEmail()?:"")
 
-        sessionManager.apply {
-            binding.etName.setText(getUserName())
-            binding.etEmail.setText(getEmail())
-            binding.etPassword.setText(getCode())
-            binding.etAbout.setText(getAbout())
-        }
-
-        auth = FirebaseAuth.getInstance()
         loader = KProgressHUD.create(requireActivity())
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel("Please wait...")
             .setCancellable(false)
             .setDimAmount(0.5f)
 //        CustomToast.initialize()
-
-        actionCodeSettings = ActionCodeSettings.newBuilder()
-                .setUrl("https://kreator.page.link/verifyemail")
-//                .setUrl("https://kreator.page.link")
-                .setHandleCodeInApp(true)
-                .setAndroidPackageName(
-                    "com.blog.kreator",
-                    true,
-                    null
-                ).build()
 
         binding.back.setOnClickListener {
             findNavController().popBackStack()
@@ -123,18 +104,12 @@ class RegisterFragment : Fragment() {
                 val userModel = UserInput(name = name, email = email, password = password, about = about, isVerified = false)
 
                 it.hideKeyboard()
-
-                if (!sessionManager.getVerifiedEmail()) {
-                    sendVerificationEmail(binding.etEmail.text.toString().trim())
-                } else {
-                    userModel.isVerified = true
-                    authViewModel.registerUser(userModel)
-                }
+                userModel.isVerified = true
+                authViewModel.registerUser(userModel)
             }
         }
 
         authObserver()
-
     }
 
     private fun generateToken(/*email: String*/) {
@@ -179,43 +154,5 @@ class RegisterFragment : Fragment() {
             }
         })
     }
-
-    private fun sendVerificationEmail(email : String){
-        Firebase.auth.sendSignInLinkToEmail(email, actionCodeSettings)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    sessionManager.setEmail(email)
-                    Toasty.info(requireContext(), "Verification Email sent", Toasty.LENGTH_LONG, true).show()
-                    sessionManager.apply {
-                        setUserName(name)
-                        setEmail(email)
-                        setCode(password)
-                        setAbout(about)
-                    }
-                } else {
-                    Toasty.error(requireContext(), "Something went wrong", Toasty.LENGTH_LONG, true).show()
-                }
-            }.addOnFailureListener {
-                it.localizedMessage?.let { it1 ->
-                    Log.e("emailError", it1)
-                }
-            }
-    }
-
-//    override fun onSaveInstanceState(outState: Bundle) {
-//        outState.putString("name",name)
-//        outState.putString("email",email)
-//        outState.putString("password",password)
-//        outState.putString("about",about)
-//        super.onSaveInstanceState(outState)
-//    }
-
-//    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-//        name = savedInstanceState?.getString("name")!!
-//        email = savedInstanceState?.getString("email")!!
-//        password = savedInstanceState?.getString("password")!!
-//        about = savedInstanceState?.getString("about")!!
-//        super.onViewStateRestored(savedInstanceState)
-//    }
 
 }

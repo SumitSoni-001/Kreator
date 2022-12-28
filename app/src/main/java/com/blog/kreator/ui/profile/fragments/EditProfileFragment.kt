@@ -142,7 +142,7 @@ class EditProfileFragment : Fragment() {
                         sessionManager.getUserId()!!.toInt(),
                         part
                     )
-                    Toasty.success(requireContext(), "Profile Photo Updated", Toasty.LENGTH_SHORT, true).show()
+//                    Toasty.success(requireContext(), "Profile Photo Updated", Toasty.LENGTH_SHORT, true).show()
                 }
             }
         }

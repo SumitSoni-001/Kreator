@@ -8,6 +8,8 @@
     <string name="termsService_privacyPolicy1"><font fgcolor="#FFFFFF">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#539bf5"><u>Terms of Service</u></font></a><font fgcolor="#FFFFFF"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#539bf5"><u>Privacy Policy</u></font></a><font fgcolor="#FFFFFF"> applies to you.</font></string>
     <string name="termsService_privacyPolicy2"><font fgcolor="#000000">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#2EA043"><u>Terms of Service</u></font></a><font fgcolor="#000000"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#2EA043"><u>Privacy Policy</u></font></a><font fgcolor="#000000"> applies to you.</font></string>
     <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
+    <string name="verifyEmail">What\'s\nYour Email?</string>
+    <string name="verifyEmailDesc">We will send a verification email to your email, Please \ncheck Spam or Junk folder if not received in Inbox.</string>
     <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#2EA043"> <b>Sign up</b></font></string>
     <string name="skip"><u>Skip</u></string>
     <!--    <string name="enterEmailPasswordReset">Please enter your email address \nto request a password reset.</string>-->

@@ -27,11 +27,10 @@ class WelcomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentWelcomeBinding.inflate(inflater, container, false)
-        (requireActivity()).window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-
-//        if (sessionManager.getToken() != null) {
-//            findNavController().navigate(R.id.action_welcomeFragment_to_mainFragment)
-//        }
+        requireActivity().window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+//        requireActivity().window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        requireActivity().window.navigationBarColor = resources.getColor(R.color.black)
+        requireActivity().window.statusBarColor = resources.getColor(R.color.black)
 
         if (sessionManager.getToken() != null && sessionManager.getCategories() != null) {
             findNavController().navigate(R.id.action_welcomeFragment_to_mainFragment)
@@ -42,7 +41,8 @@ class WelcomeFragment : Fragment() {
         binding.securityLinks.movementMethod = LinkMovementMethod.getInstance()
 
         binding.getStarted.setOnClickListener {
-            findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
+//            findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
+            findNavController().navigate(R.id.action_welcomeFragment_to_verifyEmailFragment)
         }
 //        binding.haveAccount.setOnClickListener {
 //            findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)

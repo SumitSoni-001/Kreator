@@ -41,8 +41,8 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding.btnNext.isEnabled = binding.chipGroup.checkedChipIds.size >= 3
+        requireActivity().window.navigationBarColor = resources.getColor(R.color.white)
+        requireActivity().window.statusBarColor = resources.getColor(R.color.white)
 
         binding.backArrow.setOnClickListener {
             findNavController().popBackStack()

@@ -46,8 +46,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+//        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
+        binding.etEmail.setText(sessionManager.getEmail()?:"")
         loader = KProgressHUD.create(requireActivity())
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel("Please wait...")

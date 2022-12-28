@@ -144,7 +144,7 @@
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:fontFamily="@font/lato_regular"
-            android:inputType="textPersonName"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             android:padding="20dp"
             android:selectAllOnFocus="false"

@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="20dp"
-    tools:context=".ui.onBoarding.fragments.RequestEmailFragment">
+    tools:context=".ui.onBoarding.fragments.VerifyEmailFragment">
 
     <ImageView
-        android:id="@+id/arrowBack"
+        android:id="@+id/back"
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:layout_marginTop="30dp"
@@ -17,15 +17,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvResetPassword"
+        android:id="@+id/tvYourEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:fontFamily="@font/poppins_bold"
         android:lineSpacingExtra="-5dp"
-        android:text="@string/resetPassword"
+        android:text="@string/verifyEmail"
         android:textColor="@color/light_black"
-        android:textSize="32sp"
+        android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@id/tvEnterEmail"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -36,14 +36,14 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="50dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="@string/enterEmailPasswordReset"
+        android:text="@string/verifyEmailDesc"
         android:textColor="@color/dark_gray"
         android:textSize="13sp"
-        app:layout_constraintBottom_toTopOf="@id/resetEmailField"
+        app:layout_constraintBottom_toTopOf="@id/enterEmailField"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/resetEmailField"
+        android:id="@+id/enterEmailField"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
         app:boxCornerRadiusBottomStart="10dp"
         app:boxCornerRadiusTopEnd="10dp"
         app:boxCornerRadiusTopStart="10dp"
-        app:boxStrokeColor="@color/turquoise"
+        app:boxStrokeColor="@color/light_black"
         app:boxStrokeErrorColor="@color/red"
         app:boxStrokeWidth="1dp"
         app:errorEnabled="true"
@@ -69,7 +69,7 @@
         app:startIconTint="@color/gray">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etResetEmail"
+            android:id="@+id/etYourEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
@@ -81,31 +81,34 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnNext"
+        android:id="@+id/btnContinue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
         android:backgroundTint="@color/mainColor"
         android:fontFamily="@font/poppins_semibold"
         android:padding="15dp"
-        android:text="Next"
+        android:text="Continue"
         android:textAllCaps="false"
         app:cornerRadius="25dp"
+        app:layout_constraintBottom_toTopOf="@id/policy"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/rememberPassword"/>
+        app:layout_constraintTop_toBottomOf="@id/enterEmailField" />
 
     <TextView
-        android:id="@+id/rememberPassword"
-        android:layout_width="wrap_content"
+        android:id="@+id/policy"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="@string/rememberPassword"
-        android:textColor="@color/dark_gray"
         android:layout_marginBottom="10dp"
-        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        android:gravity="center"
+        android:text="@string/termsService_privacyPolicy2"
+        android:textColorLink="@color/green"
+        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_goneMarginTop="50dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -76,6 +76,9 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().window.navigationBarColor = resources.getColor(R.color.white)
+        requireActivity().window.statusBarColor = resources.getColor(R.color.white)
+
         categoryList.clear()
         categoryList.add("All")
         categoryList.addAll(sessionManager.getCategories()!!)

@@ -2,6 +2,7 @@ package com.blog.kreator
 
 import android.animation.Animator
 import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -32,6 +33,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+//        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
+        window.navigationBarColor = resources.getColor(R.color.black)
+        window.statusBarColor = resources.getColor(R.color.black)
 
         kreatorAnime = findViewById(R.id.kreatorAnime)
 
@@ -46,7 +50,7 @@ class SplashActivity : AppCompatActivity() {
                             Log.e("Verification", "Verified success")
                             sessionManager.setVerifiedEmail(true)
                             gone = true
-                            Toasty.success(this@SplashActivity, "Email Verified Successfully", Toast.LENGTH_LONG, true).show()
+                            Toasty.success(this@SplashActivity, "Email Verified Successfully", Toast.LENGTH_SHORT, true).show()
                         }.addOnFailureListener { e ->
                             sessionManager.setVerifiedEmail(false)
                             Log.e("Verification", e.localizedMessage ?: "Something went wrong")
@@ -54,19 +58,6 @@ class SplashActivity : AppCompatActivity() {
                         }
                 }
             }
-/*
-        kreatorAnime.addAnimatorListener(object : Animator.AnimatorListener{
-            override fun onAnimationStart(animation: Animator) {}
-            override fun onAnimationEnd(animation: Animator) {
-                if (!gone){
-                    startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                    finish()
-                }
-            }
-            override fun onAnimationCancel(animation: Animator) {}
-            override fun onAnimationRepeat(animation: Animator) {}
-        })
-        */
         if (!gone){
             Handler().postDelayed({
                 startActivity(Intent(this@SplashActivity, MainActivity::class.java))
@@ -79,7 +70,6 @@ class SplashActivity : AppCompatActivity() {
         super.onNewIntent(intent)
         kreatorAnime.cancelAnimation()
         val myIntent = Intent(this@SplashActivity , MainActivity::class.java)
-//        myIntent.putExtra("isVerified" , sessionManager.getVerifiedEmail())
         startActivity(myIntent)
         finish()
     }
