@@ -43,8 +43,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
-                android:src="@drawable/back"
-                app:tint="@color/black" />
+                android:src="@drawable/back_arrow" />
 
             <View
                 android:id="@+id/line2"
@@ -64,43 +63,43 @@
                 android:layout_marginTop="15dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
-                android:tooltipText="Add Cover Image"
-                android:src="@drawable/add_cover_image" />
+                android:src="@drawable/add_cover_image"
+                android:tooltipText="Add Cover Image" />
 
-<!--
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/categoryLayout"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/line2"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="15dp"
-                android:layout_toEndOf="@id/addCoverImage"
-                android:hint="Category"
-                android:minHeight="30dp">
+            <!--
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/categoryLayout"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/line2"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginEnd="15dp"
+                            android:layout_toEndOf="@id/addCoverImage"
+                            android:hint="Category"
+                            android:minHeight="30dp">
 
-                <AutoCompleteTextView
-                    android:id="@+id/categoryDropdown"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:inputType="none" />
+                            <AutoCompleteTextView
+                                android:id="@+id/categoryDropdown"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:inputType="none" />
 
-            </com.google.android.material.textfield.TextInputLayout>
--->
+                        </com.google.android.material.textfield.TextInputLayout>
+            -->
             <Spinner
                 android:id="@+id/categorySpinner"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_below="@id/line2"
-                android:background="@drawable/search_bg"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="15dp"
                 android:layout_toEndOf="@id/addCoverImage"
-                android:spinnerMode="dialog"/>
+                android:background="@drawable/search_bg"
+                android:spinnerMode="dialog" />
 
             <EditText
                 android:id="@+id/etTitle"
@@ -111,16 +110,16 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="15dp"
-                android:fontFamily="@font/poppins_semibold"
-                android:hint="Add Title.."
-                android:isScrollContainer="true"
                 android:enabled="true"
                 android:focusable="true"
-                android:scrollbars="horizontal"
-                android:scrollIndicators="none"
+                android:fontFamily="@font/poppins_semibold"
+                android:hint="Add Title.."
                 android:inputType="text|textNoSuggestions"
+                android:isScrollContainer="true"
                 android:maxLines="1"
                 android:minHeight="30dp"
+                android:scrollIndicators="none"
+                android:scrollbars="horizontal"
                 android:textSize="16sp"
                 tools:targetApi="m" />
 
@@ -128,10 +127,10 @@
                 android:id="@+id/coverImage"
                 android:layout_width="200dp"
                 android:layout_height="120dp"
+                android:layout_below="@id/etTitle"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/placeholder"
-                android:layout_below="@id/etTitle"/>
+                android:src="@drawable/placeholder" />
 
             <com.github.irshulx.Editor
                 android:id="@+id/editor"
@@ -294,20 +293,20 @@
                 android:src="@drawable/icon_numbered_list"
                 android:tooltipText="Numbered List" />
 
-<!--
-            <ImageButton
-                android:id="@+id/action_insert_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="10dp"
-                android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="6dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/icon_image"
-                android:tooltipText="Insert Image" />
--->
+            <!--
+                        <ImageButton
+                            android:id="@+id/action_insert_image"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginHorizontal="10dp"
+                            android:background="@android:color/transparent"
+                            android:maxWidth="20dp"
+                            android:maxHeight="20dp"
+                            android:padding="6dp"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/icon_image"
+                            android:tooltipText="Insert Image" />
+            -->
 
             <ImageButton
                 android:id="@+id/action_insert_link"

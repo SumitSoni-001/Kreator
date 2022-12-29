@@ -12,7 +12,8 @@
         android:layout_width="30dp"
         android:layout_height="22dp"
         android:layout_marginStart="20dp"
-        android:src="@drawable/back"
+        android:src="@drawable/back_arrow"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintBottom_toBottomOf="@id/tvProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvProfile" />

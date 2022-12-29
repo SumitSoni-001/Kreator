@@ -34,5 +34,6 @@
     <color name="turquoise">#04B7CE</color>
 <!--    <color name="green">#04BB58</color>-->
     <color name="green">#2EA043</color>
+    <color name="iconTint">#2E2E2E</color>
 
 </resources>

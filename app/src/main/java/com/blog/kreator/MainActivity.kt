@@ -1,6 +1,7 @@
 package com.blog.kreator
 
 import android.content.Intent
+import android.content.res.Resources.Theme
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -33,8 +34,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        application.setTheme(R.style.Theme_Kreator)
+//        setTheme(R.style.Theme_Kreator)
+//        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
         _binding = ActivityMainBinding.inflate(layoutInflater)
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_NO)
         setContentView(binding.root)
 
         CustomToast.initialize()

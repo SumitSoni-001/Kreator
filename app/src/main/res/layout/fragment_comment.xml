@@ -14,6 +14,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="15dp"
         android:src="@drawable/back_arrow"
+        android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

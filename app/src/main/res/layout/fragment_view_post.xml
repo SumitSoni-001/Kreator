@@ -247,7 +247,7 @@
                     android:id="@+id/postImage"
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
-                    android:background="@color/light_black"
+                    android:background="#F6F6F6"
                     android:src="@drawable/placeholder" />
 
             </androidx.cardview.widget.CardView>

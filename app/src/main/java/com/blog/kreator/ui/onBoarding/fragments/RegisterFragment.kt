@@ -2,31 +2,22 @@ package com.blog.kreator.ui.onBoarding.fragments
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.blog.kreator.MainActivity
 import com.blog.kreator.R
 import com.blog.kreator.databinding.FragmentRegisterBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
-import com.blog.kreator.utils.CustomToast
 import com.blog.kreator.utils.GetIdToken
 import com.blog.kreator.utils.SessionManager
-import com.google.firebase.auth.ActionCodeSettings
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import com.kaopiz.kprogresshud.KProgressHUD
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
@@ -60,6 +51,7 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 //        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
 //        if (sessionManager.getVerifiedEmail()) {
 //            Toasty.success(requireContext(), "Email Verified Successfully", Toasty.LENGTH_SHORT, true).show()

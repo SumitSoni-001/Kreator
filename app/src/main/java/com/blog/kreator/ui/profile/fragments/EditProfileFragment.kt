@@ -5,18 +5,14 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.BuildConfig
 import com.blog.kreator.R
@@ -24,13 +20,8 @@ import com.blog.kreator.databinding.FragmentEditProfileBinding
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
-import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.SessionManager
-import com.canhub.cropper.CropImageContract
-import com.canhub.cropper.CropImageContractOptions
-import com.canhub.cropper.CropImageOptions
-import com.canhub.cropper.CropImageView
 import com.kaopiz.kprogresshud.KProgressHUD
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,22 +51,13 @@ class EditProfileFragment : Fragment() {
             if (uri != null) {
                 profileUri = uri.toString()
 
-                binding.btnCrop.visibility = View.VISIBLE
-                binding.cropImageView.visibility = View.VISIBLE
+//                binding.btnCrop.visibility = View.VISIBLE
+//                binding.cropImageView.visibility = View.VISIBLE
+                binding.cropGroup.visibility = View.VISIBLE
                 binding.editProfileGroup.visibility = View.INVISIBLE
                 binding.parentLayout.setBackgroundColor(Color.parseColor("#2E2E2E"))
 
                 binding.cropImageView.setImageUriAsync(uri)
-
-//            binding.userImg.setImageURI(uri)
-//
-//            val filesDir = requireContext().applicationContext.filesDir
-//            val file = File(filesDir, "profile.png")
-//            val inputStream = requireContext().contentResolver.openInputStream(uri)
-//            val outputStream = FileOutputStream(file)
-//            inputStream!!.copyTo(outputStream)
-//            val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-//            part = MultipartBody.Part.createFormData("profile", file.name, requestBody)
             } else {
                 Toasty.error(requireContext(), "File not found", Toasty.LENGTH_SHORT,true).show()
             }
@@ -147,8 +129,9 @@ class EditProfileFragment : Fragment() {
             }
         }
         binding.btnCrop.setOnClickListener {
-            binding.btnCrop.visibility = View.INVISIBLE
-            binding.cropImageView.visibility = View.INVISIBLE
+//            binding.btnCrop.visibility = View.INVISIBLE
+//            binding.cropImageView.visibility = View.INVISIBLE
+            binding.cropGroup.visibility = View.GONE
             binding.editProfileGroup.visibility = View.VISIBLE
             binding.parentLayout.setBackgroundColor(Color.parseColor("#FFFFFF"))
             val croppedImage = binding.cropImageView.getCroppedImage()

@@ -10,6 +10,7 @@
         android:id="@+id/backArrow"
         android:layout_width="20dp"
         android:layout_height="20dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/back_arrow"
         android:layout_marginTop="15dp"
         app:layout_constraintTop_toTopOf="parent"
