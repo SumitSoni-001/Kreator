@@ -23,7 +23,6 @@ interface ConnectedCompat {
 }
 
 object Marshmellow : ConnectedCompat {
-    @RequiresApi(Build.VERSION_CODES.M)
     override fun isConnected(connectivityManager: ConnectivityManager): Boolean {
         return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasCapability(
             NetworkCapabilities.NET_CAPABILITY_INTERNET

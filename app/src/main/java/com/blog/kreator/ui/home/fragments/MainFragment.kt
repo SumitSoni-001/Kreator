@@ -52,8 +52,8 @@ class MainFragment : Fragment() {
     private var postsList: ArrayList<PostDetails> = ArrayList()
     private var bookmarkedPostsList: ArrayList<BookmarkResponse> = ArrayList()
     private var categoryList: ArrayList<String> = ArrayList()
-    private val postViewModel by viewModels<PostViewModel>()
-    private val bookmarkViewModel by viewModels<BookmarkViewModel>()
+    private val postViewModel: PostViewModel by viewModels()
+    private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private var isBookmarked = false
     private var isDataLoaded = false
     private var bookmarkedPostPosition = -1
@@ -288,20 +288,5 @@ class MainFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
-//    private fun <T> LiveData<T>.observeOnceAfterInit(owner: LifecycleOwner, observer: (T) -> Unit) {
-//        var firstObservation = true
-//
-//        observe(owner, object : Observer<T> {
-//            override fun onChanged(value: T) {
-//                if (firstObservation) {
-//                    firstObservation = false
-//                } else {
-//                    removeObserver(this)
-//                    observer(value)
-//                }
-//            }
-//        })
-//    }
 
 }
