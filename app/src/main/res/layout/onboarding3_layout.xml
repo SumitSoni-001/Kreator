@@ -7,7 +7,7 @@
     <ImageView
         android:id="@+id/learnImg"
         android:layout_width="0dp"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/_230sdp"
         android:src="@drawable/learn"
         android:layout_marginHorizontal="30dp"
         app:layout_constraintTop_toTopOf="parent"
@@ -21,7 +21,7 @@
         android:text="@string/tv_learn"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins_bold"
-        android:textSize="22sp"
+        android:textSize="@dimen/_18ssp"
         app:layout_constraintTop_toBottomOf="@id/learnImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -33,10 +33,10 @@
         android:textColor="@color/gray"
         android:fontFamily="@font/poppins_regular"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textSize="@dimen/_12ssp"
+        android:lineSpacingExtra="@dimen/_1sdp"
         app:layout_constraintTop_toBottomOf="@+id/tvLearn"
-        android:layout_marginTop="10dp"
-        android:lineSpacingExtra="2dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

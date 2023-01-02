@@ -5,14 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:paddingHorizontal="20dp"
+    android:paddingHorizontal="@dimen/_14sdp"
     tools:context=".ui.onBoarding.fragments.RequestEmailFragment">
 
     <ImageView
         android:id="@+id/arrowBack"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_23sdp"
         android:src="@drawable/back_arrow"
         android:background="?attr/selectableItemBackgroundBorderless"
         app:layout_constraintStart_toStartOf="parent"
@@ -27,7 +27,7 @@
         android:lineSpacingExtra="-5dp"
         android:text="@string/resetPassword"
         android:textColor="@color/light_black"
-        android:textSize="32sp"
+        android:textSize="@dimen/_25ssp"
         app:layout_constraintBottom_toTopOf="@id/tvEnterEmail"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,7 +40,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="@string/enterEmailPasswordReset"
         android:textColor="@color/dark_gray"
-        android:textSize="13sp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toTopOf="@id/resetEmailField"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -76,8 +76,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/lato_regular"
             android:inputType="textEmailAddress"
+            android:textSize="@dimen/_12ssp"
+            android:paddingVertical="@dimen/_15sdp"
             android:maxLines="1"
-            android:paddingVertical="20dp"
             android:textColor="@color/black" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -89,10 +90,11 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/mainColor"
         android:fontFamily="@font/poppins_semibold"
-        android:padding="15dp"
+        android:padding="@dimen/_12sdp"
+        android:textSize="@dimen/_11ssp"
+        app:cornerRadius="@dimen/_20sdp"
         android:text="Next"
         android:textAllCaps="false"
-        app:cornerRadius="25dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toTopOf="@id/rememberPassword"/>
@@ -105,7 +107,7 @@
         android:text="@string/rememberPassword"
         android:textColor="@color/dark_gray"
         android:layout_marginBottom="10dp"
-        android:textSize="14sp"
+        android:textSize="@dimen/_11ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

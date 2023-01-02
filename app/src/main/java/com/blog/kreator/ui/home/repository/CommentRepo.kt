@@ -48,13 +48,13 @@ class CommentRepo @Inject constructor(private val remoteService: RemoteService) 
     }
 
     suspend fun getCommentByPostId(token : String , postId:Int){
-        commentLiveData.postValue(NetworkResponse.Loading())
+        commentsByPostLiveData.postValue(NetworkResponse.Loading())
         try {
             val response = remoteService.getCommentByPostId(token,postId)
             Log.d("GetCommentByPost", response.body().toString())
             handleResponse2(response)
         }catch (e:Exception){
-            commentLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
+            commentsByPostLiveData.postValue(NetworkResponse.Error("Server Error : ${e.localizedMessage}"))
         }
     }
 

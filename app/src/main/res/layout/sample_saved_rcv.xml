@@ -4,15 +4,15 @@
     android:id="@+id/savedLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="10dp"
-    android:paddingHorizontal="20dp"
+    android:paddingVertical="@dimen/_7sdp"
+    android:paddingHorizontal="@dimen/_16sdp"
     android:layout_marginBottom="1dp"
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profile"
-        android:layout_width="22dp"
-        android:layout_height="22dp"
+        android:layout_width="@dimen/_17sdp"
+        android:layout_height="@dimen/_17sdp"
         android:src="@drawable/bottom_corner_img"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,11 +21,11 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="@dimen/_6sdp"
         android:fontFamily="@font/poppins_medium"
         android:text="Sumit Soni"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/_9ssp"
         app:layout_constraintBottom_toBottomOf="@id/profile"
         app:layout_constraintStart_toEndOf="@id/profile"
         app:layout_constraintTop_toTopOf="@id/profile" />
@@ -34,12 +34,12 @@
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="@dimen/_16sdp"
         android:fontFamily="@font/poppins_medium"
         android:maxLines="2"
         android:text="The Ultimate guide to finding a Front-End Engineer"
         android:textColor="@color/black"
-        android:textSize="16sp"
+        android:textSize="@dimen/_12ssp"
         android:textStyle="bold"
         android:lineSpacingExtra="2dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,10 +49,10 @@
 
     <ImageView
         android:id="@+id/postImage"
-        android:layout_width="70dp"
-        android:layout_height="45dp"
+        android:layout_width="@dimen/_56sdp"
+        android:layout_height="@dimen/_35sdp"
         android:scaleType="fitXY"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile"/>
@@ -62,23 +62,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Food"
-        android:textSize="13sp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintTop_toBottomOf="@id/postImage"
         app:layout_constraintBottom_toBottomOf="@id/bookmark"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/poppins_semibold"
         android:textColor="@color/light_black"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="@dimen/_4sdp"/>
 
     <View
         android:id="@+id/dot"
-        android:layout_width="4dp"
-        android:layout_height="4dp"
+        android:layout_width="@dimen/_3sdp"
+        android:layout_height="@dimen/_3sdp"
         android:background="@color/light_gray"
         app:layout_constraintStart_toEndOf="@id/categoryName"
         app:layout_constraintTop_toTopOf="@id/time"
         app:layout_constraintBottom_toBottomOf="@id/time"
-        android:layout_marginStart="10dp"/>
+        android:layout_marginStart="@dimen/_8sdp"/>
 
     <TextView
         android:id="@+id/time"
@@ -87,22 +87,22 @@
         android:fontFamily="@font/poppins_medium"
         android:text="2 hours ago"
         android:textColor="@color/gray"
-        android:layout_marginStart="10dp"
-        android:textSize="11sp"
+        android:layout_marginStart="@dimen/_8sdp"
+        android:textSize="@dimen/_8ssp"
         app:layout_constraintStart_toEndOf="@id/dot"
         app:layout_constraintTop_toTopOf="@id/categoryName"
         app:layout_constraintBottom_toBottomOf="@id/categoryName"/>
 
     <ImageView
         android:id="@+id/bookmark"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:clickable="true"
         android:src="@drawable/bookmarked"
         android:tooltipText="More Options"
         android:focusable="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/postImage"
         app:tint="@color/light_black" />

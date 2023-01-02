@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp"
+        android:layout_marginBottom="@dimen/_40sdp"
         android:scrollbars="none">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="15dp">
+            android:paddingTop="@dimen/_11sdp">
 
             <TextView
                 android:id="@+id/update"
@@ -25,22 +25,22 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/poppins_semibold"
                 android:text="Update"
                 android:textColor="@color/mainColor"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_12ssp" />
 
             <ImageView
                 android:id="@+id/Back"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="@dimen/_15sdp"
+                android:layout_height="@dimen/_15sdp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="@dimen/_12sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:focusable="true"
@@ -51,17 +51,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_below="@id/Back"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:background="@color/light_gray" />
 
             <ImageView
                 android:id="@+id/addCoverImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:layout_below="@id/line2"
                 android:layout_alignParentStart="true"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
                 android:src="@drawable/add_cover_image"
@@ -89,9 +89,8 @@
                 android:layout_below="@id/line2"
                 android:layout_toEndOf="@id/addCoverImage"
                 android:layout_centerHorizontal="true"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginHorizontal="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:enabled="true"
                 android:focusable="true"
                 android:fontFamily="@font/poppins_semibold"
@@ -99,19 +98,19 @@
                 android:inputType="text|textNoSuggestions"
                 android:isScrollContainer="true"
                 android:maxLines="1"
-                android:minHeight="30dp"
+                android:minHeight="@dimen/_24sdp"
                 android:scrollIndicators="none"
                 android:scrollbars="horizontal"
-                android:textSize="16sp"
+                android:textSize="@dimen/_12ssp"
                 tools:targetApi="m" />
 
             <ImageView
                 android:id="@+id/coverImage"
-                android:layout_width="200dp"
-                android:layout_height="120dp"
+                android:layout_width="@dimen/_160sdp"
+                android:layout_height="@dimen/_92sdp"
                 android:layout_below="@id/etTitle"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:src="@drawable/placeholder" />
 
             <com.github.irshulx.Editor
@@ -121,9 +120,9 @@
                 android:layout_below="@id/coverImage"
                 android:clickable="true"
                 android:focusable="true"
-                android:paddingHorizontal="15dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="100dp"
+                android:paddingHorizontal="@dimen/_12sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingBottom="@dimen/_80sdp"
                 app:placeholder="Start writing here..."
                 app:render_type="Editor" />
 
@@ -146,94 +145,94 @@
             android:fadingEdge="horizontal"
             android:fadingEdgeLength="20dp"
             android:orientation="horizontal"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="10dp"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingVertical="@dimen/_8sdp"
             android:requiresFadingEdge="horizontal">
 
             <TextView
                 android:id="@+id/action_h1"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:paddingBottom="1dp"
+                android:paddingBottom="@dimen/_1sdp"
                 android:text="H1"
                 android:textColor="#444444"
-                android:textSize="20sp"
+                android:textSize="@dimen/_16ssp"
                 android:textStyle="bold"
                 android:tooltipText="Heading" />
 
             <ImageButton
                 android:id="@+id/action_bold"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_bold"
                 android:tooltipText="Format Bold" />
 
             <ImageButton
                 android:id="@+id/action_Italic"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_italic"
                 android:tooltipText="Format Italic" />
 
             <ImageButton
                 android:id="@+id/action_indent"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_indent"
                 android:tooltipText="Format Indent" />
 
             <ImageButton
                 android:id="@+id/action_blockquote"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/ic_blockquote"
                 android:tooltipText="Format Quote" />
 
             <ImageButton
                 android:id="@+id/action_bulleted"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginHorizontal="@dimen/_8sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_bullet_list"
                 android:tooltipText="Bulleted List" />
 
             <ImageButton
                 android:id="@+id/action_unordered_numbered"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_numbered_list"
                 android:tooltipText="Numbered List" />
@@ -241,12 +240,12 @@
 <!--
             <ImageButton
                 android:id="@+id/action_insert_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:layout_marginHorizontal="10dp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
                 android:padding="6dp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_image"
@@ -255,25 +254,25 @@
 
             <ImageButton
                 android:id="@+id/action_insert_link"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="7dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_link"
                 android:tooltipText="Insert Link" />
 
             <ImageButton
                 android:id="@+id/action_erase"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="10dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:background="@android:color/transparent"
-                android:maxWidth="20dp"
-                android:maxHeight="20dp"
-                android:padding="6dp"
+                android:maxWidth="@dimen/_15sdp"
+                android:maxHeight="@dimen/_15sdp"
+                android:padding="@dimen/_5sdp"
                 android:scaleType="centerInside"
                 android:src="@drawable/icon_erase"
                 android:tooltipText="Erase all" />
@@ -284,8 +283,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/loadingAnime"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
         android:layout_centerInParent="true"
         android:visibility="gone"
         app:lottie_autoPlay="true"

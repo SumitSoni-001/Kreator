@@ -7,12 +7,12 @@
     <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#2EA043"> <b>Login here</b></font></string>
     <string name="termsService_privacyPolicy1"><font fgcolor="#FFFFFF">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#539bf5"><u>Terms of Service</u></font></a><font fgcolor="#FFFFFF"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#539bf5"><u>Privacy Policy</u></font></a><font fgcolor="#FFFFFF"> applies to you.</font></string>
     <string name="termsService_privacyPolicy2"><font fgcolor="#000000">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#2EA043"><u>Terms of Service</u></font></a><font fgcolor="#000000"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#2EA043"><u>Privacy Policy</u></font></a><font fgcolor="#000000"> applies to you.</font></string>
-    <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>
+<!--    <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>-->
+    <string name="termService">I agree with the <b>Terms of Service</b></string>
     <string name="verifyEmail">What\'s\nYour Email?</string>
-    <string name="verifyEmailDesc">We will send a verification email to your email, Please \ncheck Spam or Junk folder if not received in Inbox.</string>
+    <string name="verifyEmailDesc">We will send a verification email to your email, Please check Spam or Junk folder if not received in Inbox.</string>
     <string name="registerHere"><font fgcolor="#000000">Don\'t have an Account?</font><font fgcolor="#2EA043"> <b>Sign up</b></font></string>
     <string name="skip"><u>Skip</u></string>
-    <!--    <string name="enterEmailPasswordReset">Please enter your email address \nto request a password reset.</string>-->
     <string name="enterEmailPasswordReset">Enter the email address associated with \nyour account to request a password reset.</string>
     <string name="passwordGuideline">Your new password must be \ndifferent from previous use passwords.</string>
     <string name="resetPassword">Forgot\nYour Password?</string>
@@ -20,9 +20,9 @@
     <string name="tv_enrich_knowledge">Enrich Your Knowledge</string>
     <string name="tv_enrich_knowledge_desc">KREATOR always provide resourceful blog, \ncase studies, business perspective that \nhelps you to grow your knowledge.</string>
     <string name="tv_save_blogs">Save Blogs That You Like</string>
-    <string name="tv_save_blogs_desc">Just save the blogs that you wanna read\nin future. You will find the saved blogs in\none place.</string>
+    <string name="tv_save_blogs_desc">Just save the blogs that you wanna \nread in future. You will find the \nsaved blogs in one place.</string>
     <string name="tv_learn">Learn From Professionals</string>
-    <string name="tv_learn_desc">Our content creators are professionals in their\nfields. They more then work and research\nexperience.</string>
+    <string name="tv_learn_desc">Our content creators are professionals \nin their fields. They have a broad and \ndeep work and research experience.</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="category_screen_desc">Choose a few of your favourite topics, then \nwe\'ll build your personalized feed.</string>
     <string name="follow_interests">Follow your interests</string>

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:visibility="gone"
+    android:paddingTop="@dimen/_24sdp"
     app:shimmer_angle="15"
     app:shimmer_color="@color/light_gray"
     app:shimmer_animation_duration="2000">
@@ -12,32 +13,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/_23sdp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:paddingHorizontal="15dp">
+        android:paddingHorizontal="@dimen/_12sdp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:visibility="gone"
             android:orientation="horizontal">
 
             <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@color/shimmerColor" />
 
             <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginEnd="15dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
                 android:background="@color/shimmerColor" />
 
             <View
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_23sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@color/shimmerColor" />
 
 
@@ -45,142 +47,162 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:gravity="center_vertical"
+            android:visibility="gone"
             android:orientation="horizontal"
-            android:paddingHorizontal="5dp"
-            android:paddingVertical="8dp">
+            android:paddingHorizontal="@dimen/_4sdp"
+            android:paddingVertical="@dimen/_6sdp">
 
             <View
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/_31sdp"
+                android:layout_height="@dimen/_31sdp"
                 android:background="@color/shimmerColor" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="@dimen/_8sdp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <View
-                    android:layout_width="120dp"
-                    android:layout_height="12dp"
+                    android:layout_width="@dimen/_15sdp"
+                    android:layout_height="@dimen/_10sdp"
                     android:background="@color/shimmerColor" />
 
                 <View
-                    android:layout_width="100dp"
-                    android:layout_height="12dp"
-                    android:layout_marginTop="6dp"
+                    android:layout_width="@dimen/_80sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:background="@color/shimmerColor" />
 
             </LinearLayout>
 
             <View
-                android:layout_width="70dp"
-                android:layout_height="30dp"
+                android:layout_width="@dimen/_55sdp"
+                android:layout_height="@dimen/_23sdp"
                 android:background="@color/shimmerColor" />
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:layout_marginTop="20dp"
+            android:layout_height="@dimen/_155sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="30dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_23sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="50dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginEnd="50dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@color/shimmerColor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
+            android:background="@color/shimmerColor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:background="@color/shimmerColor" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_4sdp"
             android:background="@color/shimmerColor" />
 
     </LinearLayout>

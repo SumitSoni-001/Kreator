@@ -6,8 +6,8 @@
     android:fontFamily="@font/poppins_medium"
     android:maxLines="1"
     android:textColor="@color/gray"
-    android:paddingHorizontal="16dp"
-    android:paddingVertical="8dp"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_6sdp"
     android:text="Food"
     android:textAppearance="?attr/textAppearanceSubtitle1"
-    android:textSize="13sp" />
+    android:textSize="@dimen/_10ssp" />

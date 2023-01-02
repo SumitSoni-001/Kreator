@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/saveBlogImg"
         android:layout_width="0dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="40dp"
+        android:layout_height="@dimen/_185sdp"
+        android:layout_marginTop="@dimen/_31sdp"
         android:layout_marginHorizontal="30dp"
         android:src="@drawable/save_blog"
         app:layout_constraintTop_toTopOf="parent"
@@ -22,8 +22,8 @@
         android:text="@string/tv_save_blogs"
         android:textColor="@color/black"
         android:fontFamily="@font/poppins_bold"
-        android:textSize="22sp"
-        android:layout_marginTop="25dp"
+        android:textSize="@dimen/_18ssp"
+        android:layout_marginTop="@dimen/_19sdp"
         app:layout_constraintTop_toBottomOf="@id/saveBlogImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -35,10 +35,10 @@
         android:textColor="@color/gray"
         android:fontFamily="@font/poppins_regular"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textSize="@dimen/_12ssp"
+        android:lineSpacingExtra="@dimen/_1sdp"
         app:layout_constraintTop_toBottomOf="@+id/saveBlog"
-        android:layout_marginTop="10dp"
-        android:lineSpacingExtra="2dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

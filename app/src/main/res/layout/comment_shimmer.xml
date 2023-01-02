@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingHorizontal="15dp"
-    android:paddingVertical="15dp">
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_12sdp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,20 +12,20 @@
         android:orientation="horizontal">
 
         <View
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/_23sdp"
+            android:layout_height="@dimen/_23sdp"
             android:background="@color/shimmerColor" />
 
         <View
-            android:layout_width="80dp"
-            android:layout_height="15dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_12sdp"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="@dimen/_6sdp"
             android:background="@color/shimmerColor" />
 
         <View
-            android:layout_width="80dp"
-            android:layout_height="15dp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_12sdp"
             android:layout_gravity="end|center_vertical"
             android:background="@color/shimmerColor" />
 
@@ -33,20 +33,20 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_marginTop="15dp"
+        android:layout_height="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="@color/shimmerColor" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:background="@color/shimmerColor" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_marginTop="6dp"
+        android:layout_height="@dimen/_9sdp"
+        android:layout_marginTop="@dimen/_4sdp"
         android:background="@color/shimmerColor" />
 
 </LinearLayout>

@@ -115,7 +115,8 @@ class ViewPostFragment : Fragment() {
 //       postViewModel.singlePostData.observeOnceAfterInit(viewLifecycleOwner){
             binding.postItemsLayout.visibility = View.VISIBLE
             binding.commentFAB.visibility = View.VISIBLE
-            binding.shimmer.shimmerLayout.stopShimmerAnimation()
+//            binding.shimmer.shimmerLayout.stopShimmerAnimation()
+            binding.shimmer.shimmerLayout.visibility = View.GONE
             when (it) {
                 is NetworkResponse.Success -> {
                     val postData = it.data
@@ -144,7 +145,8 @@ class ViewPostFragment : Fragment() {
                     }.show()
                 }
                 is NetworkResponse.Loading -> {
-                    binding.shimmer.shimmerLayout.startShimmerAnimation()
+//                    binding.shimmer.shimmerLayout.startShimmerAnimation()
+                    binding.shimmer.shimmerLayout.visibility = View.VISIBLE
                     binding.postItemsLayout.visibility = View.GONE
                     binding.commentFAB.visibility = View.GONE
                 }

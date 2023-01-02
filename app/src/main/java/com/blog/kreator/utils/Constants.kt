@@ -3,7 +3,7 @@ package com.blog.kreator.utils
 class Constants {
 
     companion object {
-        const val BASE_URL = "http://192.168.182.65:9090"
+        const val BASE_URL = "http://192.168.22.65:9090"
         const val AUTH_TOKEN = "Authorization"
         const val SHARED_PREFS = "SHARED_PREFS"
         const val REGISTER_USER = "/api/auth/register"

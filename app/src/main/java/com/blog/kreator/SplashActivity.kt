@@ -36,7 +36,6 @@ class SplashActivity : AppCompatActivity() {
 //        setTheme(R.style.Theme_Kreator)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         setContentView(R.layout.activity_splash)
-sessionManager.setEmail("sumit123@dev.com")
         window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 //        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN)
         window.navigationBarColor = resources.getColor(R.color.black)

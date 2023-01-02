@@ -11,7 +11,7 @@
     <ImageView
         android:id="@+id/cornerImg"
         android:layout_width="wrap_content"
-        android:layout_height="180dp"
+        android:layout_height="@dimen/_140sdp"
         android:scaleType="fitEnd"
         android:src="@drawable/welcome_corner_img"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,8 +19,8 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="@dimen/_37sdp"
+        android:layout_height="@dimen/_37sdp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="-10dp"
         android:src="@drawable/app_logo"
@@ -35,7 +35,7 @@
         android:fontFamily="@font/aclonica"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="26sp"
+        android:textSize="@dimen/_20ssp"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintTop_toBottomOf="@id/logo" />
 
@@ -47,7 +47,7 @@
         android:fontFamily="@font/poppins_regular"
         android:text="@string/TagLine"
         android:textColor="@color/white"
-        android:textSize="28sp"
+        android:textSize="@dimen/_22ssp"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintTop_toBottomOf="@id/kreator" />
 
@@ -60,7 +60,7 @@
         android:lineSpacingExtra="2dp"
         android:text="@string/app_description"
         android:textColor="@color/white"
-        android:textSize="18sp"
+        android:textSize="@dimen/_13ssp"
         app:layout_constraintStart_toStartOf="@id/logo"
         app:layout_constraintTop_toBottomOf="@id/app_title" />
 
@@ -68,13 +68,14 @@
         android:id="@+id/getStarted"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="@dimen/_14sdp"
         android:backgroundTint="@color/white"
         android:fontFamily="@font/lato_bold"
-        android:paddingVertical="15dp"
+        android:paddingVertical="@dimen/_11sdp"
         android:text="Get Started"
         android:textColor="@color/black"
-        app:cornerRadius="10dp"
+        android:textSize="@dimen/_11ssp"
+        app:cornerRadius="@dimen/_8sdp"
         app:layout_constraintBottom_toTopOf="@id/securityLinks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,8 +100,8 @@
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:rotation="90"
-        android:visibility="invisible"
         android:src="@drawable/bottom_corner_img"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -108,16 +109,15 @@
         android:id="@+id/securityLinks"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/_46sdp"
         android:fontFamily="@font/poppins_regular"
         android:gravity="center"
         android:lineSpacingExtra="2dp"
         android:text="@string/termsService_privacyPolicy1"
-        android:textSize="12sp"
         android:textColorLink="@color/dotActive"
-        app:layout_goneMarginTop="50dp"
+        android:textSize="@dimen/_10ssp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

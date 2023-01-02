@@ -24,8 +24,8 @@
                 android:id="@+id/actionLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="15dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginHorizontal="@dimen/_11sdp"
+                android:layout_marginTop="@dimen/_15sdp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -39,8 +39,8 @@
 
                     <ImageView
                         android:id="@+id/backToMain"
-                        android:layout_width="30dp"
-                        android:layout_height="20dp"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_16sdp"
                         android:background="?attr/selectableItemBackgroundBorderless"
                         android:clickable="true"
                         android:src="@drawable/back_arrow"
@@ -50,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/share"
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_17sdp"
                     android:layout_marginEnd="20dp"
                     android:src="@drawable/share"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -62,11 +62,11 @@
 
                 <ImageView
                     android:id="@+id/bookmarkPost"
-                    android:layout_width="25dp"
-                    android:layout_height="22dp"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_17sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
-                    android:layout_marginEnd="15dp"
+                    android:layout_marginEnd="@dimen/_11sdp"
                     android:src="@drawable/bookmark"
                     android:tooltipText="Bookmark"
                     android:focusable="true"
@@ -74,8 +74,8 @@
 
                 <ImageView
                     android:id="@+id/more"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_19sdp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:src="@drawable/more_options"
@@ -89,7 +89,7 @@
                 android:id="@+id/line"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_12sdp"
                 android:background="@color/postStroke"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -99,11 +99,11 @@
                 android:id="@+id/postTitle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="@dimen/_19sdp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="The Ultimate guide to finding a Front-End Engineer."
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="@dimen/_17ssp"
                 android:lineSpacingExtra="5dp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
@@ -190,45 +190,45 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
-                android:paddingVertical="5dp"
+                android:paddingVertical="@dimen/_4sdp"
                 android:orientation="horizontal"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/_12sdp"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
                 app:layout_constraintTop_toBottomOf="@id/postTitle">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/userProfile"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    android:layout_marginStart="5dp"
+                    android:layout_width="@dimen/_27sdp"
+                    android:layout_height="@dimen/_27sdp"
+                    android:layout_marginStart="@dimen/_3sdp"
                     android:src="@drawable/user_placeholder" />
 
                 <TextView
                     android:id="@+id/username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="Sumit Soni"
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
+                    android:textSize="@dimen/_10ssp" />
 
                 <View
-                    android:layout_width="4dp"
-                    android:layout_height="4dp"
-                    android:layout_marginStart="10dp"
+                    android:layout_width="@dimen/_3sdp"
+                    android:layout_height="@dimen/_3sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
                     android:background="@color/light_gray"/>
 
                 <TextView
                     android:id="@+id/postedOn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
+                    android:layout_marginStart="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="2 hours ago"
                     android:textColor="@color/gray"
-                    android:textSize="11sp" />
+                    android:textSize="@dimen/_9ssp" />
 
             </LinearLayout>
 
@@ -236,9 +236,9 @@
                 android:id="@+id/postImageCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/_23sdp"
                 android:outlineSpotShadowColor="@color/white"
-                app:cardCornerRadius="8dp"
+                app:cardCornerRadius="@dimen/_7sdp"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
                 app:layout_constraintTop_toBottomOf="@id/userLayout">
@@ -246,14 +246,13 @@
                 <ImageView
                     android:id="@+id/postImage"
                     android:layout_width="match_parent"
-                    android:layout_height="220dp"
+                    android:layout_height="@dimen/_170sdp"
                     android:background="#F6F6F6"
                     android:src="@drawable/placeholder" />
 
             </androidx.cardview.widget.CardView>
 
             <!--
-
                         <TextView
                             android:id="@+id/postContent"
                             android:layout_width="0dp"
@@ -278,7 +277,7 @@
                 android:id="@+id/postContent"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@id/actionLayout"
                 app:layout_constraintStart_toStartOf="@id/actionLayout"
@@ -291,19 +290,19 @@
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/commentFAB"
-        android:layout_width="100dp"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_23sdp"
         android:backgroundTint="@color/mainColor"
         android:drawableTint="@color/white"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="12sp"
+        android:textSize="@dimen/_9ssp"
         app:icon="@drawable/comment"
-        app:iconPadding="8dp"
-        app:iconSize="20dp"
+        app:iconPadding="@dimen/_7sdp"
+        app:iconSize="@dimen/_15sdp"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -311,6 +310,5 @@
     <include
         android:id="@+id/shimmer"
         layout="@layout/view_post_shimmer" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

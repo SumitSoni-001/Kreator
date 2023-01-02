@@ -7,28 +7,28 @@
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
+        android:layout_marginHorizontal="@dimen/_24sdp"
         android:backgroundTint="@color/main_fragment_bg"
         android:outlineSpotShadowColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardCornerRadius="15dp"
+        app:cardCornerRadius="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="15dp"
-            android:paddingTop="20dp"
-            android:paddingBottom="5dp"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:paddingTop="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_4sdp"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add a Link"
-                android:textSize="16sp"
+                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_bold"
                 android:textColor="@color/dark_gray"/>
 
@@ -38,16 +38,16 @@
                 android:layout_height="wrap_content"
                 android:hint="https://"
                 android:textColorHint="@color/gray"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:textColor="@color/black"
-                android:textSize="15sp"
+                android:textSize="@dimen/_12ssp"
                 android:fontFamily="@font/poppins_regular"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:gravity="end">
 
                 <Button
@@ -57,7 +57,7 @@
                     android:text="cancel"
                     android:textColor="@color/orange"
                     android:textAllCaps="false"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_11ssp"
                     android:fontFamily="@font/poppins_medium"
                     android:background="@color/transparent"/>
 
@@ -68,7 +68,7 @@
                     android:text="Insert"
                     android:textColor="@color/orange"
                     android:textAllCaps="false"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/_11ssp"
                     android:fontFamily="@font/poppins_medium"
                     android:background="@color/transparent"/>
 

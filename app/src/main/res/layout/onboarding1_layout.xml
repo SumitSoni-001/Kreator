@@ -7,8 +7,8 @@
     <ImageView
         android:id="@+id/knowledgeImg"
         android:layout_width="0dp"
-        android:layout_height="260dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_marginTop="@dimen/_23sdp"
         android:src="@drawable/enrich_knowledge"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,9 +20,9 @@
         android:layout_height="wrap_content"
         android:text="@string/tv_enrich_knowledge"
         android:textColor="@color/black"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/_15sdp"
         android:fontFamily="@font/poppins_bold"
-        android:textSize="22sp"
+        android:textSize="@dimen/_18ssp"
         app:layout_constraintTop_toBottomOf="@id/knowledgeImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -34,10 +34,10 @@
         android:textColor="@color/gray"
         android:fontFamily="@font/poppins_regular"
         android:textAlignment="center"
-        android:textSize="15sp"
+        android:textSize="@dimen/_12ssp"
+        android:lineSpacingExtra="@dimen/_1sdp"
         app:layout_constraintTop_toBottomOf="@+id/enrichKnowledge"
-        android:layout_marginTop="10dp"
-        android:lineSpacingExtra="2dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 

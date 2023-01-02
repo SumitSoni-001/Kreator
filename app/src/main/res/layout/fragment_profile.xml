@@ -9,37 +9,36 @@
 
     <ImageView
         android:id="@+id/goBack"
-        android:layout_width="30dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="20dp"
-        android:src="@drawable/back_arrow"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
         android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/back_arrow"
         app:layout_constraintBottom_toBottomOf="@id/tvProfile"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/tvProfile" />
-
 
     <TextView
         android:id="@+id/tvProfile"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         android:fontFamily="@font/poppins_bold"
         android:gravity="start"
         android:text="Profile"
         android:textColor="@color/light_black"
-        android:textSize="20sp"
+        android:textSize="@dimen/_16ssp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/goBack"
         app:layout_constraintTop_toTopOf="parent" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/userImage"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginTop="@dimen/_22sdp"
         android:src="@drawable/user_placeholder"
         app:layout_constraintStart_toStartOf="@id/goBack"
         app:layout_constraintTop_toBottomOf="@id/tvProfile" />
@@ -47,7 +46,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="@dimen/_11sdp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@id/userImage"
         app:layout_constraintStart_toEndOf="@id/userImage"
@@ -60,7 +59,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="Sumit Soni"
             android:textColor="@color/light_black"
-            android:textSize="16sp" />
+            android:textSize="@dimen/_12ssp" />
 
         <TextView
             android:id="@+id/kreatorUsername"
@@ -70,23 +69,23 @@
             android:fontFamily="@font/poppins_medium"
             android:text="\@Sumit100ni"
             android:textColor="@color/gray"
-            android:textSize="12sp" />
+            android:textSize="@dimen/_9ssp" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvEdit"
-        android:layout_width="70dp"
+        android:layout_width="@dimen/_53sdp"
         android:layout_height="wrap_content"
         android:background="@drawable/search_bg"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/poppins_medium"
         android:gravity="center"
-        android:paddingVertical="8dp"
+        android:paddingVertical="@dimen/_6sdp"
         android:text="Edit"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="@dimen/_9ssp"
         app:layout_constraintBottom_toBottomOf="@id/userImage"
         app:layout_constraintEnd_toEndOf="@id/tvProfile"
         app:layout_constraintTop_toTopOf="@id/userImage" />
@@ -95,12 +94,12 @@
         android:id="@+id/followStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="@dimen/_24sdp"
         android:background="@drawable/search_bg"
         android:gravity="center"
-        android:visibility="gone"
         android:orientation="horizontal"
-        android:paddingVertical="10dp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/tvProfile"
         app:layout_constraintStart_toStartOf="@id/goBack"
         app:layout_constraintTop_toBottomOf="@id/userImage">
@@ -119,16 +118,16 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="0"
                 android:textColor="@color/light_black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Followers"
-                android:layout_marginTop="-3dp"
                 android:textColor="@color/gray"
-                android:textSize="13sp" />
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 
@@ -152,16 +151,16 @@
                 android:fontFamily="@font/poppins_bold"
                 android:text="0"
                 android:textColor="@color/light_black"
-                android:textSize="16sp" />
+                android:textSize="@dimen/_12ssp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Following"
-                android:layout_marginTop="-3dp"
                 android:textColor="@color/gray"
-                android:textSize="13sp" />
+                android:textSize="@dimen/_10ssp" />
 
         </LinearLayout>
 
@@ -171,11 +170,11 @@
         android:id="@+id/tvArticle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="@dimen/_31sdp"
         android:fontFamily="@font/poppins_medium"
         android:text="Article"
         android:textColor="@color/green"
-        android:textSize="15sp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toStartOf="@id/goBack"
         app:layout_constraintTop_toBottomOf="@id/followStatus" />
 
@@ -183,11 +182,11 @@
         android:id="@+id/tvSaved"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="@dimen/_23sdp"
         android:fontFamily="@font/poppins_medium"
         android:text="Saved"
         android:textColor="@color/gray"
-        android:textSize="15sp"
+        android:textSize="@dimen/_12ssp"
         app:layout_constraintStart_toEndOf="@id/tvArticle"
         app:layout_constraintTop_toTopOf="@id/tvArticle" />
 
@@ -195,7 +194,7 @@
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:background="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -224,7 +223,7 @@
         android:id="@+id/articlesRcv"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/_8sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -235,13 +234,13 @@
         app:shimmer_demo_layout="@layout/post_shimmer"
         app:shimmer_demo_layout_manager_type="linear_vertical"
         app:shimmer_demo_shimmer_color="@color/postStroke"
-        tools:listitem="@layout/sample_saved_rcv" />
+        tools:listitem="@layout/sample_articles_rcv" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/notFound"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="80dp"
+        android:layout_width="@dimen/_116sdp"
+        android:layout_height="@dimen/_116sdp"
+        android:layout_marginTop="@dimen/_65sdp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
