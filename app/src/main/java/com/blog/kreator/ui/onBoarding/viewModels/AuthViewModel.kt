@@ -13,6 +13,7 @@ import com.blog.kreator.ui.onBoarding.repository.AuthRepo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import javax.inject.Inject
@@ -24,6 +25,7 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
     get() = authRepo.authResponseData
 
     val userResponseData get() = authRepo.userResponseData
+//    val userData get() = authRepo.getUserData
 
     private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var anonymousLiveData = MutableLiveData<FirebaseUser>()
@@ -66,6 +68,12 @@ class AuthViewModel @Inject constructor(private val authRepo: AuthRepo) : ViewMo
             authRepo.getUserByEmail(email)
         }
     }
+
+//    fun getUserByEmail2(email:String){
+//        viewModelScope.launch {
+//            authRepo.getUserByEmail2(email)
+//        }
+//    }
 
     fun uploadProfile(token:String,userId:Int,profile:MultipartBody.Part){
         viewModelScope.launch {

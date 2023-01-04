@@ -11,6 +11,8 @@ import com.blog.kreator.ui.onBoarding.models.GetUserDetails
 import com.blog.kreator.ui.onBoarding.models.LoginDetails
 import com.blog.kreator.ui.onBoarding.models.UserInput
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import okhttp3.MultipartBody
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -28,6 +30,10 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
     private val userResponseLiveData = MutableLiveData<NetworkResponse<GetUserDetails>>()
     val userResponseData : LiveData<NetworkResponse<GetUserDetails>>
     get() = userResponseLiveData
+
+//    private val getUserFlow = MutableStateFlow<NetworkResponse<AuthResponse>>(NetworkResponse.Loading())
+//    val getUserData : StateFlow<NetworkResponse<AuthResponse>>
+//    get() = getUserFlow
 
     suspend fun registerUser(userModel: UserInput) {
         authResponseLiveData.postValue(NetworkResponse.Loading())
@@ -75,6 +81,18 @@ class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
             authResponseLiveData.postValue(NetworkResponse.Error("Server Problem : ${e.localizedMessage}"))
         }
     }
+
+//    suspend fun getUserByEmail2(email:String){
+//        val response = remoteService.getUserByEmail(email)
+//        if (response.isSuccessful && response.body()!=null){
+//            getUserFlow.emit(NetworkResponse.Success(response.body()!!))
+//        }else if (response.errorBody() != null){
+//            val errorObj = JSONObject(response.errorBody()!!.charStream().readText())
+//            getUserFlow.emit(NetworkResponse.Error(errorObj.getString("message")))
+//        }else{
+//            getUserFlow.emit(NetworkResponse.Error("Something went wrong"))
+//        }
+//    }
 
     suspend fun uploadImage(token: String, userId : Int, profile: MultipartBody.Part) {
         userResponseLiveData.postValue(NetworkResponse.Loading())

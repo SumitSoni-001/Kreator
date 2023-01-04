@@ -10,14 +10,14 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/kreatorAnime"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/_155sdp"
+        android:layout_height="@dimen/_155sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:lottie_speed="1.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/k_anime"
-        app:lottie_autoPlay="true" />
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/k_anime"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
