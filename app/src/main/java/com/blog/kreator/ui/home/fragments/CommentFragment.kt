@@ -107,6 +107,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun commentObserver() { // Fetching comments by postId
         commentViewModel.commentByPostData.observe(viewLifecycleOwner) {
+            binding.noComments.visibility = View.GONE
             binding.commentRCV.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
@@ -114,6 +115,8 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                     if (commentData != null){
                         if (commentData.size > 0) {
                             binding.tvComment.text = "Comments (${commentData?.size})"
+                        }else{
+                            binding.noComments.visibility = View.VISIBLE
                         }
                         commentsList.clear()
                         commentsList.addAll(commentData)

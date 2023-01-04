@@ -37,38 +37,15 @@ class CategoryAdapter(private val context: Context, private val list: ArrayList<
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-
-        val tvCategory = holder.binding.category
+        val tvCategory = holder.binding.tvCategory
         if (!tvCategoryList.contains(tvCategory)) {
             tvCategoryList.add(tvCategory)
         }
-
-        /**    var isCategorySelected = tvCategory.isPressed */
-
         tvCategory.text = list[position]
 
-        /*
-        tvCategory.setOnClickListener{
-//            isCategorySelected = !isCategorySelected
-
-            for (item in tvCategoryList){
-                item.setBackgroundResource(R.drawable.category_default)
-                item.setTextColor(context.resources.getColor(R.color.black))
-            }
-            tvCategory.setBackgroundResource(R.drawable.category_selected)
-            tvCategory.setTextColor(context.resources.getColor(R.color.white))
-
-        }
-        */
-
-        if (tvCategory.isPressed){
-            tvCategory.setBackgroundResource(R.drawable.category_selected)
-            tvCategory.setTextColor(Color.parseColor("#FFFFFF"))
-        } else{
-            tvCategory.setBackgroundResource(R.drawable.category_default)
-            tvCategory.setTextColor(Color.parseColor("#000000"))
-        }
-
+        val all = tvCategoryList[0]
+        all.setBackgroundResource(R.drawable.category_selected)
+        all.setTextColor(context.resources.getColor(R.color.white))
     }
 
     override fun getItemCount(): Int {
@@ -80,7 +57,7 @@ class CategoryAdapter(private val context: Context, private val list: ArrayList<
         val listener: ItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.category.setOnClickListener {
+            binding.tvCategory.setOnClickListener {
                 listener.let {
                     val position = absoluteAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {

@@ -1,32 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="@color/white">-->
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvCategory"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/white">
+    android:layout_marginEnd="@dimen/_4sdp"
+    android:background="@drawable/category_default"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_6sdp"
+    android:text="Category"
+    android:textAlignment="center"
+    android:textAllCaps="false"
+    android:textColor="@color/black"
+    android:textSize="@dimen/_10ssp" />
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:id="@+id/categoryCard"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:cardCornerRadius="@dimen/_15sdp"-->
-<!--        app:cardElevation="@dimen/_4sdp"-->
-<!--        android:outlineSpotShadowColor="@color/white"-->
-<!--        android:background="@color/category_selected_bg">-->
-
-        <TextView
-            android:id="@+id/category"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:layout_marginEnd="@dimen/_4sdp"
-            android:textColor="@color/black"
-            android:paddingHorizontal="@dimen/_12sdp"
-            android:background="@drawable/category_default"
-            android:textSize="@dimen/_10ssp"
-            android:paddingVertical="@dimen/_6sdp" />
-
-<!--    </androidx.cardview.widget.CardView>-->
-
-</FrameLayout>
+    <!--</FrameLayout>-->

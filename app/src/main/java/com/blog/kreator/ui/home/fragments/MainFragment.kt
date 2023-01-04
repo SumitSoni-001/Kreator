@@ -9,13 +9,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -109,12 +105,6 @@ class MainFragment : Fragment() {
         binding.postsRcv.layoutManager = linearLayoutManager
         binding.postsRcv.setHasFixedSize(true)
         binding.postsRcv.adapter = postsAdapter
-
-        categoryAdapter = CategoryAdapter(requireContext(), categoryList)
-        binding.categoryRCV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-//        binding.categoryRCV.setHasFixedSize(true)
-        binding.categoryRCV.adapter = categoryAdapter
-
         postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener {
             override fun onItemClick(position: Int, bookmarkPosition: Int) {
 //                categoryList.clear()
@@ -136,6 +126,11 @@ class MainFragment : Fragment() {
 //                bookmarkObserver()
             }
         })
+
+        categoryAdapter = CategoryAdapter(requireContext(), categoryList)
+        binding.categoryRCV.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding.categoryRCV.setHasFixedSize(true)
+        binding.categoryRCV.adapter = categoryAdapter
         categoryAdapter.setonItemClickListener(object : CategoryAdapter.ItemClickListener {
             override fun onItemClick(
                 position: Int,
@@ -143,17 +138,14 @@ class MainFragment : Fragment() {
                 tvCategoryList: ArrayList<TextView>
             ) {
                 postsList.clear()
-//                for (item in tvCategoryList){
-//                    item.setBackgroundResource(R.drawable.category_default)
-//                    item.setTextColor(Color.parseColor("#000000"))
-//                }l̥
-//                categoryLayout.category.setBackgroundResource(R.drawable.category_selected)
-//                categoryLayout.category.setTextColor(Color.parseColor("#FFFFFF"))
-
-                categoryLayout.category.isPressed = !categoryLayout.category.isPressed
+                for (item in tvCategoryList){
+                    item.setBackgroundResource(R.drawable.category_default)
+                    item.setTextColor(Color.parseColor("#000000"))
+                }
+                categoryLayout.tvCategory.setBackgroundResource(R.drawable.category_selected)
+                categoryLayout.tvCategory.setTextColor(Color.parseColor("#FFFFFF"))
 
                 val currentCategory = categoryList[position]
-
                 bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
                 if (position != 0) {
                     for (item in 0 until Constants.ALL_CATEGORIES.size) {
@@ -172,6 +164,7 @@ class MainFragment : Fragment() {
                 }
             }
         })
+
         binding.createBlogFAB.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_createPostFragment)
         }
@@ -195,18 +188,19 @@ class MainFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.postData.observe(viewLifecycleOwner, Observer {
-            binding.errorAnime.visibility = View.INVISIBLE
-            binding.noBlogFound.visibility = View.INVISIBLE
-            binding.btnRetry.visibility = View.INVISIBLE
-            binding.categoryRCV.visibility = View.VISIBLE
+            binding.errorAnime.visibility = View.GONE
+            binding.noBlogFound.visibility = View.GONE
+            binding.btnRetry.visibility = View.GONE
+//            binding.categoryRCV.visibility = View.VISIBLE
             binding.createBlogFAB.visibility = View.VISIBLE
             binding.postsRcv.visibility = View.VISIBLE
             binding.helloGroup.visibility = View.GONE
             binding.postsRcv.hideShimmerAdapter()
             when (it) {
                 is NetworkResponse.Success -> {
-                    binding.errorAnime.visibility = View.INVISIBLE
-                    binding.btnRetry.visibility = View.INVISIBLE
+                    binding.categoryRCV.visibility = View.VISIBLE
+                    binding.errorAnime.visibility = View.GONE
+                    binding.btnRetry.visibility = View.GONE
                     binding.helloGroup.visibility = View.VISIBLE
                     binding.tvName.text = sessionManager.getUserName().toString()
                     val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
@@ -234,7 +228,7 @@ class MainFragment : Fragment() {
                 }
                 is NetworkResponse.Loading -> {
                     binding.postsRcv.showShimmerAdapter()
-                    binding.categoryRCV.visibility = View.GONE
+//                    binding.categoryRCV.visibility = View.GONE
                 }
             }
         })
