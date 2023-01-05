@@ -13,6 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.BuildConfig
 import com.blog.kreator.R
@@ -186,20 +187,22 @@ class EditProfileFragment : Fragment() {
 
     private fun userObserver() {
         userViewModel.userResponseData.observe(viewLifecycleOwner) {
-            loader.dismiss()
-            when (it) {
-                is NetworkResponse.Success -> {
-                    sessionManager.setUserName(it.data?.name.toString())
-                    sessionManager.setEmail(it.data?.email.toString())
-                    sessionManager.setAbout(it.data?.about.toString())
-                    sessionManager.setProfilePic(it.data?.userImage.toString())
-                    Toasty.success(requireContext(), "Profile Updated Successfully", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    loader.show()
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                loader.dismiss()
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        sessionManager.setUserName(it.data?.name.toString())
+                        sessionManager.setEmail(it.data?.email.toString())
+                        sessionManager.setAbout(it.data?.about.toString())
+                        sessionManager.setProfilePic(it.data?.userImage.toString())
+                        Toasty.success(requireContext(), "Profile Updated Successfully", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {
+                        loader.show()
+                    }
                 }
             }
         }

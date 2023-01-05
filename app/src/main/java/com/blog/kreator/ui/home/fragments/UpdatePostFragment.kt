@@ -13,6 +13,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.MainActivity
@@ -27,6 +28,7 @@ import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.github.irshulx.EditorListener
 import com.github.irshulx.models.EditorTextStyle
+import com.kaopiz.kprogresshud.KProgressHUD
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -38,7 +40,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class UpdatePostFragment : Fragment() {
-
     private lateinit var binding: FragmentPostUpdateBinding
     private lateinit var editor: Editor
     private lateinit var postViewModel: PostViewModel
@@ -48,6 +49,7 @@ class UpdatePostFragment : Fragment() {
     private var coverImgUri: String = ""
     private var updated = false
     private lateinit var part: MultipartBody.Part
+    private lateinit var loader : KProgressHUD
 //    private lateinit var categoryAdapter: ArrayAdapter<String>
     private var getCoverImage =
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
@@ -98,6 +100,12 @@ class UpdatePostFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
         postViewModel = ViewModelProvider(context as MainActivity)[PostViewModel::class.java]
 
+        loader = KProgressHUD.create(requireActivity())
+            .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+            .setLabel("Loading...")
+            .setCancellable(false)
+            .setDimAmount(0.5f)
+
         postId = arguments?.getInt("id")!!
         postViewModel.getPostByPostId(sessionManager.getToken().toString(),postId)
 
@@ -116,6 +124,7 @@ class UpdatePostFragment : Fragment() {
             if (title.isNotEmpty() && content.isNotEmpty()/* && coverImgUri.isNotEmpty()*/) {
                 Log.d("postInput", postInput.toString())
                 updated = true
+                loader.setLabel("Publishing...")
                 postViewModel.updatePost(sessionManager.getToken().toString(), postId, postInput)
             } else {
                 Toasty.warning(requireContext(), "Add all the Details", Toasty.LENGTH_SHORT,true).show()
@@ -126,7 +135,6 @@ class UpdatePostFragment : Fragment() {
         }
 
         postObserver()
-
     }
 
     private fun setUpEditor() {
@@ -202,34 +210,38 @@ class UpdatePostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner) {
-            binding.loadingAnime.visibility = View.GONE
-            if (it != null) {
-                when (it) {
-                    is NetworkResponse.Success -> {
-                        val response = it.data
-                        if (updated) {
-                            if (coverImgUri.isNotEmpty()) {
-                                postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
-                                Toasty.success(requireContext(), "Image updated successfully", Toasty.LENGTH_SHORT,true).show()
-                            }
-                            binding.loadingAnime.visibility = View.GONE
-                            Toasty.success(requireContext(), "Post updated successfully", Toasty.LENGTH_SHORT, true).show()
-                        } else {
-                            if (!response?.image.equals("default.png") && response?.image != null) {
-                                Picasso.get().load(CustomImage.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
-                            } else {
-                                binding.coverImage.setImageResource(R.drawable.placeholder)
-                            }
-                            binding.etTitle.setText(response?.postTitle.toString())
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                loader.dismiss()
+                if (it != null) {
+                    when (it) {
+                        is NetworkResponse.Success -> {
+                            val response = it.data
+                            if (updated) {  /** If post-content is updated successfully and image is changed then update the image else update content only. */
+                                if (coverImgUri.isNotEmpty()) {
+                                    postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
+                                    coverImgUri = ""
+//                                    Toasty.success(requireContext(), "Image updated successfully", Toasty.LENGTH_SHORT,true).show()
+                                }else{
+                                    Toasty.success(requireContext(), "Post updated successfully", Toasty.LENGTH_SHORT, true).show()
+                                }
+                            } else {    /** Load post data */
+                                if (!response?.image.equals("default.png") && response?.image != null) {
+                                    Picasso.get().load(CustomImage.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
+                                } else {
+                                    binding.coverImage.setImageResource(R.drawable.placeholder)
+                                }
+                                binding.etTitle.setText(response?.postTitle.toString())
 //                        binding.categorySpinner.setPromptId(response?.category?.categoryId!! - 1)
-                            editor.render(editor.getContentDeserialized(response?.content))
+                                editor.render(editor.getContentDeserialized(response?.content))
+                            }
                         }
-                    }
-                    is NetworkResponse.Error -> {
-                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                    }
-                    is NetworkResponse.Loading -> {
-                        binding.loadingAnime.visibility = View.VISIBLE
+                        is NetworkResponse.Error -> {
+                            Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                        }
+                        is NetworkResponse.Loading -> {
+                            loader.show()
+//                            binding.loadingAnime.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

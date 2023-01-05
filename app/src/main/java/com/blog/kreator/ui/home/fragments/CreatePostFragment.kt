@@ -18,6 +18,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.net.toFile
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -224,29 +225,28 @@ class CreatePostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner, Observer {
-//            binding.loadingAnime.visibility = View.GONE
-            loader.dismiss()
-            if (it != null){
-                when (it) {
-                    is NetworkResponse.Success -> {
-                        val response = it.data
-                        if (response?.image.equals("default.png")) {
-                            postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
-                        } else {
-                            binding.loadingAnime.visibility = View.GONE
-                            binding.etTitle.setText("")
-                            binding.coverImage.setImageResource(R.drawable.placeholder)
-                            coverImgUri = ""
-                            editor.clearAllContents()
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                loader.dismiss()
+                if (it != null){
+                    when (it) {
+                        is NetworkResponse.Success -> {
+                            val response = it.data
+                            if (response?.image.equals("default.png")) {
+                                postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
+                            } else {
+                                binding.loadingAnime.visibility = View.GONE
+                                binding.etTitle.setText("")
+                                binding.coverImage.setImageResource(R.drawable.placeholder)
+                                coverImgUri = ""
+                                editor.clearAllContents()
+                            }
                         }
-                    }
-                    is NetworkResponse.Error -> {
-//                        binding.loadingAnime.visibility = View.GONE
-                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                    }
-                    is NetworkResponse.Loading -> {
-//                        binding.loadingAnime.visibility = View.VISIBLE
-                        loader.show()
+                        is NetworkResponse.Error -> {
+                            Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                        }
+                        is NetworkResponse.Loading -> {
+                            loader.show()
+                        }
                     }
                 }
             }

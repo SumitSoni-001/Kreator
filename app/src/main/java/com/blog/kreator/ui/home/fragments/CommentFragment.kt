@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blog.kreator.R
@@ -107,28 +108,30 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun commentObserver() { // Fetching comments by postId
         commentViewModel.commentByPostData.observe(viewLifecycleOwner) {
-            binding.noComments.visibility = View.GONE
-            binding.commentRCV.hideShimmerAdapter()
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val commentData = it.data
-                    if (commentData != null){
-                        if (commentData.size > 0) {
-                            binding.tvComment.text = "Comments (${commentData?.size})"
-                        }else{
-                            binding.noComments.visibility = View.VISIBLE
-                        }
-                        commentsList.clear()
-                        commentsList.addAll(commentData)
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                binding.noComments.visibility = View.GONE
+                binding.commentRCV.hideShimmerAdapter()
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val commentData = it.data
+                        if (commentData != null){
+                            if (commentData.size > 0) {
+                                binding.tvComment.text = "Comments (${commentData?.size})"
+                            }else{
+                                binding.noComments.visibility = View.VISIBLE
+                            }
+                            commentsList.clear()
+                            commentsList.addAll(commentData)
 //                        commentAdapter.submitList(commentData)
-                        commentAdapter.submitList(commentsList)
+                            commentAdapter.submitList(commentsList)
+                        }
                     }
-                }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    binding.commentRCV.showShimmerAdapter()
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {
+                        binding.commentRCV.showShimmerAdapter()
+                    }
                 }
             }
         }
@@ -136,22 +139,28 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun commentObserver2() { // Adding or Updating Comment
         commentViewModel.commentData.observe(viewLifecycleOwner) {
-            progress.dismiss()
-            when (it) {
-                is NetworkResponse.Success -> {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                progress.dismiss()
+                when (it) {
+                    is NetworkResponse.Success -> {
 //                    commentViewModel.getCommentByPostId(sessionManager.getToken().toString(), postId)
-                    if (!updatingComment){// New Comment
-                        commentsList.add(it.data!!)
-                        commentAdapter.notifyItemInserted(it.data.id!!)
+                        if (!updatingComment){// New Comment
+                            commentsList.add(it.data!!)
+                            commentAdapter.notifyItemInserted(it.data.id!!)
+                        }
+                        commentAdapter.notifyItemChanged(itemPosition)
+                        binding.etComment.setText("")
+                        if (commentsList.size > 0){
+                            binding.noComments.visibility = View.GONE
+                            binding.tvComment.text = "Comments (${commentsList.size})"
+                        }
                     }
-                    commentAdapter.notifyItemChanged(itemPosition)
-                    binding.etComment.setText("")
-                }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {
 //                    progress.show()
+                    }
                 }
             }
         }
@@ -159,19 +168,26 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun deleteCommentObserver() {
         commentViewModel.deleteCommentData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val response = it.data
-                    if (response?.status == true) {
-                        Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT,true).show()
-                        commentsList.removeAt(itemPosition)
-                        commentAdapter.notifyItemRemoved(itemPosition)
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val response = it.data
+                        if (response?.status == true) {
+                            Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT,true).show()
+                            commentsList.removeAt(itemPosition)
+                            commentAdapter.notifyItemRemoved(itemPosition)
+                            binding.tvComment.text = "Comments (${commentsList.size})"
+                            if (commentsList.size == 0){
+                                binding.tvComment.text = "Comments"
+                                binding.noComments.visibility = View.VISIBLE
+                            }
+                        }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         }
     }

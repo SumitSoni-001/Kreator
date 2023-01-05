@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -188,47 +189,49 @@ class MainFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.postData.observe(viewLifecycleOwner, Observer {
-            binding.errorAnime.visibility = View.GONE
-            binding.noBlogFound.visibility = View.GONE
-            binding.btnRetry.visibility = View.GONE
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                binding.errorAnime.visibility = View.GONE
+                binding.noBlogFound.visibility = View.GONE
+                binding.btnRetry.visibility = View.GONE
 //            binding.categoryRCV.visibility = View.VISIBLE
-            binding.createBlogFAB.visibility = View.VISIBLE
-            binding.postsRcv.visibility = View.VISIBLE
-            binding.helloGroup.visibility = View.GONE
-            binding.postsRcv.hideShimmerAdapter()
-            when (it) {
-                is NetworkResponse.Success -> {
-                    binding.categoryRCV.visibility = View.VISIBLE
-                    binding.errorAnime.visibility = View.GONE
-                    binding.btnRetry.visibility = View.GONE
-                    binding.helloGroup.visibility = View.VISIBLE
-                    binding.tvName.text = sessionManager.getUserName().toString()
-                    val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
-                    Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.menu)
-                    if (it.data?.postDto != null && it.data.postDto.isNotEmpty()) {
-                        postsList.clear()
-                        postsList.addAll(it.data.postDto)
+                binding.createBlogFAB.visibility = View.VISIBLE
+                binding.postsRcv.visibility = View.VISIBLE
+                binding.helloGroup.visibility = View.GONE
+                binding.postsRcv.hideShimmerAdapter()
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        binding.categoryRCV.visibility = View.VISIBLE
+                        binding.errorAnime.visibility = View.GONE
+                        binding.btnRetry.visibility = View.GONE
+                        binding.helloGroup.visibility = View.VISIBLE
+                        binding.tvName.text = sessionManager.getUserName().toString()
+                        val profileUrl = CustomImage.downloadProfile(sessionManager.getProfilePic() , sessionManager.getUserName().toString())
+                        Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.menu)
+                        if (it.data?.postDto != null && it.data.postDto.isNotEmpty()) {
+                            postsList.clear()
+                            postsList.addAll(it.data.postDto)
 //                        for (item in 0 until (it.data!!.postDto.size)) {
 //                            postsList.add(it.data.postDto[item])
 //                        }
-                        postsAdapter.submitList(postsList)
-                        isDataLoaded=true
-                    } else {
+                            postsAdapter.submitList(postsList)
+                            isDataLoaded=true
+                        } else {
+                            binding.noBlogFound.visibility = View.VISIBLE
+                            binding.btnRetry.visibility = View.VISIBLE
+                        }
+                    }
+                    is NetworkResponse.Error -> {
+//                    binding.categoryRCV.visibility = View.GONE
+                        binding.postsRcv.visibility = View.GONE
+                        binding.createBlogFAB.visibility = View.GONE
                         binding.noBlogFound.visibility = View.VISIBLE
                         binding.btnRetry.visibility = View.VISIBLE
+//                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
-                }
-                is NetworkResponse.Error -> {
+                    is NetworkResponse.Loading -> {
+                        binding.postsRcv.showShimmerAdapter()
 //                    binding.categoryRCV.visibility = View.GONE
-                    binding.postsRcv.visibility = View.GONE
-                    binding.createBlogFAB.visibility = View.GONE
-                    binding.noBlogFound.visibility = View.VISIBLE
-                    binding.btnRetry.visibility = View.VISIBLE
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    binding.postsRcv.showShimmerAdapter()
-//                    binding.categoryRCV.visibility = View.GONE
+                    }
                 }
             }
         })
@@ -237,43 +240,47 @@ class MainFragment : Fragment() {
     private fun bookmarkObserver(){
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner, Observer {
 //        bookmarkViewModel.bookmarkData.observeOnceAfterInit(viewLifecycleOwner) {
-            when(it){
-                is NetworkResponse.Success -> {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when (it) {
+                    is NetworkResponse.Success -> {
 //                    Toasty.info(requireContext(), "${it.data?.message}", Toasty.LENGTH_SHORT, true).show()
-                    if (!isBookmarked){ // delete bookmark
-                        if (it.data?.status == true && bookmarkedPostPosition != -1) {
-                            bookmarkedPostsList.removeAt(bookmarkedPostPosition)
-                            postsAdapter.notifyItemChanged(postPosition)
-                        }
-                    }
-                    else{  // Add Bookmark
-                        if (it.data?.status == true){
-                            Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
+                        if (!isBookmarked) { // delete bookmark
+                            if (it.data?.status == true && bookmarkedPostPosition != -1) {
+                                bookmarkedPostsList.removeAt(bookmarkedPostPosition)
+                                postsAdapter.notifyItemChanged(postPosition)
+                            }
+                        } else {  // Add Bookmark
+                            if (it.data?.status == true) {
+                                Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
 //                            postsAdapter.notifyItemChanged(postPosition)
+                            }
                         }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
+                            .show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         })
     }
 
     private fun bookmarkedPostsObserver(){
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner){
-            when(it){
-                is NetworkResponse.Success -> {
-                    if (it.data != null){
-                        bookmarkedPostsList.clear()
-                        bookmarkedPostsList.addAll(it.data)
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when(it){
+                    is NetworkResponse.Success -> {
+                        if (it.data != null){
+                            bookmarkedPostsList.clear()
+                            bookmarkedPostsList.addAll(it.data)
+                        }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         }
     }

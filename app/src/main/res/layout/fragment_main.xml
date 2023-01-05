@@ -194,9 +194,9 @@
         android:textColor="@color/dotActive"
         android:textSize="@dimen/_10ssp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@id/errorAnime"
-        app:layout_constraintStart_toStartOf="@id/errorAnime"
-        app:layout_constraintTop_toBottomOf="@id/errorAnime" />
+        app:layout_constraintEnd_toEndOf="@id/noBlogFound"
+        app:layout_constraintStart_toStartOf="@id/noBlogFound"
+        app:layout_constraintTop_toBottomOf="@id/noBlogFound" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/createBlogFAB"

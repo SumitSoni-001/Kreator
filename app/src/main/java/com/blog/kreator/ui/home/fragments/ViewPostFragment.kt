@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.MainActivity
@@ -49,7 +50,7 @@ class ViewPostFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentViewPostBinding.inflate(inflater)
+        _binding = FragmentViewPostBinding.inflate(inflater,container,false)
 
         return binding.root
     }
@@ -112,43 +113,44 @@ class ViewPostFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.singlePostData.observe(viewLifecycleOwner) {
-//       postViewModel.singlePostData.observeOnceAfterInit(viewLifecycleOwner){
-            binding.postItemsLayout.visibility = View.VISIBLE
-            binding.commentFAB.visibility = View.VISIBLE
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                binding.postItemsLayout.visibility = View.VISIBLE
+                binding.commentFAB.visibility = View.VISIBLE
 //            binding.shimmer.shimmerLayout.stopShimmerAnimation()
-            binding.shimmer.shimmerLayout.visibility = View.GONE
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val postData = it.data
-                    Log.d("viewPostData", postData.toString())
+                binding.shimmer.shimmerLayout.visibility = View.GONE
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val postData = it.data
+                        Log.d("viewPostData", postData.toString())
 //                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
-                    val deserializedContent = editor.getContentDeserialized(postData?.content)
-                    binding.postTitle.text = postData?.postTitle
-                    binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
+                        val deserializedContent = editor.getContentDeserialized(postData?.content)
+                        binding.postTitle.text = postData?.postTitle
+                        binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
 
-                    /** binding.postContent.text = postData?.content */
-                    editor.render(deserializedContent)
+                        /** binding.postContent.text = postData?.content */
+                        editor.render(deserializedContent)
 
-                    binding.username.text = postData.user?.name
-                    Picasso.get().load(CustomImage.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
-                    val profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
-                    Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
-                }
-                is NetworkResponse.Error -> {
-                    binding.postItemsLayout.visibility = View.GONE
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                    Snackbar.make(binding.root,R.string.loading_snackbar,Snackbar.LENGTH_LONG).setAnimationMode(
-                        BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setBackgroundTint(Color.parseColor("#E5DEFF"))
-                        .setActionTextColor(Color.parseColor("#2E296B")).setAction(R.string.tryAgain) {
-                            val intent = Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS)
-                            requireActivity().startActivity(intent)
-                    }.show()
-                }
-                is NetworkResponse.Loading -> {
+                        binding.username.text = postData.user?.name
+                        Picasso.get().load(CustomImage.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
+                        val profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
+                        Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
+                    }
+                    is NetworkResponse.Error -> {
+                        binding.postItemsLayout.visibility = View.GONE
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                        Snackbar.make(binding.root,R.string.loading_snackbar,Snackbar.LENGTH_LONG).setAnimationMode(
+                            BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setBackgroundTint(Color.parseColor("#E5DEFF"))
+                            .setActionTextColor(Color.parseColor("#2E296B")).setAction(R.string.tryAgain) {
+                                val intent = Intent(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS)
+                                requireActivity().startActivity(intent)
+                            }.show()
+                    }
+                    is NetworkResponse.Loading -> {
 //                    binding.shimmer.shimmerLayout.startShimmerAnimation()
-                    binding.shimmer.shimmerLayout.visibility = View.VISIBLE
-                    binding.postItemsLayout.visibility = View.GONE
-                    binding.commentFAB.visibility = View.GONE
+                        binding.shimmer.shimmerLayout.visibility = View.VISIBLE
+                        binding.postItemsLayout.visibility = View.GONE
+                        binding.commentFAB.visibility = View.GONE
+                    }
                 }
             }
         }
@@ -156,53 +158,60 @@ class ViewPostFragment : Fragment() {
 
     private fun bookmarkObserver(){
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner) {
-//        bookmarkViewModel.bookmarkData.observeOnceAfterInit(viewLifecycleOwner){
-            when(it){
-                is NetworkResponse.Success -> {
-                    if (it.data?.status == true){
-                        if (isBookmarked){
-                            Toasty.info(requireContext(),"${it.data.message}", Toasty.LENGTH_SHORT,true).show()
-                            binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
-                            bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!)
-                        }else{
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        if (it.data?.status == true) {
+                            if (isBookmarked) {
+                                Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
+                                binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
+                                bookmarkViewModel.getBookmarkByUser(
+                                    sessionManager.getToken()!!,
+                                    sessionManager.getUserId()?.toInt()!!
+                                )
+                            } else {
 //                        if (it.data?.status == true){
-                            Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT,true).show()
-                            binding.bookmarkPost.setImageResource(R.drawable.bookmark)
-                            bookmarkedPostsList.removeAt(bookmarkPosition)
+                                Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
+                                binding.bookmarkPost.setImageResource(R.drawable.bookmark)
+                                bookmarkedPostsList.removeAt(bookmarkPosition)
 //                        }
+                            }
                         }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
+                            .show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
-        }
+            }
     }
 
     private fun bookmarkedPostsObserver(){
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner){
 //        bookmarkViewModel.bookmarkListData.observeOnceAfterInit(viewLifecycleOwner){
-            when(it){
-                is NetworkResponse.Success -> {
-                    if (it.data != null){
-                        bookmarkedPostsList.clear()
-                        bookmarkedPostsList.addAll(it.data)
-                        bookmarkedPostsList.forEach { bookmarkResponse ->
-                            if (postId == bookmarkResponse.post?.postId){
-                                bookmarkPosition = bookmarkedPostsList.indexOf(bookmarkResponse)
-                                binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
-                                isBookmarked = true
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        if (it.data != null) {
+                            bookmarkedPostsList.clear()
+                            bookmarkedPostsList.addAll(it.data)
+                            bookmarkedPostsList.forEach { bookmarkResponse ->
+                                if (postId == bookmarkResponse.post?.postId) {
+                                    bookmarkPosition = bookmarkedPostsList.indexOf(bookmarkResponse)
+                                    binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
+                                    isBookmarked = true
 //                                bookmarkId = bookmarkedPostsList[bookmarkPosition].id!!
+                                }
                             }
                         }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         }
     }
@@ -227,25 +236,7 @@ class ViewPostFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        bookmarkViewModel.bookmarkData.removeObservers(this)
-//        bookmarkViewModel.bookmarkListData.removeObservers(this)
-//        postViewModel.singlePostData.removeObservers(this)
         _binding = null
     }
-
-//    private fun <T> LiveData<T>.observeOnceAfterInit(owner: LifecycleOwner, observer: (T) -> Unit) {
-//        var firstObservation = true
-//
-//        observe(owner, object : Observer<T> {
-//            override fun onChanged(value: T) {
-//                if (firstObservation) {
-//                    firstObservation = false
-//                } else {
-//                    removeObserver(this)
-//                    observer(value)
-//                }
-//            }
-//        })
-//    }
 
 }

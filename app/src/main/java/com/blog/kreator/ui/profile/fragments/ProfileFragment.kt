@@ -16,6 +16,7 @@ import androidx.appcompat.widget.PopupMenu
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -173,28 +174,30 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun postObserver() {
         postViewModel.postData.observe(viewLifecycleOwner) {
-            binding.articlesRcv.hideShimmerAdapter()
-            binding.notFound.visibility = View.INVISIBLE
-            binding.tvNotfound.visibility = View.INVISIBLE
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val response = it.data?.postDto
-                    if (response?.isNotEmpty() == true) {
-                        articleList.clear()
-                        articleList.addAll(response)
-                        articlesAdapter.submitList(articleList)
-                    } else {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                binding.articlesRcv.hideShimmerAdapter()
+                binding.notFound.visibility = View.INVISIBLE
+                binding.tvNotfound.visibility = View.INVISIBLE
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val response = it.data?.postDto
+                        if (response?.isNotEmpty() == true) {
+                            articleList.clear()
+                            articleList.addAll(response)
+                            articlesAdapter.submitList(articleList)
+                        } else {
+                            binding.notFound.visibility = View.VISIBLE
+                            binding.tvNotfound.visibility = View.VISIBLE
+                        }
+                    }
+                    is NetworkResponse.Error -> {
                         binding.notFound.visibility = View.VISIBLE
                         binding.tvNotfound.visibility = View.VISIBLE
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
-                }
-                is NetworkResponse.Error -> {
-                    binding.notFound.visibility = View.VISIBLE
-                    binding.tvNotfound.visibility = View.VISIBLE
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    binding.articlesRcv.showShimmerAdapter()
+                    is NetworkResponse.Loading -> {
+                        binding.articlesRcv.showShimmerAdapter()
+                    }
                 }
             }
         }
@@ -202,47 +205,51 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun deletePostObserver() {
         postViewModel.deletePostData.observe(viewLifecycleOwner) {
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val response = it.data
-                    if (response != null) {
-                        Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT).show()
-                        articleList.removeAt(itemPosition)
-                        articlesAdapter.notifyItemRemoved(itemPosition)
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val response = it.data
+                        if (response != null) {
+                            Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT).show()
+                            articleList.removeAt(itemPosition)
+                            articlesAdapter.notifyItemRemoved(itemPosition)
+                        }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         }
     }
 
     private fun bookmarkObserver(){
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner) {
-            binding.articlesRcv.hideShimmerAdapter()
-            binding.notFound.visibility = View.INVISIBLE
-            binding.tvNotfound.visibility = View.INVISIBLE
-            when(it){
-                is NetworkResponse.Success -> {
-                    val bookmarkData = it.data
-                    if (bookmarkData?.isNotEmpty() == true){
-                        bookmarkList.clear()
-                        bookmarkList.addAll(bookmarkData)
-                        savedAdapter.submitList(bookmarkList)
-                    }else {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                binding.articlesRcv.hideShimmerAdapter()
+                binding.notFound.visibility = View.INVISIBLE
+                binding.tvNotfound.visibility = View.INVISIBLE
+                when(it){
+                    is NetworkResponse.Success -> {
+                        val bookmarkData = it.data
+                        if (bookmarkData?.isNotEmpty() == true){
+                            bookmarkList.clear()
+                            bookmarkList.addAll(bookmarkData)
+                            savedAdapter.submitList(bookmarkList)
+                        }else {
+                            binding.notFound.visibility = View.VISIBLE
+                            binding.tvNotfound.visibility = View.VISIBLE
+                        }
+                    }
+                    is NetworkResponse.Error -> {
                         binding.notFound.visibility = View.VISIBLE
                         binding.tvNotfound.visibility = View.VISIBLE
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
-                }
-                is NetworkResponse.Error -> {
-                    binding.notFound.visibility = View.VISIBLE
-                    binding.tvNotfound.visibility = View.VISIBLE
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    binding.articlesRcv.hideShimmerAdapter()
+                    is NetworkResponse.Loading -> {
+                        binding.articlesRcv.hideShimmerAdapter()
+                    }
                 }
             }
         }
@@ -250,18 +257,20 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private fun deleteBookmarkObserver(){
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner){
-            when(it){
-                is NetworkResponse.Success -> {
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                when(it){
+                    is NetworkResponse.Success -> {
 //                    Toast.makeText(requireContext(), "${it.data?.message}", Toast.LENGTH_SHORT).show()
-                    if (it.data?.status == true){
-                        bookmarkList.removeAt(bookmarkPosition)
-                        savedAdapter.notifyItemRemoved(bookmarkPosition)
+                        if (it.data?.status == true){
+                            bookmarkList.removeAt(bookmarkPosition)
+                            savedAdapter.notifyItemRemoved(bookmarkPosition)
+                        }
                     }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
+                    }
+                    is NetworkResponse.Loading -> {}
                 }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {}
             }
         }
     }
