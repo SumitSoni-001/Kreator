@@ -1,9 +1,12 @@
 package com.blog.kreator.di
 
+import android.content.Context
+import android.net.ConnectivityManager
 import com.blog.kreator.utils.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -28,6 +31,12 @@ class NetworkModule {
     @Provides
     fun provideService(retrofit: Retrofit): RemoteService {
         return retrofit.create(RemoteService::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun provideConnectivityManager( @ApplicationContext context: Context): ConnectivityManager {
+        return context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     }
 
 }

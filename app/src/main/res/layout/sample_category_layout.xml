@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    android:layout_width="wrap_content"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:background="@color/white">-->
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tvCategory"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="@dimen/_4sdp"
+    android:background="@drawable/category_default"
+    android:paddingHorizontal="@dimen/_12sdp"
+    android:paddingVertical="@dimen/_6sdp"
+    android:text="Category"
+    android:textAlignment="center"
+    android:textAllCaps="false"
+    android:textColor="@color/black"
+    android:textSize="@dimen/_10ssp" />
+
+    <!--</FrameLayout>-->

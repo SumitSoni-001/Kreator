@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_2sdp">
+
+    <RelativeLayout
+        android:id="@+id/parentLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/_2sdp">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_12sdp"
+            android:backgroundTint="@color/red"
+            android:elevation="5dp"
+            android:outlineSpotShadowColor="@color/white"
+            app:cardCornerRadius="@dimen/_6sdp"
+            android:layout_alignParentEnd="true">
+
+            <TextView
+                android:id="@+id/category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold_italic"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_2sdp"
+                android:text="Food"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_8ssp" />
+
+        </androidx.cardview.widget.CardView>
+
+<!--        <RelativeLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:background="@color/white"-->
+<!--            android:layout_marginTop="5dp">-->
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:id="@+id/postDetailsCard"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="@dimen/_12sdp"-->
+<!--                android:backgroundTint="@color/white"-->
+<!--                android:outlineSpotShadowColor="@color/white"-->
+<!--                app:cardCornerRadius="12dp"-->
+<!--                app:cardElevation="@dimen/_8sdp"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent">-->
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/postLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/post_bg"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_8sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile"
+                        android:layout_width="@dimen/_24sdp"
+                        android:layout_height="@dimen/_24sdp"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:src="@drawable/bottom_corner_img"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_6sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="Sumit Soni"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toBottomOf="@id/profile"
+                        app:layout_constraintStart_toEndOf="@id/profile"
+                        app:layout_constraintTop_toTopOf="@id/profile" />
+
+                    <TextView
+                        android:id="@+id/time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:text="2 hours ago"
+                        android:textColor="@color/gray"
+                        android:textSize="@dimen/_8ssp"
+                        app:layout_constraintBottom_toBottomOf="@id/profile"
+                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintTop_toTopOf="@id/profile" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/_15sdp"
+                        android:fontFamily="@font/poppins_medium"
+                        android:maxLines="2"
+                        android:text="The Ultimate guide to finding a Front-End Engineer"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14ssp"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@id/postImage"
+                        app:layout_constraintStart_toStartOf="@id/profile"
+                        app:layout_constraintTop_toTopOf="@id/postImage" />
+
+                    <ImageView
+                        android:id="@+id/postImage"
+                        android:layout_width="@dimen/_61sdp"
+                        android:layout_height="@dimen/_40sdp"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginEnd="@dimen/_12sdp"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/welcome_corner_img"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/profile" />
+
+                    <TextView
+                        android:id="@+id/content"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:maxLines="3"
+                        android:text="You can create swipe views using AndroidX's ViewPager widget. To use ViewPager and tabs, you need to add a dependency on ViewPager and on Material Components to your project."
+                        android:textColor="@color/dark_gray"
+                        android:visibility="visible"
+                        android:textSize="@dimen/_10ssp"
+                        android:paddingEnd="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintStart_toStartOf="@id/title"
+                        app:layout_constraintTop_toBottomOf="@id/postImage" />
+
+                    <com.github.irshulx.Editor
+                        android:id="@+id/editor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:maxHeight="@dimen/_50sdp"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/_6sdp"
+                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintStart_toStartOf="@id/title"
+                        app:layout_constraintTop_toBottomOf="@id/postImage"
+                        app:render_type="Renderer" />
+
+                    <ImageView
+                        android:id="@+id/bookmark"
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/bookmark"
+                        android:tooltipText="Bookmark"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:clickable="true"
+                        android:focusable="true"
+                        app:layout_constraintTop_toBottomOf="@id/content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        app:layout_constraintEnd_toEndOf="@id/postImage"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--            </androidx.cardview.widget.CardView>-->
+
+<!--        </RelativeLayout>-->
+
+    </RelativeLayout>
+
+</RelativeLayout>

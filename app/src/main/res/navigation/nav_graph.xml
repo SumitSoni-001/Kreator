@@ -9,41 +9,173 @@
         android:id="@+id/welcomeFragment"
         android:name="com.blog.kreator.ui.onBoarding.fragments.WelcomeFragment"
         android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
+        tools:layout="@layout/fragment_welcome">
+        <!--        <action-->
+        <!--            android:id="@+id/action_welcomeFragment_to_registerFragment"-->
+        <!--            app:destination="@id/registerFragment" />-->
         <action
-            android:id="@+id/action_welcomeFragment_to_registerFragment"
-            app:destination="@id/registerFragment" />
+            android:id="@+id/action_welcomeFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_welcomeFragment_to_verifyEmailFragment"
+            app:destination="@id/verifyEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.blog.kreator.ui.onBoarding.fragments.RegisterFragment"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register" >
-        <action
-            android:id="@+id/action_registerFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_registerFragment_to_onBoardingFragment"
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.blog.kreator.ui.onBoarding.fragments.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/welcomeFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_loginFragment_to_onBoardingFragment2"
+            app:destination="@id/onBoardingFragment"
+            app:popUpTo="@id/registerFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment_to_requestEmailFragment"
+            app:destination="@id/requestEmailFragment" />
     </fragment>
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.blog.kreator.ui.home.MainFragment"
+        android:name="com.blog.kreator.ui.home.fragments.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_mainFragment_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_createPostFragment"
+            app:destination="@id/createPostFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/onBoardingFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.OnBoardingFragment"
+        android:label="fragment_onboarding"
+        tools:layout="@layout/fragment_onboarding">
+        <action
+            android:id="@+id/action_onBoardingFragment_to_categoriesFragment"
+            app:destination="@id/categoriesFragment"
+            app:popUpTo="@id/onBoardingFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.CategoriesFragment"
+        android:label="fragment_categories"
+        tools:layout="@layout/fragment_categories">
+        <action
+            android:id="@+id/action_categoriesFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/categoriesFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewPostFragment"
+        android:name="com.blog.kreator.ui.home.fragments.ViewPostFragment"
+        android:label="fragment_view_post"
+        tools:layout="@layout/fragment_view_post">
+        <action
+            android:id="@+id/action_viewPostFragment_to_commentFragment"
+            app:destination="@id/commentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/commentFragment"
+        android:name="com.blog.kreator.ui.home.fragments.CommentFragment"
+        android:label="fragment_comment"
+        tools:layout="@layout/fragment_comment" />
+    <fragment
+        android:id="@+id/createPostFragment"
+        android:name="com.blog.kreator.ui.home.fragments.CreatePostFragment"
+        android:label="fragment_create_post"
+        tools:layout="@layout/fragment_create_post" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.blog.kreator.ui.profile.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.blog.kreator.ui.profile.fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.blog.kreator.ui.home.fragments.UpdatePostFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_post_update" />
+    <fragment
+        android:id="@+id/requestEmailFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.RequestEmailFragment"
+        android:label="fragment_request_email"
+        tools:layout="@layout/fragment_request_email">
+        <action
+            android:id="@+id/action_requestEmailFragment_to_resetPasswordFragment"
+            app:destination="@id/resetPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.ResetPasswordFragment"
+        android:label="fragment_reset_password"
+        tools:layout="@layout/fragment_reset_password">
+        <action
+            android:id="@+id/action_resetPasswordFragment_to_passwordResetSuccessFragment"
+            app:destination="@id/passwordResetSuccessFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/passwordResetSuccessFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.PasswordResetSuccessFragment"
+        android:label="fragment_password_reset_success"
+        tools:layout="@layout/fragment_password_reset_success">
+        <action
+            android:id="@+id/action_passwordResetSuccessFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/requestEmailFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/verifyEmailFragment"
+        android:name="com.blog.kreator.ui.onBoarding.fragments.VerifyEmailFragment"
+        android:label="fragment_verify_email"
+        tools:layout="@layout/fragment_verify_email">
+        <action
+            android:id="@+id/action_verifyEmailFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:popUpTo="@id/welcomeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 
 
 </navigation>

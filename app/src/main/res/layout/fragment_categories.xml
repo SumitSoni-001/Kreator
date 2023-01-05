@@ -1,0 +1,649 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.onBoarding.fragments.CategoriesFragment">
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="@dimen/_15sdp"
+        android:layout_height="@dimen/_15sdp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/back_arrow"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/_12sdp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnNext"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="@dimen/_12sdp"
+        app:layout_constraintTop_toTopOf="parent">
+<!--        app:layout_constraintTop_toBottomOf="@id/backArrow">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_12sdp"
+            android:gravity="center_horizontal"
+            android:paddingVertical="@dimen/_12sdp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/follow_interests"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_gravity="center_horizontal"
+                android:textSize="@dimen/_18ssp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/category_screen_desc"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/poppins_regular"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textSize="@dimen/_10ssp"/>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_gravity="center_horizontal">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/travel"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    android:text="Travel"
+                    app:checkedIconTint="@color/dotActive"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/food"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Food"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/psychology"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Psychology"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/books"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Books"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/science"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Science"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/education"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Education"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/android"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Android"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ios"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="ios"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/technology"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Technology"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ai"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Artificial Intelligence"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/movies"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Movies"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/health"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Health"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sde"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Software Engineering"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/life"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Life"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/work"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Work"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/programming"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Programming"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/business"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Business"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/design"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Design"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/fashion"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Fashion"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/web"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Web Development"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/app"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="App Development"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/art"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Art"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/blockchain"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Blockchain"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/javaScript"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Java Script"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/ui"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Ui/Ux"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/flutter"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Flutter"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/java"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Java"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/relationship"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Relationship"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/philosophy"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Philosophy"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/history"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="History"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/money"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Money"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/crypto"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Crypto"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/sports"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Sports"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/freelancing"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Freelancing"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/photography"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Photography"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/frameworks"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Web Framework"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/animals"
+                    style="@style/Widget.MaterialComponents.Chip.Action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkable="true"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/black"
+                    android:text="Animals"
+                    app:checkedIconTint="@color/dotActive"
+                    app:chipStrokeColor="@color/light_gray"
+                    app:chipStrokeWidth="1dp"
+                    app:chipBackgroundColor="@color/white"
+                    app:rippleColor="@color/dark_gray" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnNext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginHorizontal="@dimen/_24sdp"
+        android:text="Let's Go"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:paddingVertical="@dimen/_9sdp"
+        android:clickable="true"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/poppins_semibold"
+        android:backgroundTint="@color/mainColor"
+        app:cornerRadius="@dimen/_24sdp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

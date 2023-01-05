@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.profile.fragments.EditProfileFragment">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvPersonalData"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvPersonalData" />
+
+    <TextView
+        android:id="@+id/tvPersonalData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Personal Data"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_15ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--    <androidx.cardview.widget.CardView-->
+    <!--        android:id="@+id/imageCard"-->
+    <!--        android:layout_width="70dp"-->
+    <!--        android:layout_height="70dp"-->
+    <!--        android:layout_marginTop="30dp"-->
+    <!--        android:outlineSpotShadowColor="@color/white"-->
+    <!--        app:cardCornerRadius="10dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@id/tvPersonalData">-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImg"
+        android:layout_width="@dimen/_55sdp"
+        android:layout_height="@dimen/_55sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/placeholder"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvPersonalData" />
+
+    <!--    </androidx.cardview.widget.CardView>-->
+
+    <TextView
+        android:id="@+id/tvAddPicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/add_profile_picture"
+        android:textColor="@color/mainColor"
+        android:textSize="@dimen/_10ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userImg" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:hint="Your Name"
+        android:textColorHint="@color/gray"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/light_black"
+        app:boxStrokeErrorColor="@color/red"
+        app:boxStrokeWidth="1dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/error"
+        app:helperTextTextColor="@color/red"
+        app:hintTextColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAddPicture"
+        app:startIconDrawable="@drawable/user_small"
+        app:startIconTint="@color/gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_regular"
+            android:inputType="textPersonName"
+            android:maxLines="1"
+            android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@color/light_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:hint="Email"
+        android:textColorHint="@color/gray"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/light_black"
+        app:boxStrokeErrorColor="@color/red"
+        app:boxStrokeWidth="1dp"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/error"
+        app:helperTextTextColor="@color/red"
+        app:hintTextColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nameField"
+        app:startIconDrawable="@drawable/email_small"
+        app:startIconTint="@color/gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:enabled="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:fontFamily="@font/lato_regular"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_15sdp"
+            android:selectAllOnFocus="false"
+            android:textColor="@color/gray"
+            android:textIsSelectable="false" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/aboutField"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_15sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:hint="About"
+        android:textColorHint="@color/gray"
+        app:boxBackgroundColor="@color/white"
+        app:boxCornerRadiusBottomEnd="10dp"
+        app:boxCornerRadiusBottomStart="10dp"
+        app:boxCornerRadiusTopEnd="10dp"
+        app:boxCornerRadiusTopStart="10dp"
+        app:boxStrokeColor="@color/light_black"
+        app:boxStrokeWidth="1dp"
+        app:hintTextColor="@color/gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/emailField"
+        app:startIconDrawable="@drawable/about_small"
+        app:startIconTint="@color/gray">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_regular"
+            android:inputType="text"
+            android:maxLines="1"
+            android:textSize="@dimen/_12ssp"
+            android:padding="@dimen/_15sdp"
+            android:textColor="@color/light_black" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnSaveDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_62sdp"
+        android:backgroundTint="@color/mainColor"
+        android:fontFamily="@font/poppins_medium"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:paddingVertical="@dimen/_8sdp"
+        android:text="Save Details"
+        android:textAllCaps="false"
+        android:textSize="@dimen/_11ssp"
+        app:cornerRadius="@dimen/_8sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/aboutField" />
+
+    <TextView
+        android:id="@+id/btnCrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:padding="5dp"
+        android:text="Crop"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.canhub.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_15sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnCrop" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/cropGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:constraint_referenced_ids="btnCrop,cropImageView" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/editProfileGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="back_arrow,tvPersonalData,userImg,tvAddPicture,nameField,emailField,aboutField,btnSaveDetails" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

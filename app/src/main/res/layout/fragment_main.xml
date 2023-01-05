@@ -4,37 +4,211 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9F9"
-    tools:context=".ui.home.MainFragment">
+    android:background="@color/white">
 
-    <ImageView
-        android:id="@+id/menu"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
-        android:layout_marginStart="15dp"
-        android:rotationY="180"
-        android:src="@drawable/menu"
-        app:layout_constraintBottom_toBottomOf="@id/searchBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchBar" />
-
-    <EditText
-        android:id="@+id/searchBar"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:background="@drawable/search_bg"
-        android:drawableStart="@drawable/search"
-        android:drawablePadding="8dp"
-        android:fontFamily="@font/lato_regular"
-        android:hint="Search..."
-        android:padding="12dp"
-        android:textColor="@color/dark_gray"
-        android:textSize="16sp"
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/menu"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            tools:context=".ui.home.fragments.MainFragment">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/menu"
+                android:layout_width="@dimen/_31sdp"
+                android:layout_height="@dimen/_31sdp"
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_19sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/user_placeholder"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_6sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Hello,"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintStart_toEndOf="@id/menu"
+                app:layout_constraintTop_toTopOf="@id/menu" />
+
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sumit"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_12ssp"
+                app:layout_constraintBottom_toBottomOf="@id/menu"
+                app:layout_constraintStart_toStartOf="@id/tvHello"
+                app:layout_constraintTop_toBottomOf="@id/tvHello" />
+
+            <EditText
+                android:id="@+id/searchBar"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/search_bg"
+                android:drawableStart="@drawable/search"
+                android:drawablePadding="@dimen/_6sdp"
+                android:drawableTint="@color/gray"
+                android:enabled="true"
+                android:focusable="true"
+                android:fontFamily="@font/lato_regular"
+                android:hint="Search..."
+                android:inputType="text|textNoSuggestions"
+                android:isScrollContainer="true"
+                android:maxLines="1"
+                android:padding="@dimen/_10sdp"
+                android:scrollIndicators="none"
+                android:scrollbars="horizontal"
+                android:textColor="@color/dark_gray"
+                android:textSize="@dimen/_12ssp"
+                android:visibility="gone"
+                app:layout_constraintEnd_toStartOf="@id/notification"
+                app:layout_constraintStart_toEndOf="@id/menu"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:targetApi="m" />
+
+            <ImageView
+                android:id="@+id/notification"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/notification"
+                android:tooltipText="Notification"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/searchBar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/searchBar" />
+
+            <HorizontalScrollView
+                android:id="@+id/categoryScrollView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/menu">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/categoryRCV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:layout_marginStart="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_19sdp"
+                        android:paddingVertical="@dimen/_8sdp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                </RelativeLayout>
+
+            </HorizontalScrollView>
+
+            <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+                android:id="@+id/postsRcv"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/categoryScrollView"
+                app:shimmer_demo_angle="15"
+                app:shimmer_demo_layout="@layout/post_shimmer"
+                app:shimmer_demo_layout_manager_type="linear_vertical"
+                app:shimmer_demo_shimmer_color="@color/postStroke"
+                tools:listitem="@layout/sample_posts_rcv" />
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/helloGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:constraint_referenced_ids="tvHello,tvName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/noBlogFound"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_180sdp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/not_found" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/errorAnime"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_180sdp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/error404" />
+
+    <TextView
+        android:id="@+id/btnRetry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_retry_bg"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:paddingVertical="@dimen/_4sdp"
+        android:text="Retry"
+        android:textAllCaps="false"
+        android:textColor="@color/dotActive"
+        android:textSize="@dimen/_10ssp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/noBlogFound"
+        app:layout_constraintStart_toStartOf="@id/noBlogFound"
+        app:layout_constraintTop_toBottomOf="@id/noBlogFound" />
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/createBlogFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_12sdp"
+        android:layout_marginBottom="@dimen/_23sdp"
+        android:backgroundTint="@color/mainColor"
+        android:tooltipText="Create Blog"
+        app:icon="@drawable/pen"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

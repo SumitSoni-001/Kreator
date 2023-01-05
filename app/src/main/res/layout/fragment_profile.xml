@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.profile.fragments.ProfileFragment">
+
+    <ImageView
+        android:id="@+id/goBack"
+        android:layout_width="@dimen/_24sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/back_arrow"
+        app:layout_constraintBottom_toBottomOf="@id/tvProfile"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvProfile" />
+
+    <TextView
+        android:id="@+id/tvProfile"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="start"
+        android:text="Profile"
+        android:textColor="@color/light_black"
+        android:textSize="@dimen/_16ssp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/goBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImage"
+        android:layout_width="@dimen/_38sdp"
+        android:layout_height="@dimen/_38sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:src="@drawable/user_placeholder"
+        app:layout_constraintStart_toStartOf="@id/goBack"
+        app:layout_constraintTop_toBottomOf="@id/tvProfile" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_11sdp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="@id/userImage"
+        app:layout_constraintStart_toEndOf="@id/userImage"
+        app:layout_constraintTop_toTopOf="@id/userImage">
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Sumit Soni"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/_12ssp" />
+
+        <TextView
+            android:id="@+id/kreatorUsername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-2dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="\@Sumit100ni"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/_9ssp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEdit"
+        android:layout_width="@dimen/_53sdp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/search_bg"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:paddingVertical="@dimen/_6sdp"
+        android:text="Edit"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_9ssp"
+        app:layout_constraintBottom_toBottomOf="@id/userImage"
+        app:layout_constraintEnd_toEndOf="@id/tvProfile"
+        app:layout_constraintTop_toTopOf="@id/userImage" />
+
+    <LinearLayout
+        android:id="@+id/followStatus"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:background="@drawable/search_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingVertical="@dimen/_8sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/tvProfile"
+        app:layout_constraintStart_toStartOf="@id/goBack"
+        app:layout_constraintTop_toBottomOf="@id/userImage">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/followers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="0"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Followers"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="5dp"
+            android:background="@color/light_gray" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/following"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_bold"
+                android:text="0"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/_12ssp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-3dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Following"
+                android:textColor="@color/gray"
+                android:textSize="@dimen/_10ssp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvArticle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_31sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Article"
+        android:textColor="@color/green"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toStartOf="@id/goBack"
+        app:layout_constraintTop_toBottomOf="@id/followStatus" />
+
+    <TextView
+        android:id="@+id/tvSaved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_23sdp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="Saved"
+        android:textColor="@color/gray"
+        android:textSize="@dimen/_12ssp"
+        app:layout_constraintStart_toEndOf="@id/tvArticle"
+        app:layout_constraintTop_toTopOf="@id/tvArticle" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/_6sdp"
+        android:background="@color/light_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvArticle" />
+
+    <View
+        android:id="@+id/articleSlider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/green"
+        app:layout_constraintEnd_toEndOf="@id/tvArticle"
+        app:layout_constraintStart_toStartOf="@id/tvArticle"
+        app:layout_constraintTop_toTopOf="@id/divider" />
+
+    <View
+        android:id="@+id/savedSlider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/green"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/tvSaved"
+        app:layout_constraintStart_toStartOf="@id/tvSaved"
+        app:layout_constraintTop_toTopOf="@id/divider" />
+
+    <com.cooltechworks.views.shimmer.ShimmerRecyclerView
+        android:id="@+id/articlesRcv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/_8sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:layout_constraintVertical_bias="0.0"
+        app:shimmer_demo_angle="15"
+        app:shimmer_demo_layout="@layout/post_shimmer"
+        app:shimmer_demo_layout_manager_type="linear_vertical"
+        app:shimmer_demo_shimmer_color="@color/postStroke"
+        tools:listitem="@layout/sample_articles_rcv" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/notFound"
+        android:layout_width="@dimen/_116sdp"
+        android:layout_height="@dimen/_116sdp"
+        android:layout_marginTop="@dimen/_65sdp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/not_found" />
+
+    <TextView
+        android:id="@+id/tvNotfound"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
+        android:text="You don't have any posts."
+        android:textColor="@color/light_black"
+        android:textSize="18sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/notFound" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
