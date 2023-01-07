@@ -6,6 +6,7 @@ import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.core.view.get
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
@@ -44,6 +45,7 @@ class ArticlesAdapter(private val context: Context) : ListAdapter<PostDetails, A
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
+        holder.binding.articleLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
         Picasso.get().load(CustomImage.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)

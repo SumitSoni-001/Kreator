@@ -55,7 +55,7 @@ class CreatePostFragment : Fragment() {
     private lateinit var postViewModel: PostViewModel
     lateinit var sessionManager: SessionManager
     private var coverImgUri : String = ""
-    private lateinit var part : MultipartBody.Part
+    private lateinit var part : MultipartBody.Part  /** */
     private var catId : Int = 0     // Make default catId to "Testing" but don't show this category to user.
     private lateinit var categoryAdapter : ArrayAdapter<String>
     private lateinit var loader : KProgressHUD
@@ -111,6 +111,7 @@ class CreatePostFragment : Fragment() {
             .setCancellable(false)
             .setDimAmount(0.5f)
 
+        /** Setting Category Spinner */
         categoryAdapter = ArrayAdapter(requireContext(),R.layout.category_dropdown_menu_item,Constants.ALL_CATEGORIES)
         categoryAdapter.setDropDownViewResource(R.layout.category_dropdown_menu_item)
         binding.categorySpinner.adapter = categoryAdapter
@@ -207,7 +208,7 @@ class CreatePostFragment : Fragment() {
         binding.actionErase.setOnClickListener {
             editor.clearAllContents()
         }
-        editor.editorListener = object : EditorListener {
+        editor.editorListener = object : EditorListener {   /** Editor listener is needed to add image in editor. */
             override fun onTextChanged(editText: EditText?, text: Editable?) {}
             override fun onUpload(image: Bitmap?, uuid: String?) {
                 editor.onImageUploadComplete(image.toString(), uuid)
@@ -223,7 +224,7 @@ class CreatePostFragment : Fragment() {
         editor.render()
     }
 
-    private fun postObserver() {
+    private fun postObserver() {    /** Post Response when the article is published. */
         postViewModel.singlePostData.observe(viewLifecycleOwner, Observer {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 loader.dismiss()
@@ -231,9 +232,9 @@ class CreatePostFragment : Fragment() {
                     when (it) {
                         is NetworkResponse.Success -> {
                             val response = it.data
-                            if (response?.image.equals("default.png")) {
+                            if (response?.image.equals("default.png")) { /** Upload the coverImage if the post name on server is "default.png"*/
                                 postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
-                            } else {
+                            } else {    /** Make all the views empty after the post is published successfully */
                                 binding.loadingAnime.visibility = View.GONE
                                 binding.etTitle.setText("")
                                 binding.coverImage.setImageResource(R.drawable.placeholder)

@@ -45,9 +45,9 @@ class UpdatePostFragment : Fragment() {
     private lateinit var postViewModel: PostViewModel
     private lateinit var sessionManager: SessionManager
     private var postId = 0
-    private var catId = 4
+//    private var catId = 4
     private var coverImgUri: String = ""
-    private var updated = false
+    private var updated = false     /** True, if the content is changed by user */
     private lateinit var part: MultipartBody.Part
     private lateinit var loader : KProgressHUD
 //    private lateinit var categoryAdapter: ArrayAdapter<String>
@@ -216,7 +216,7 @@ class UpdatePostFragment : Fragment() {
                     when (it) {
                         is NetworkResponse.Success -> {
                             val response = it.data
-                            if (updated) {  /** If post-content is updated successfully and image is changed then update the image else update content only. */
+                            if (updated) {  /** If post-content is updated successfully and the user has changed image, then update the image else update content only. */
                                 if (coverImgUri.isNotEmpty()) {
                                     postViewModel.uploadImage(sessionManager.getToken()!!, response?.postId!!, part)
                                     coverImgUri = ""
@@ -224,7 +224,7 @@ class UpdatePostFragment : Fragment() {
                                 }else{
                                     Toasty.success(requireContext(), "Post updated successfully", Toasty.LENGTH_SHORT, true).show()
                                 }
-                            } else {    /** Load post data */
+                            } else {    /** Load updated post data, if user has just changed the content */
                                 if (!response?.image.equals("default.png") && response?.image != null) {
                                     Picasso.get().load(CustomImage.downloadImage(response?.image!!)).placeholder(R.drawable.placeholder).into(binding.coverImage)
                                 } else {

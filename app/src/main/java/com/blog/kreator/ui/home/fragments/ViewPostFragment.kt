@@ -30,6 +30,7 @@ import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlin.collections.set
 
+/** Field Dependency Injection can not be applied here, because RichTextEditor do not support DI. */
 //@AndroidEntryPoint
 class ViewPostFragment : Fragment() {
     private var _binding: FragmentViewPostBinding? = null
@@ -42,7 +43,7 @@ class ViewPostFragment : Fragment() {
     private var isBookmarked : Boolean = false
     private var bookmarkPosition = -1
 //    private var bookmarkId = 0
-    private lateinit var editor : Editor
+    private lateinit var editor : Editor    /** WYSIWYG rEditor */
 //    @Inject
     lateinit var sessionManager: SessionManager
 
@@ -62,20 +63,9 @@ class ViewPostFragment : Fragment() {
         bookmarkViewModel = ViewModelProvider(context as MainActivity)[BookmarkViewModel::class.java]
         sessionManager = SessionManager(requireContext())
         postId = arguments?.getInt("id")!!
-//        isBookmarked = arguments?.getBoolean("isBookmarked")!!
-//        bookmarkPosition = arguments?.getInt("bookmarkPos")!!
 
         editor = binding.postContent
-
-//        if (isBookmarked){
-//            binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
-//        }else{
-//            binding.bookmarkPost.setImageResource(R.drawable.bookmark)
-//        }
-
-//        binding.postContent.headingTypeface = getHeadingTypeFace()
-//        binding.postContent.contentTypeface = getContentFace()
-        editor.setEditorImageLayout(R.layout.editor_image_layout)
+        editor.setEditorImageLayout(R.layout.editor_image_layout) /** Custom Image layout for Editor's images (* Currently not in use *) */
 
         postViewModel.getPostByPostId(sessionManager.getToken().toString(),postId)
         bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!)
@@ -89,6 +79,8 @@ class ViewPostFragment : Fragment() {
         }
         binding.share.setOnClickListener {
             // Share the post which contains the play-store url the app
+            /** Share the post with post Id and a dynamic link which navigates to Kreator and then inside mainFragment
+             *  fetch the post using the postId and then popup the post like medium. */
         }
         binding.bookmarkPost.setOnClickListener {
             if (isBookmarked){
@@ -111,7 +103,7 @@ class ViewPostFragment : Fragment() {
         bookmarkObserver()
     }
 
-    private fun postObserver() {
+    private fun postObserver() { /** Fetch Post data by postId */
         postViewModel.singlePostData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 binding.postItemsLayout.visibility = View.VISIBLE
@@ -122,14 +114,13 @@ class ViewPostFragment : Fragment() {
                     is NetworkResponse.Success -> {
                         val postData = it.data
                         Log.d("viewPostData", postData.toString())
-//                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
-                        val deserializedContent = editor.getContentDeserialized(postData?.content)
-                        binding.postTitle.text = postData?.postTitle
-                        binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
 
+//                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
+                        val deserializedContent = editor.getContentDeserialized(postData?.content) /** Deserialize the editor serialized data from server */
                         /** binding.postContent.text = postData?.content */
                         editor.render(deserializedContent)
-
+                        binding.postTitle.text = postData?.postTitle
+                        binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
                         binding.username.text = postData.user?.name
                         Picasso.get().load(CustomImage.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
                         val profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
@@ -156,7 +147,7 @@ class ViewPostFragment : Fragment() {
         }
     }
 
-    private fun bookmarkObserver(){
+    private fun bookmarkObserver(){ /** Add or Delete Bookmark */
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when (it) {
@@ -179,8 +170,7 @@ class ViewPostFragment : Fragment() {
                         }
                     }
                     is NetworkResponse.Error -> {
-                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
-                            .show()
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
                     is NetworkResponse.Loading -> {}
                 }
@@ -188,15 +178,15 @@ class ViewPostFragment : Fragment() {
             }
     }
 
-    private fun bookmarkedPostsObserver(){
+    private fun bookmarkedPostsObserver(){  /** Fetch bookmarks by userId */
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner){
-//        bookmarkViewModel.bookmarkListData.observeOnceAfterInit(viewLifecycleOwner){
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when (it) {
                     is NetworkResponse.Success -> {
                         if (it.data != null) {
                             bookmarkedPostsList.clear()
                             bookmarkedPostsList.addAll(it.data)
+                            /** Check whether current loggedIn user has bookmarked this post or not */
                             bookmarkedPostsList.forEach { bookmarkResponse ->
                                 if (postId == bookmarkResponse.post?.postId) {
                                     bookmarkPosition = bookmarkedPostsList.indexOf(bookmarkResponse)
@@ -208,30 +198,12 @@ class ViewPostFragment : Fragment() {
                         }
                     }
                     is NetworkResponse.Error -> {
-                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
                     is NetworkResponse.Loading -> {}
                 }
             }
         }
-    }
-
-    private  fun getHeadingTypeFace(): Map<Int, String>?{
-        val typefaceMap: MutableMap<Int, String> = HashMap()
-        typefaceMap[Typeface.NORMAL] = "fonts/poppins_semibold.ttf"
-        typefaceMap[Typeface.BOLD] = "fonts/poppins_bold.ttf"
-        typefaceMap[Typeface.ITALIC] = "fonts/poppins_semibold_italic.ttf"
-        typefaceMap[Typeface.BOLD_ITALIC] = "fonts/poppins_bold_italic.ttf"
-        return typefaceMap
-    }
-
-    private  fun getContentFace(): Map<Int, String>?{
-        val typefaceMap: MutableMap<Int, String> = HashMap()
-        typefaceMap[Typeface.NORMAL] = "fonts/poppins_medium.ttf"
-        typefaceMap[Typeface.BOLD] = "fonts/poppins_bold.ttf"
-        typefaceMap[Typeface.ITALIC] = "fonts/poppins_medium_italic.ttf"
-        typefaceMap[Typeface.BOLD_ITALIC] = "fonts/poppins_semibold_italic.ttf"
-        return typefaceMap
     }
 
     override fun onDestroyView() {

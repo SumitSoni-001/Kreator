@@ -25,24 +25,18 @@ class CategoryAdapter(private val context: Context, private val list: ArrayList<
         mListener = listener
     }
 
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
-        return CategoryViewHolder(
-            SampleCategoryLayoutBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
-            ), mListener
-        )
+        return CategoryViewHolder(SampleCategoryLayoutBinding.inflate(LayoutInflater.from(parent.context), parent, false), mListener)
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val tvCategory = holder.binding.tvCategory
-        if (!tvCategoryList.contains(tvCategory)) {
+        if (!tvCategoryList.contains(tvCategory)) { /** Avoid duplicate items */
             tvCategoryList.add(tvCategory)
         }
         tvCategory.text = list[position]
 
+        /** By Default all the posts will be loaded, so "ALL will be the default category" */
         val all = tvCategoryList[0]
         all.setBackgroundResource(R.drawable.category_selected)
         all.setTextColor(context.resources.getColor(R.color.white))
@@ -54,7 +48,7 @@ class CategoryAdapter(private val context: Context, private val list: ArrayList<
 
     inner class CategoryViewHolder(
         val binding: SampleCategoryLayoutBinding,
-        val listener: ItemClickListener
+        private val listener: ItemClickListener
     ) : RecyclerView.ViewHolder(binding.root) {
         init {
             binding.tvCategory.setOnClickListener {

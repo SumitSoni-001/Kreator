@@ -21,6 +21,8 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 import javax.inject.Inject
 
+/** Repo Flow:- User make api request, it will be handled in HandleResponse Method which checks whether the response is successful, or some api error Occurred
+ * else a default error will be sent. And finally the response will be stored inside liveData which is sent to ViewModel.*/
 class AuthRepo @Inject constructor(private val remoteService: RemoteService) {
 
     private val authResponseLiveData = MutableLiveData<NetworkResponse<AuthResponse>>()

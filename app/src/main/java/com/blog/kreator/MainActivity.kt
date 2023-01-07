@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
 //        coroutinePoller = CoroutinePoller(userViewModel, Dispatchers.IO)
-        CustomToast.initialize()
 
         if (sessionManager.getCategories() != null) {
             timer()
@@ -66,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /** It will refresh the jwt token every 30 minutes */
     @OptIn(DelicateCoroutinesApi::class)
     private fun timer(){
         GlobalScope.launch(Dispatchers.Main){
@@ -100,6 +100,7 @@ class MainActivity : AppCompatActivity() {
     }
 
   /*
+  /** Making api call every 30 minutes. (Generate token using kotlin coroutines & flow)  */
     private fun userObserver2(){
         GlobalScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED){

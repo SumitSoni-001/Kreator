@@ -16,12 +16,12 @@ class NetworkListener @Inject constructor(connectivityManager: ConnectivityManag
         val callback = object: ConnectivityManager.NetworkCallback(){
             override fun onAvailable(network: Network) {
                 super.onAvailable(network)
-                trySend(true)
+                trySend(true)   // Connected
             }
 
             override fun onLost(network: Network) {
                 super.onLost(network)
-                trySend(false)
+                trySend(false)  // Not Connected
             }
         }
 

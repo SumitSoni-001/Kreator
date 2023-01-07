@@ -52,15 +52,14 @@ class MainFragment : Fragment() {
     private val postViewModel: PostViewModel by viewModels()
     private val bookmarkViewModel: BookmarkViewModel by viewModels()
     private var isBookmarked = false
-    private var isDataLoaded = false
+    private var isDataLoaded = false    // Check whether the api is called or not
     private var bookmarkedPostPosition = -1
     private var postPosition = -1
-
+    private var catId: Int = 0
     @Inject
     lateinit var sessionManager: SessionManager
     @Inject
     lateinit var networkListener: NetworkListener
-    private var catId: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -80,6 +79,7 @@ class MainFragment : Fragment() {
         categoryList.add("All")
         categoryList.addAll(sessionManager.getCategories()!!)
 
+        /** Accessing network state */
         lifecycleScope.launchWhenCreated {
             val snackbar = Snackbar.make(binding.root,R.string.noConnection,Snackbar.LENGTH_INDEFINITE).setAnimationMode(
                 BaseTransientBottomBar.ANIMATION_MODE_SLIDE).setBackgroundTint(Color.parseColor("#E5DEFF"))
@@ -100,7 +100,7 @@ class MainFragment : Fragment() {
         bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
 
         postsAdapter = PostsAdapter(requireContext(),bookmarkedPostsList)
-        val linearLayoutManager = object : LinearLayoutManager(requireContext()) {
+        val linearLayoutManager = object : LinearLayoutManager(requireContext()) {  /** Recycler scroll disabled as the layout parent is scrollView. */
             override fun canScrollVertically(): Boolean = false
         }
         binding.postsRcv.layoutManager = linearLayoutManager
@@ -150,10 +150,7 @@ class MainFragment : Fragment() {
                 bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()!!.toInt())
                 if (position != 0) {
                     for (item in 0 until Constants.ALL_CATEGORIES.size) {
-                        val selectedCategory = currentCategory.equals(
-                            Constants.ALL_CATEGORIES[item],
-                            ignoreCase = true
-                        )
+                        val selectedCategory = currentCategory.equals(Constants.ALL_CATEGORIES[item], ignoreCase = true)    /** Compare selected category with the saved categoryList */
                         if (selectedCategory) {
 //                        Toast.makeText(requireContext(), "${item+1} :1 $currentCategory", Toast.LENGTH_SHORT).show()
                             catId = item + 1
@@ -161,7 +158,7 @@ class MainFragment : Fragment() {
                         }
                     }
                 } else {
-                    postViewModel.getAllPosts(sessionManager.getToken().toString())
+                    postViewModel.getAllPosts(sessionManager.getToken().toString()) /** As there's no category as ALL on server, This is manually added at position 0 */
                 }
             }
         })
@@ -189,8 +186,9 @@ class MainFragment : Fragment() {
 
     private fun postObserver() {
         postViewModel.postData.observe(viewLifecycleOwner, Observer {
+            /** It helps to overcome the observer bug (The observer is called automatically next time if once called) and create new observer everyTime. */
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
-                binding.errorAnime.visibility = View.GONE
+//                binding.errorAnime.visibility = View.GONE
                 binding.noBlogFound.visibility = View.GONE
                 binding.btnRetry.visibility = View.GONE
 //            binding.categoryRCV.visibility = View.VISIBLE
@@ -201,7 +199,7 @@ class MainFragment : Fragment() {
                 when (it) {
                     is NetworkResponse.Success -> {
                         binding.categoryRCV.visibility = View.VISIBLE
-                        binding.errorAnime.visibility = View.GONE
+//                        binding.errorAnime.visibility = View.GONE
                         binding.btnRetry.visibility = View.GONE
                         binding.helloGroup.visibility = View.VISIBLE
                         binding.tvName.text = sessionManager.getUserName().toString()
@@ -237,7 +235,7 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun bookmarkObserver(){
+    private fun bookmarkObserver(){/** Add or Delete Bookmark */
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner, Observer {
 //        bookmarkViewModel.bookmarkData.observeOnceAfterInit(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
@@ -266,7 +264,7 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun bookmarkedPostsObserver(){
+    private fun bookmarkedPostsObserver(){  /** Fetch Bookmarks by user Id */
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner){
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when(it){

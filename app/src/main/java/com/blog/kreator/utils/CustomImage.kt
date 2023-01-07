@@ -1,5 +1,6 @@
 package com.blog.kreator.utils
 
+/** Used for downloading the images we get from server */
 class CustomImage {
 
     companion object {

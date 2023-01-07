@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         google()
         mavenCentral()
+        // Add the 2 maven dependencies below to use 3rd party libraries
         maven { url("https://jcenter.bintray.com") }
         maven { url "https://jitpack.io" }
     }
@@ -12,6 +13,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        // Add the 2 maven dependencies below to use 3rd party libraries
         maven { url("https://jcenter.bintray.com") }
         maven { url "https://jitpack.io" }
     }

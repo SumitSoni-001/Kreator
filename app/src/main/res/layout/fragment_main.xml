@@ -101,6 +101,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@id/searchBar" />
 
+<!--            To remove the ability of Recycler view we kept it inside scrollView and Relative Layout -->
             <HorizontalScrollView
                 android:id="@+id/categoryScrollView"
                 android:layout_width="0dp"
@@ -167,18 +168,18 @@
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/not_found" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/errorAnime"
-        android:layout_width="@dimen/_180sdp"
-        android:layout_height="@dimen/_180sdp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"
-        app:lottie_rawRes="@raw/error404" />
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/errorAnime"-->
+<!--        android:layout_width="@dimen/_180sdp"-->
+<!--        android:layout_height="@dimen/_180sdp"-->
+<!--        android:visibility="invisible"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_loop="true"-->
+<!--        app:lottie_rawRes="@raw/error404" />-->
 
     <TextView
         android:id="@+id/btnRetry"

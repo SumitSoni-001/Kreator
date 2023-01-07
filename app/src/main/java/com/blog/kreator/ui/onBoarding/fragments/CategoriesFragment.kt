@@ -59,7 +59,7 @@ class CategoriesFragment : Fragment() {
                 sessionManager.setCategories(selectedCategoriesList)
                 findNavController().navigate(R.id.action_categoriesFragment_to_mainFragment)
             } else {
-                Toasty.warning(requireContext(),"Select some topics",Toasty.LENGTH_LONG,true).show()
+                Toasty.warning(requireContext(),"Select some topics",Toasty.LENGTH_SHORT,true).show()
             }
         }
 

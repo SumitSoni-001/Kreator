@@ -38,7 +38,7 @@ class WelcomeFragment : Fragment() {
             findNavController().navigate(R.id.action_welcomeFragment_to_categoriesFragment)
         }
 
-        binding.securityLinks.movementMethod = LinkMovementMethod.getInstance()
+        binding.securityLinks.movementMethod = LinkMovementMethod.getInstance() /** Activate the textView links */
 
         binding.getStarted.setOnClickListener {
 //            findNavController().navigate(R.id.action_welcomeFragment_to_registerFragment)
@@ -54,7 +54,7 @@ class WelcomeFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
         // Clear the flag while closing the fragment so that other fragments may not be affected.
-        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        (requireActivity()).window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS) /** Remove full screen Flag */
     }
 
 }

@@ -44,6 +44,7 @@ class CommentAdapter(private val context: Context) : ListAdapter<CommentDetails,
         holder.binding.comment.text = item.content
         holder.binding.time.text = FormatTime.getFormattedTime(item.postedOn.toString())
 
+        /** If the commenter's id matches with the current loggedIn user's id, then make the moreImg visible. */
         if (SessionManager(context).getUserId().toString() == jsonString.id.toString()){
             holder.binding.more.visibility = View.VISIBLE
         }else{

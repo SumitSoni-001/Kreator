@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ class SavedAdapter(private val context: Context) : ListAdapter<BookmarkResponse,
 
     override fun onBindViewHolder(holder: BookmarksViewHolder, position: Int) {
         val item = getItem(position)
+        holder.binding.savedLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
         Picasso.get().load(CustomImage.downloadProfile(item.post?.user?.userImage,item.post?.user?.name.toString())).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(CustomImage.downloadImage(item.post?.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.post?.user!!.name

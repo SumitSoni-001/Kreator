@@ -14,12 +14,10 @@ import com.blog.kreator.R
 import com.blog.kreator.databinding.SamplePostsRcvBinding
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.profile.models.BookmarkResponse
-import com.blog.kreator.utils.Constants
 import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.FormatTime
 import com.squareup.picasso.Picasso
 import java.util.*
-import kotlin.collections.ArrayList
 
 class PostsAdapter(private val context: Context, private val bookmarkedList:ArrayList<BookmarkResponse>) : ListAdapter<PostDetails, PostsAdapter.PostsViewHolder>(DiffUtil()) {
 
@@ -35,21 +33,22 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        return PostsViewHolder(SamplePostsRcvBinding.inflate(LayoutInflater.from(context), parent, false) , mListener)
+        return PostsViewHolder(SamplePostsRcvBinding.inflate(LayoutInflater.from(context), parent, false), mListener)
     }
 
     override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.binding.parentLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+        holder.binding.parentLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation) /** Applying animation on RCV */
         val profileUrl = CustomImage.downloadProfile(item.user?.userImage , item.user?.name.toString())
         Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(CustomImage.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
-        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
 //        holder.binding.content.text = item.content
+        /** Deserialize the serialized data of RichTextEditor from server into Html format and then set the html text to TextView */
+        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
         holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
         holder.binding.category.text = item.category?.categoryTitle
         holder.binding.category.setBackgroundColor(randomColor())
@@ -74,7 +73,7 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
                     val position = absoluteAdapterPosition
                     var bookmarkPosition = -1
                     bookmarkedList.forEach {
-                        if (getItem(position).postId == it.post?.postId) {
+                        if (getItem(position).postId == it.post?.postId) {  /** Match the postId from PostDetails with the postId from bookmark Response */
                             bookmarkPosition = bookmarkedList.indexOf(it)
                         }
                     }

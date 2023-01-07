@@ -54,6 +54,7 @@ class RequestEmailFragment : Fragment() {
                 binding.resetEmailField.error = "Enter a valid email address"
             }else{
 //                generateToken(binding.etResetEmail.text.toString())
+                /** Fetch userDetails whether exist or not and also get token for updating password */
                 authViewModel.getUserByEmail(binding.etResetEmail.text.toString())
             }
         }

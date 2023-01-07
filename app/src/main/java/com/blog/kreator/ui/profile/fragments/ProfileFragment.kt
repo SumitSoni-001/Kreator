@@ -44,10 +44,10 @@ import javax.inject.Inject
 class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
 
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var articlesAdapter: ArticlesAdapter
+    private lateinit var articlesAdapter: ArticlesAdapter /** Adapter for Articles published by current user */
     private lateinit var articleList: ArrayList<PostDetails>
+    private lateinit var savedAdapter: SavedAdapter /** Adapter for posts bookmarked by current user */
     private lateinit var bookmarkList : ArrayList<BookmarkResponse>
-    private lateinit var savedAdapter: SavedAdapter
     private var clickedPostID = 0
     private var itemPosition = 0
     private var bookmarkPosition = 0
@@ -80,6 +80,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             override fun onMoreClick(position: Int, moreImg: ImageView) {
                 itemPosition = position
                 clickedPostID = articleList[position].postId!!
+                /** create PopUp menu */
                 PopupMenu(requireContext(), moreImg).apply {
                     setOnMenuItemClickListener(this@ProfileFragment)
                     inflate(R.menu.articles_menu)
@@ -115,7 +116,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         val kreatorUsername = sessionManager.getUserName()?.replace(" ", "")?.lowercase()
         binding.kreatorUsername.text = "@$kreatorUsername"
 
-        postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt())
+        postViewModel.getPostByUser(sessionManager.getToken().toString(),sessionManager.getUserId()!!.toInt()) /** By default, the posts published by the current user will be displayed */
 
         binding.tvEdit.setOnClickListener {
             findNavController().navigate(R.id.action_profileFragment_to_editProfileFragment)
@@ -172,7 +173,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun postObserver() {
+    private fun postObserver() {    /** Fetch all the posts by userId */
         postViewModel.postData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 binding.articlesRcv.hideShimmerAdapter()
@@ -203,7 +204,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun deletePostObserver() {
+    private fun deletePostObserver() {  /** Delete post */
         postViewModel.deletePostData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when (it) {
@@ -213,6 +214,10 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                             Toasty.info(requireContext(), "${response.message}", Toasty.LENGTH_SHORT).show()
                             articleList.removeAt(itemPosition)
                             articlesAdapter.notifyItemRemoved(itemPosition)
+                            if (articleList.size == 0){
+                                binding.notFound.visibility = View.VISIBLE
+                                binding.tvNotfound.visibility = View.VISIBLE
+                            }
                         }
                     }
                     is NetworkResponse.Error -> {
@@ -224,7 +229,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun bookmarkObserver(){
+    private fun bookmarkObserver(){ /** Fetch the posts bookmarked by the current loggedIn user */
         bookmarkViewModel.bookmarkListData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 binding.articlesRcv.hideShimmerAdapter()
@@ -255,7 +260,7 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun deleteBookmarkObserver(){
+    private fun deleteBookmarkObserver(){   /** Delete Bookmark */
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner){
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when(it){
@@ -264,6 +269,10 @@ class ProfileFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                         if (it.data?.status == true){
                             bookmarkList.removeAt(bookmarkPosition)
                             savedAdapter.notifyItemRemoved(bookmarkPosition)
+                            if (bookmarkList.size == 0){
+                                binding.notFound.visibility = View.VISIBLE
+                                binding.tvNotfound.visibility = View.VISIBLE
+                            }
                         }
                     }
                     is NetworkResponse.Error -> {

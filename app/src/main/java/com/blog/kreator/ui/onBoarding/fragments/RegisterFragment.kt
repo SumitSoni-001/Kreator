@@ -50,7 +50,7 @@ class RegisterFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 //        requireActivity().window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
-        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)  /** For making the button to come up along with keyboard. */
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
 
 //        if (sessionManager.getVerifiedEmail()) {
@@ -79,13 +79,13 @@ class RegisterFragment : Fragment() {
                 binding.nameField.error = "Enter your name"
             } else if (binding.etEmail.text.toString().trim().isEmpty()) {
                 binding.emailField.error = "Enter your Email"
-            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString().trim()).matches())
+            } else if (!(android.util.Patterns.EMAIL_ADDRESS.matcher(binding.etEmail.text.toString().trim()).matches()) /** Match email pattern */
             ) {
                 binding.emailField.error = "Enter a valid email address"
             } else if (binding.etPassword.text.toString().trim().isEmpty()) {
                 binding.passwordField.error = "Enter a strong password"
             } else if (!binding.termsServices.isChecked) {
-                Toasty.info(requireContext(), "Please Agree to the Terms of Services", Toasty.LENGTH_LONG, true).show()
+                Toasty.info(requireContext(), "Please Agree to the Terms of Services", Toasty.LENGTH_SHORT, true).show()
             } else {
 
                 name= binding.etName.text.toString().trim()
@@ -104,6 +104,7 @@ class RegisterFragment : Fragment() {
         authObserver()
     }
 
+    /** Generate token if the user is signedIn (i.e If an Anonymous User is created)*/
     private fun generateToken(/*email: String*/) {
         if (signedIn) {
             val token = GetIdToken(object : GetIdToken.AuthToken {
@@ -138,7 +139,7 @@ class RegisterFragment : Fragment() {
                 }
                 is NetworkResponse.Error -> {
 //                    Toast.makeText(requireContext(), it.message.toString(), Toast.LENGTH_SHORT).show()
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_LONG, true).show()
+                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                 }
                 is NetworkResponse.Loading -> {
                     loader.show()

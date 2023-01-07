@@ -3,6 +3,7 @@ package com.blog.kreator.utils
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
+/** Generate Firebase token */
 class GetIdToken(tokenCallback: AuthToken) {
     private var tokenCallback: AuthToken? = tokenCallback
 

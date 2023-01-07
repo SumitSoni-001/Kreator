@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--This file is used for defining the paths from where we can fetch data from system.
+    In Kreator, it is used for fetching images from system for coverPhoto of article and Profile pics. -->
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="external"

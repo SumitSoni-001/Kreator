@@ -42,7 +42,6 @@ class EditProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentEditProfileBinding
     private val userViewModel by viewModels<AuthViewModel>()
-
     @Inject
     lateinit var sessionManager: SessionManager
     private lateinit var loader: KProgressHUD
@@ -52,13 +51,11 @@ class EditProfileFragment : Fragment() {
             if (uri != null) {
                 profileUri = uri.toString()
 
-//                binding.btnCrop.visibility = View.VISIBLE
-//                binding.cropImageView.visibility = View.VISIBLE
                 binding.cropGroup.visibility = View.VISIBLE
                 binding.editProfileGroup.visibility = View.INVISIBLE
                 binding.parentLayout.setBackgroundColor(Color.parseColor("#2E2E2E"))
 
-                binding.cropImageView.setImageUriAsync(uri)
+                binding.cropImageView.setImageUriAsync(uri) /** Set bitmap loaded from the uri */
             } else {
                 Toasty.error(requireContext(), "File not found", Toasty.LENGTH_SHORT,true).show()
             }
@@ -87,8 +84,7 @@ class EditProfileFragment : Fragment() {
             binding.etEmail.setText(getEmail())
             binding.etAbout.setText(getAbout())
             val profileUrl = CustomImage.downloadProfile(getProfilePic(), getUserName().toString())
-            Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder)
-                .into(binding.userImg)
+            Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userImg)
         }
 
         binding.backArrow.setOnClickListener {
@@ -114,17 +110,9 @@ class EditProfileFragment : Fragment() {
             } else {
                 val userModel = UserInput(name = name, email = email, about = about)
                 it.hideKeyboard()
-                userViewModel.updateUser(
-                    sessionManager.getToken().toString(),
-                    sessionManager.getUserId()!!.toInt(),
-                    userModel
-                )
+                userViewModel.updateUser(sessionManager.getToken().toString(), sessionManager.getUserId()!!.toInt(), userModel)
                 if (profileUri.isNotEmpty()) {
-                    userViewModel.uploadProfile(
-                        sessionManager.getToken().toString(),
-                        sessionManager.getUserId()!!.toInt(),
-                        part
-                    )
+                    userViewModel.uploadProfile(sessionManager.getToken().toString(), sessionManager.getUserId()!!.toInt(), part)
 //                    Toasty.success(requireContext(), "Profile Photo Updated", Toasty.LENGTH_SHORT, true).show()
                 }
             }
@@ -155,7 +143,7 @@ class EditProfileFragment : Fragment() {
         part = MultipartBody.Part.createFormData("profile", file.name, requestBody)
     }
 
-    private fun bitmapToUri(bitmapImage: Bitmap): Uri? {
+    private fun bitmapToUri(bitmapImage: Bitmap): Uri? {    // Resource : * Tech Projects *
         val result = WeakReference(Bitmap.createScaledBitmap(bitmapImage,bitmapImage.width,bitmapImage.height,false).copy(Bitmap.Config.RGB_565,true))
         val newBitmap = result.get()
 
@@ -175,17 +163,15 @@ class EditProfileFragment : Fragment() {
         } catch (e : IOException) {
             e.printStackTrace()
         }
-
         return uri
     }
 
     private fun View.hideKeyboard() {
-        val imm =
-            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(windowToken, 0)
     }
 
-    private fun userObserver() {
+    private fun userObserver() {    /** Get user's updated data */
         userViewModel.userResponseData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 loader.dismiss()

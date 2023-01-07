@@ -6,3 +6,7 @@
         </trust-anchors>
     </base-config>
 </network-security-config>
+    <!-- Cleartext is any unEncrypted information that we get while communicating with server using
+    clearTextNetworkTraffic like Http Android does not allow to access HTTP URLs by default. Hence,
+    it displays the error message informing that cleartext HTTP traffic is not permitted.
+    So, we have to permit it manually -->

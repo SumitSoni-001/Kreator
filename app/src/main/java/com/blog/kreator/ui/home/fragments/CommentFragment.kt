@@ -72,6 +72,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
             override fun onItemClick(position: Int, moreOptions: View) {
                 itemPosition = position
                 clickedCommentId = commentsList[position].id!!
+                /** Create PopUp menu */
                 PopupMenu(requireContext(), moreOptions).apply {
                     setOnMenuItemClickListener(this@CommentFragment)
                     inflate(R.menu.articles_menu)
@@ -106,7 +107,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         deleteCommentObserver()
     }
 
-    private fun commentObserver() { // Fetching comments by postId
+    private fun commentObserver() { /** Fetching comments by postId */
         commentViewModel.commentByPostData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 binding.noComments.visibility = View.GONE
@@ -137,17 +138,18 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun commentObserver2() { // Adding or Updating Comment
+    private fun commentObserver2() { /** Adding or Updating Comment */
         commentViewModel.commentData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 progress.dismiss()
                 when (it) {
                     is NetworkResponse.Success -> {
 //                    commentViewModel.getCommentByPostId(sessionManager.getToken().toString(), postId)
-                        if (!updatingComment){// New Comment
+                        if (!updatingComment){ /** New Comment */
                             commentsList.add(it.data!!)
                             commentAdapter.notifyItemInserted(it.data.id!!)
                         }
+                        /** If comment is updated */
                         commentAdapter.notifyItemChanged(itemPosition)
                         binding.etComment.setText("")
                         if (commentsList.size > 0){
@@ -166,7 +168,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         }
     }
 
-    private fun deleteCommentObserver() {
+    private fun deleteCommentObserver() {   /** Delete Comment */
         commentViewModel.deleteCommentData.observe(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when (it) {
@@ -196,7 +198,7 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
         return when (item?.itemId) {
             R.id.edit -> {
                 updatingComment = true
-                binding.etComment.requestFocus()
+                binding.etComment.requestFocus()  /** Request focus on EditText and open keyboard */
                 showKeyboard()
 //                binding.etComment.setText("")
                 binding.etComment.setText(commentsList[itemPosition].content.toString())

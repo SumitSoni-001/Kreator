@@ -50,7 +50,7 @@ class VerifyEmailFragment : Fragment() {
         requireActivity().window.navigationBarColor = resources.getColor(R.color.white)
         requireActivity().window.statusBarColor = resources.getColor(R.color.white)
 
-        actionCodeSettings = ActionCodeSettings.newBuilder()
+        actionCodeSettings = ActionCodeSettings.newBuilder()    /** Setting Up Dynamic Link for Password-less Authentication(or Email Verification) */
             .setUrl("https://kreator.page.link/verifyemail")
 //                .setUrl("https://kreator.page.link")
             .setHandleCodeInApp(true)
@@ -96,7 +96,7 @@ class VerifyEmailFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
+        _binding = null /** The Fragment is no longer binded to any Layout once destroyed */
     }
 
 }

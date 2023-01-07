@@ -16,6 +16,8 @@ import kotlinx.coroutines.flow.flowOn
 import retrofit2.Response
 import javax.inject.Inject
 
+/** Used to make api call after a certain interval of time(Like generate token every 30min).
+ *  This concept is known a Polling and it's achived using Kotlin Coroutines and Flow. */
 class CoroutinePoller(
     private val authViewModel: AuthViewModel,
     private val dispatcher: CoroutineDispatcher,

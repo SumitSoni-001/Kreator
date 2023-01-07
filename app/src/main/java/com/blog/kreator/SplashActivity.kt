@@ -25,6 +25,7 @@ import com.airbnb.lottie.LottieAnimationView
 import com.blog.kreator.di.NetworkResponse
 import com.blog.kreator.ui.onBoarding.viewModels.AuthViewModel
 import com.blog.kreator.utils.CoroutinePoller
+import com.blog.kreator.utils.CustomToast
 import com.blog.kreator.utils.SessionManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
@@ -57,13 +58,17 @@ class SplashActivity : AppCompatActivity() {
         window.statusBarColor = resources.getColor(R.color.black)
 
         kreatorAnime = findViewById(R.id.kreatorAnime)
+        CustomToast.initialize()    /** Initializing Toast */
 
+        /** Getting Dynamic Link for emailVerification. This code will execute when the user navigate back to the app
+         * after clicking on email verification link in Mail app(Gmail, etc) */
         FirebaseDynamicLinks.getInstance().getDynamicLink(intent)
             .addOnSuccessListener { pendingDynamicLinkData ->
                 val deepLink: Uri?
                 if (pendingDynamicLinkData != null) {
                     deepLink = pendingDynamicLinkData.link
                     Log.d("deepLink", deepLink.toString())
+                    /** SignIn the user with the dynamic-link which we got through deep link.  */
                     FirebaseAuth.getInstance().signInWithEmailLink(sessionManager.getEmail()!!, deepLink.toString())
                         .addOnSuccessListener {
                             Log.e("Verification", "Verified success")
@@ -78,10 +83,10 @@ class SplashActivity : AppCompatActivity() {
                 }
             }
 
-        if (!gone){
-            if (sessionManager.getCategories() != null){
+        if (!gone){ /** Execute if the user is not navigated to MainActivity through deep link code */
+            if (sessionManager.getCategories() != null){   /** The token will be generated only if the user has signedIn or Registered */
                 sessionManager.getEmail().let {
-                    authViewModel.getUserByEmail(it!!)
+                    authViewModel.getUserByEmail(it!!)  /** Generate Token */
                     userObserver()
                 }
             }
