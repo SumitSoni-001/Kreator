@@ -44,11 +44,6 @@ class SavedAdapter(private val context: Context) : ListAdapter<BookmarkResponse,
         holder.binding.time.text = FormatTime.getFormattedTime(item.post?.date!!)
         holder.binding.categoryName.text = item.post?.category?.categoryTitle
         holder.binding.categoryName.setTextColor(randomColor())
-//        if (item.user?.id == SessionManager(context).getUserId()?.toInt()){
-//            holder.binding.bookmark.setImageResource(R.drawable.bookmarked)
-//        }else{
-//            holder.binding.bookmark.setImageResource(R.drawable.bookmark)
-//        }
     }
 
     private fun randomColor(): Int {

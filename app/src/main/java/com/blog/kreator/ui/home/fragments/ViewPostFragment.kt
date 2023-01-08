@@ -43,6 +43,9 @@ class ViewPostFragment : Fragment() {
     private var isBookmarked : Boolean = false
     private var bookmarkPosition = -1
 //    private var bookmarkId = 0
+    private var userId = -1
+    private var profileUrl = ""
+    private var about = ""
     private lateinit var editor : Editor    /** WYSIWYG rEditor */
 //    @Inject
     lateinit var sessionManager: SessionManager
@@ -97,10 +100,25 @@ class ViewPostFragment : Fragment() {
         binding.more.setOnClickListener {
             // Load a menu
         }
+        binding.userProfile.setOnClickListener{
+           navigateToUser()
+        }
+        binding.username.setOnClickListener{
+            navigateToUser()
+        }
 
         postObserver()
         bookmarkedPostsObserver()
         bookmarkObserver()
+    }
+
+    private fun navigateToUser(){
+        if (userId == sessionManager.getUserId()?.toInt()) {
+            findNavController().navigate(R.id.action_viewPostFragment_to_profileFragment)
+        } else {
+            val bundle = bundleOf("userId" to userId, "profile" to profileUrl, "username" to binding.username.text.toString(), "about" to about)
+            findNavController().navigate(R.id.action_viewPostFragment_to_userFragment,bundle)
+        }
     }
 
     private fun postObserver() { /** Fetch Post data by postId */
@@ -115,6 +133,8 @@ class ViewPostFragment : Fragment() {
                         val postData = it.data
                         Log.d("viewPostData", postData.toString())
 
+                        about = postData?.user?.about?:""
+                        userId = postData?.user?.id?:-1
 //                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
                         val deserializedContent = editor.getContentDeserialized(postData?.content) /** Deserialize the editor serialized data from server */
                         /** binding.postContent.text = postData?.content */
@@ -123,7 +143,7 @@ class ViewPostFragment : Fragment() {
                         binding.postedOn.text = FormatTime.getFormattedTime(postData?.date!!)
                         binding.username.text = postData.user?.name
                         Picasso.get().load(CustomImage.downloadImage(postData.image!!)).placeholder(R.drawable.placeholder).into(binding.postImage)
-                        val profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
+                        profileUrl = CustomImage.downloadProfile(postData.user?.userImage , postData.user?.name.toString())
                         Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(binding.userProfile)
                     }
                     is NetworkResponse.Error -> {
@@ -156,10 +176,7 @@ class ViewPostFragment : Fragment() {
                             if (isBookmarked) {
                                 Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
                                 binding.bookmarkPost.setImageResource(R.drawable.bookmarked)
-                                bookmarkViewModel.getBookmarkByUser(
-                                    sessionManager.getToken()!!,
-                                    sessionManager.getUserId()?.toInt()!!
-                                )
+                                bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!)
                             } else {
 //                        if (it.data?.status == true){
                                 Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
@@ -186,7 +203,7 @@ class ViewPostFragment : Fragment() {
                         if (it.data != null) {
                             bookmarkedPostsList.clear()
                             bookmarkedPostsList.addAll(it.data)
-                            /** Check whether current loggedIn user has bookmarked this post or not */
+                            /** Check whether the postId matches with any of the postId that the current user has bookmarked */
                             bookmarkedPostsList.forEach { bookmarkResponse ->
                                 if (postId == bookmarkResponse.post?.postId) {
                                     bookmarkPosition = bookmarkedPostsList.indexOf(bookmarkResponse)

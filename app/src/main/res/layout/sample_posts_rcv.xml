@@ -97,7 +97,7 @@
                         android:textColor="@color/gray"
                         android:textSize="@dimen/_8ssp"
                         app:layout_constraintBottom_toBottomOf="@id/profile"
-                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintEnd_toEndOf="@id/postImageCard"
                         app:layout_constraintTop_toTopOf="@id/profile" />
 
                     <TextView
@@ -111,20 +111,29 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/_14ssp"
                         android:textStyle="bold"
-                        app:layout_constraintEnd_toStartOf="@id/postImage"
+                        app:layout_constraintEnd_toStartOf="@id/postImageCard"
                         app:layout_constraintStart_toStartOf="@id/profile"
-                        app:layout_constraintTop_toTopOf="@id/postImage" />
+                        app:layout_constraintTop_toTopOf="@id/postImageCard" />
 
-                    <ImageView
-                        android:id="@+id/postImage"
-                        android:layout_width="@dimen/_61sdp"
-                        android:layout_height="@dimen/_40sdp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/postImageCard"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:cardCornerRadius="@dimen/_3sdp"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:layout_marginEnd="@dimen/_12sdp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/welcome_corner_img"
+                        android:outlineSpotShadowColor="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/profile" />
+                        app:layout_constraintTop_toBottomOf="@id/profile" >
+
+                        <ImageView
+                            android:id="@+id/postImage"
+                            android:layout_width="@dimen/_61sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/placeholder" />
+
+                    </androidx.cardview.widget.CardView>
 
                     <TextView
                         android:id="@+id/content"
@@ -138,9 +147,9 @@
                         android:visibility="visible"
                         android:textSize="@dimen/_10ssp"
                         android:paddingEnd="@dimen/_4sdp"
-                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintEnd_toEndOf="@id/postImageCard"
                         app:layout_constraintStart_toStartOf="@id/title"
-                        app:layout_constraintTop_toBottomOf="@id/postImage" />
+                        app:layout_constraintTop_toBottomOf="@id/postImageCard" />
 
                     <com.github.irshulx.Editor
                         android:id="@+id/editor"
@@ -149,9 +158,9 @@
                         android:maxHeight="@dimen/_50sdp"
                         android:visibility="gone"
                         android:layout_marginTop="@dimen/_6sdp"
-                        app:layout_constraintEnd_toEndOf="@id/postImage"
+                        app:layout_constraintEnd_toEndOf="@id/postImageCard"
                         app:layout_constraintStart_toStartOf="@id/title"
-                        app:layout_constraintTop_toBottomOf="@id/postImage"
+                        app:layout_constraintTop_toBottomOf="@id/postImageCard"
                         app:render_type="Renderer" />
 
                     <ImageView
@@ -165,7 +174,7 @@
                         android:focusable="true"
                         app:layout_constraintTop_toBottomOf="@id/content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        app:layout_constraintEnd_toEndOf="@id/postImage"/>
+                        app:layout_constraintEnd_toEndOf="@id/postImageCard"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

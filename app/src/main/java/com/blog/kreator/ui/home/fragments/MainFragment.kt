@@ -55,7 +55,7 @@ class MainFragment : Fragment() {
     private var isDataLoaded = false    // Check whether the api is called or not
     private var bookmarkedPostPosition = -1
     private var postPosition = -1
-    private var catId: Int = 0
+    private var catId: Int = 0  // Default Category is "ALL"
     @Inject
     lateinit var sessionManager: SessionManager
     @Inject
@@ -107,10 +107,9 @@ class MainFragment : Fragment() {
         binding.postsRcv.setHasFixedSize(true)
         binding.postsRcv.adapter = postsAdapter
         postsAdapter.setOnItemClickListener(object : PostsAdapter.ItemClickListener {
-            override fun onItemClick(position: Int, bookmarkPosition: Int) {
+            override fun onItemClick(position: Int) {
 //                categoryList.clear()
-                isBookmarked = bookmarkPosition != -1
-                val bundle = bundleOf("id" to postsList[position].postId/*, "isBookmarked" to isBookmarked, "bookmarkPos" to bookmarkPosition*/)
+                val bundle = bundleOf("id" to postsList[position].postId)
                 findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment, bundle)
             }
             override fun onBookmarkClick(position: Int, bookmarkPosition: Int, bookmarkImg: ImageView) {
@@ -122,9 +121,9 @@ class MainFragment : Fragment() {
                     bookmarkViewModel.addBookmark(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!, postsList[position].postId!!)
                 }else{
                     isBookmarked = false
+//                    bookmarkImg.setImageResource(R.drawable.bookmark)
                     bookmarkViewModel.deleteBookmark(sessionManager.getToken()!!, bookmarkedPostsList[bookmarkPosition].id!!)
                 }
-//                bookmarkObserver()
             }
         })
 
@@ -237,26 +236,25 @@ class MainFragment : Fragment() {
 
     private fun bookmarkObserver(){/** Add or Delete Bookmark */
         bookmarkViewModel.bookmarkData.observe(viewLifecycleOwner, Observer {
-//        bookmarkViewModel.bookmarkData.observeOnceAfterInit(viewLifecycleOwner) {
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
                 when (it) {
                     is NetworkResponse.Success -> {
-//                    Toasty.info(requireContext(), "${it.data?.message}", Toasty.LENGTH_SHORT, true).show()
                         if (!isBookmarked) { // delete bookmark
                             if (it.data?.status == true && bookmarkedPostPosition != -1) {
+                                Toasty.info(requireContext(), "${it.data?.message}", Toasty.LENGTH_SHORT, true).show()
                                 bookmarkedPostsList.removeAt(bookmarkedPostPosition)
                                 postsAdapter.notifyItemChanged(postPosition)
                             }
                         } else {  // Add Bookmark
                             if (it.data?.status == true) {
                                 Toasty.info(requireContext(), "${it.data.message}", Toasty.LENGTH_SHORT, true).show()
+                                bookmarkViewModel.getBookmarkByUser(sessionManager.getToken()!!, sessionManager.getUserId()?.toInt()!!)
 //                            postsAdapter.notifyItemChanged(postPosition)
                             }
                         }
                     }
                     is NetworkResponse.Error -> {
-                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
-                            .show()
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
                     }
                     is NetworkResponse.Loading -> {}
                 }

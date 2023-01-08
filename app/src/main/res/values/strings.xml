@@ -7,7 +7,7 @@
     <string name="loginHere"><font fgcolor="#000000">Already have an Account?</font><font fgcolor="#2EA043"> <b>Login here</b></font></string>
     <string name="termsService_privacyPolicy1"><font fgcolor="#FFFFFF">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#539bf5"><u>Terms of Service</u></font></a><font fgcolor="#FFFFFF"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#539bf5"><u>Privacy Policy</u></font></a><font fgcolor="#FFFFFF"> applies to you.</font></string>
     <string name="termsService_privacyPolicy2"><font fgcolor="#000000">By signing up, you agree to our </font><a href="https://sites.google.com/view/kreator-blog-app-terms-service/home"><font fgcolor="#2EA043"><u>Terms of Service</u></font></a><font fgcolor="#000000"> and \nacknowledge that our </font><a href="https://sites.google.com/view/kreator-blog-app-privacypolicy/home"><font fgcolor="#2EA043"><u>Privacy Policy</u></font></a><font fgcolor="#000000"> applies to you.</font></string>
-<!--    <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>-->
+    <!--    <string name="termService"><font size="12">I agree with the </font><b><font size="13">Terms of Service</font></b></string>-->
     <string name="termService">I agree with the <b>Terms of Service</b></string>
     <string name="verifyEmail">What\'s\nYour Email?</string>
     <string name="verifyEmailDesc">We will send a verification email to your email, Please check Spam or Junk folder if not received in Inbox.</string>
@@ -32,7 +32,7 @@
     <string name="add_profile_picture"><u>Add Profile Picture</u></string>
     <string name="loading_snackbar"><b><font fgcolor="#2E296B" size="16">Unable to load this Post!!</font></b><font fgcolor="#2E296B" size="13">Check your Internet connection</font></string>
     <string name="noConnection"><b><font fgcolor="#2E296B" size="16">Couldn\'t connect to internet!!</font></b><font fgcolor="#2E296B" size="13">\nPlease check your internet connection</font></string>
-<!--    <string name="tryAgain"><b><font size="14">Try Again</font></b></string>-->
+    <!--    <string name="tryAgain"><b><font size="14">Try Again</font></b></string>-->
     <string name="tryAgain"><b>Try Again</b></string>
     <string name="passwordConfirmed">New password \nconfirmed successfully</string>
     <string name="passwordRestGuide">You have successfully confirm your new \npassword. Please, use your new password \nwhen logging in.</string>

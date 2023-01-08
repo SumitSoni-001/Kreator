@@ -43,19 +43,28 @@
         android:textStyle="bold"
         android:lineSpacingExtra="2dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/postImage"
-        app:layout_constraintBottom_toBottomOf="@id/postImage"
-        app:layout_constraintEnd_toStartOf="@id/postImage"/>
+        app:layout_constraintTop_toTopOf="@id/postImageCard"
+        app:layout_constraintBottom_toBottomOf="@id/postImageCard"
+        app:layout_constraintEnd_toStartOf="@id/postImageCard"/>
 
-    <ImageView
-        android:id="@+id/postImage"
-        android:layout_width="@dimen/_56sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:scaleType="fitXY"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/postImageCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="@dimen/_3sdp"
+        android:outlineSpotShadowColor="@color/white"
         android:layout_marginTop="@dimen/_12sdp"
-        android:src="@drawable/placeholder"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/profile"/>
+        app:layout_constraintTop_toBottomOf="@id/profile">
+
+        <ImageView
+            android:id="@+id/postImage"
+            android:layout_width="@dimen/_56sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/placeholder" />
+
+    </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/categoryName"
@@ -63,7 +72,7 @@
         android:layout_height="wrap_content"
         android:text="Food"
         android:textSize="@dimen/_10ssp"
-        app:layout_constraintTop_toBottomOf="@id/postImage"
+        app:layout_constraintTop_toBottomOf="@id/postImageCard"
         app:layout_constraintBottom_toBottomOf="@id/bookmark"
         app:layout_constraintStart_toStartOf="parent"
         android:fontFamily="@font/poppins_semibold"
@@ -104,7 +113,7 @@
         android:focusable="true"
         android:layout_marginTop="@dimen/_15sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/postImage"
+        app:layout_constraintTop_toBottomOf="@id/postImageCard"
         app:tint="@color/light_black" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -100,6 +100,12 @@
         <action
             android:id="@+id/action_viewPostFragment_to_commentFragment"
             app:destination="@id/commentFragment" />
+        <action
+            android:id="@+id/action_viewPostFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_viewPostFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/commentFragment"
@@ -175,6 +181,15 @@
             app:destination="@id/registerFragment"
             app:popUpTo="@id/welcomeFragment"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.blog.kreator.ui.profile.fragments.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_viewPostFragment"
+            app:destination="@id/viewPostFragment" />
     </fragment>
 
 

@@ -1,4 +1,4 @@
-package com.blog.kreator.ui.home.adapters
+package com.blog.kreator.ui.profile.adapters
 
 import android.content.Context
 import android.graphics.Color
@@ -7,19 +7,21 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
-import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.DiffUtil.ItemCallback
 import androidx.recyclerview.widget.RecyclerView
 import com.blog.kreator.R
-import com.blog.kreator.databinding.SamplePostsRcvBinding
+import com.blog.kreator.databinding.SampleSavedRcvBinding
 import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.profile.models.BookmarkResponse
 import com.blog.kreator.utils.CustomImage
 import com.blog.kreator.utils.FormatTime
+import com.blog.kreator.utils.SessionManager
 import com.squareup.picasso.Picasso
 import java.util.*
+import kotlin.collections.ArrayList
 
-class PostsAdapter(private val context: Context, private val bookmarkedList:ArrayList<BookmarkResponse>) : ListAdapter<PostDetails, PostsAdapter.PostsViewHolder>(DiffUtil()) {
+class UserAdapter(private val context: Context, private val bookmarkedList: ArrayList<BookmarkResponse>) : ListAdapter<PostDetails, UserAdapter.UserViewHolder>(DiffUtil()) {
 
     private lateinit var mListener : ItemClickListener
 
@@ -32,32 +34,30 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
         mListener = listener
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostsViewHolder {
-        return PostsViewHolder(SamplePostsRcvBinding.inflate(LayoutInflater.from(context), parent, false), mListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
+        return UserViewHolder(SampleSavedRcvBinding.inflate(LayoutInflater.from(context),parent,false), mListener)
     }
 
-    override fun onBindViewHolder(holder: PostsViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
         val item = getItem(position)
 
-        holder.binding.parentLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation) /** Applying animation on RCV */
+        holder.binding.savedLayout.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
         val profileUrl = CustomImage.downloadProfile(item.user?.userImage , item.user?.name.toString())
         Picasso.get().load(profileUrl).placeholder(R.drawable.user_placeholder).into(holder.binding.profile)
         Picasso.get().load(CustomImage.downloadImage(item.image.toString())).placeholder(R.drawable.placeholder).into(holder.binding.postImage)
         holder.binding.name.text = item.user!!.name
         holder.binding.title.text = item.postTitle
         holder.binding.time.text = FormatTime.getFormattedTime(item.date!!)
-//        holder.binding.content.text = item.content
-        /** Deserialize the serialized data of RichTextEditor from server into Html format and then set the html text to TextView */
-        val deserializedContent = holder.binding.editor.getContentAsHTML(item.content)
-        holder.binding.content.text = Html.fromHtml(Html.fromHtml(deserializedContent).toString())
-        holder.binding.category.text = item.category?.categoryTitle
-        holder.binding.category.setBackgroundColor(randomColor())
+        holder.binding.categoryName.text = item.category?.categoryTitle
+        holder.binding.categoryName.setTextColor(randomColor())
 
+        holder.binding.bookmark.setImageResource(R.drawable.bookmark)
         bookmarkedList.forEach {
             if (item.postId == it.post?.postId){
                 holder.binding.bookmark.setImageResource(R.drawable.bookmarked)
             }
         }
+
     }
 
     private fun randomColor(): Int {
@@ -66,10 +66,10 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
         return Color.argb(255, random.nextInt(255), random.nextInt(200), random.nextInt(60))
     }
 
-    inner class PostsViewHolder(val binding: SamplePostsRcvBinding, private val listener : ItemClickListener) : RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(val binding: SampleSavedRcvBinding, private val listener: ItemClickListener):RecyclerView.ViewHolder(binding.root){
         init {
             listener.let {
-                binding.postLayout.setOnClickListener {
+                binding.savedLayout.setOnClickListener {
                     val position = absoluteAdapterPosition
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onItemClick(position)
@@ -82,7 +82,6 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
                         if (getItem(position).postId == it.post?.postId) {
                             bookmarkPosition = bookmarkedList.indexOf(it)
                         }
-//                        else { -1 }
                     }
                     if (position != RecyclerView.NO_POSITION) {
                         listener.onBookmarkClick(position, bookmarkPosition,binding.bookmark)
@@ -102,5 +101,6 @@ class PostsAdapter(private val context: Context, private val bookmarkedList:Arra
         }
 
     }
+
 
 }
