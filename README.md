@@ -25,6 +25,8 @@ In this project i have covered everything that is required to create a fully fun
 ## 🌟 Demo
 
 
+https://user-images.githubusercontent.com/73877619/216933496-1301808b-ef47-4c6a-a7df-f61deab24faa.mp4
+
 
 
 ## 🌈 Future Updates
