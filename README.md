@@ -22,12 +22,12 @@ In this project i have covered everything that is required to create a fully fun
 - 3rd Party libraries integration like Picasso, Lottie Files, Toasty, Shimmer and many more
 
 
-## Demo
+## 🌟 Demo
 
 
 
 
-## 🚀 Future Updates
+## 🌈 Future Updates
 - Push Notifications
 - Room Database
 - Search Functionality
