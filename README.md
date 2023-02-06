@@ -1,7 +1,8 @@
 
-# Kreator- Bloggging App
+# Kreator - Blogging App
 
-This is a simple note taking app in Android with Integrated API. In this project i have covered everything that is required to create a fully functional app.
+Kreator a blogging platform where users can share their views and enrich their knowledge by reading articles from experts on any topic.
+In this project i have covered everything that is required to create a fully functional app.
 
 
 
@@ -18,7 +19,7 @@ This is a simple note taking app in Android with Integrated API. In this project
 - Firebase Crashlytics
 - Encrypted Shared Preference
 - Network Monitoring using Kotlin Flow
-- Custom Toast
+- 3rd Party libraries integration like Picasso, Lottie Files, Toasty, Shimmer and many more
 
 
 ## Demo
