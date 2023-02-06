@@ -2,12 +2,15 @@ package com.blog.kreator.ui.home.fragments
 
 import android.content.Intent
 import android.graphics.Color
-import android.graphics.Typeface
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -26,13 +29,18 @@ import com.blog.kreator.utils.SessionManager
 import com.github.irshulx.Editor
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.dynamiclinks.DynamicLink
+import com.google.firebase.dynamiclinks.FirebaseDynamicLinks
+import com.google.firebase.dynamiclinks.ShortDynamicLink.Suffix.SHORT
+import com.google.firebase.dynamiclinks.ktx.androidParameters
+import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.squareup.picasso.Picasso
 import es.dmoral.toasty.Toasty
 import kotlin.collections.set
 
 /** Field Dependency Injection can not be applied here, because RichTextEditor do not support DI. */
 //@AndroidEntryPoint
-class ViewPostFragment : Fragment() {
+class ViewPostFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
     private var _binding: FragmentViewPostBinding? = null
     private val binding get() = _binding!!
 //    private val postViewModel by viewModels<PostViewModel>()
@@ -46,6 +54,8 @@ class ViewPostFragment : Fragment() {
     private var userId = -1
     private var profileUrl = ""
     private var about = ""
+    private var coverImage : String? = null
+    private var sharingLink = ""
     private lateinit var editor : Editor    /** WYSIWYG rEditor */
 //    @Inject
     lateinit var sessionManager: SessionManager
@@ -78,12 +88,12 @@ class ViewPostFragment : Fragment() {
             findNavController().navigate(R.id.action_viewPostFragment_to_commentFragment, bundle)
         }
         binding.backToMain.setOnClickListener {
+//            sessionManager.setSharedPost(0)
             findNavController().popBackStack()
         }
         binding.share.setOnClickListener {
-            // Share the post which contains the play-store url the app
-            /** Share the post with post Id and a dynamic link which navigates to Kreator and then inside mainFragment
-             *  fetch the post using the postId and then popup the post like medium. */
+            getSharingLink()
+            shareDeepLink(sharingLink)
         }
         binding.bookmarkPost.setOnClickListener {
             if (isBookmarked){
@@ -98,7 +108,12 @@ class ViewPostFragment : Fragment() {
 //            bookmarkObserver()
         }
         binding.more.setOnClickListener {
-            // Load a menu
+            /** create PopUp menu */
+            PopupMenu(requireContext(), binding.more).apply {
+                setOnMenuItemClickListener(this@ViewPostFragment)
+                inflate(R.menu.viewpost_menu)
+                show()
+            }
         }
         binding.userProfile.setOnClickListener{
            navigateToUser()
@@ -136,6 +151,7 @@ class ViewPostFragment : Fragment() {
                         about = postData?.user?.about?:""
                         userId = postData?.user?.id?:-1
 //                    val deserializedContent = binding.postContent.getContentDeserialized(postData?.content)
+                        coverImage = postData?.image
                         val deserializedContent = editor.getContentDeserialized(postData?.content) /** Deserialize the editor serialized data from server */
                         /** binding.postContent.text = postData?.content */
                         editor.render(deserializedContent)
@@ -226,6 +242,63 @@ class ViewPostFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+//        sessionManager.setSharedPost(0)
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        return when(item?.itemId){
+            R.id.share -> {
+                getSharingLink()
+                shareDeepLink(sharingLink)
+                return true
+            }
+            else -> false
+        }
+    }
+
+    private fun getSharingLink() {
+        /** create dynamic link */
+        val dynamicLink = FirebaseDynamicLinks.getInstance()
+            .createDynamicLink()
+            .setLink(Uri.parse("https://www.example.com/?post_id=${postId}"))
+            .setDomainUriPrefix("https://kreator.page.link")
+            .setAndroidParameters(
+                DynamicLink.AndroidParameters.Builder("com.blog.kreator")
+//                    .setMinimumVersion(125)
+                    .build()
+            )
+            .setSocialMetaTagParameters(
+                DynamicLink.SocialMetaTagParameters.Builder()
+                    .setTitle(binding.postTitle.text.toString())
+                    .setDescription("Click on the link to know more")
+                    .setImageUrl(Uri.parse(CustomImage.downloadImage(coverImage!!)))
+                    .build()
+            ).buildDynamicLink()
+
+        /** Short Link */
+        val uri = dynamicLink.uri
+        FirebaseDynamicLinks.getInstance().createDynamicLink()
+            .setLongLink(uri)
+            .buildShortDynamicLink()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful){
+                    val shortLink = task.result.shortLink
+//                    Log.d("shareLink", shortLink.toString())
+                    sharingLink = shortLink.toString()
+                }
+            }.addOnFailureListener {
+                Log.e("linkError", it.localizedMessage!!.toString())
+                Toast.makeText(requireContext(), "${it.message}", Toast.LENGTH_SHORT).show()
+            }
+
+    }
+
+    private fun shareDeepLink(deepLink: String) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, "Hey, checkout this post I found: $deepLink")
+        startActivity(Intent.createChooser(intent, "Share with"))
     }
 
 }

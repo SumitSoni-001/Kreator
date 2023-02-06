@@ -18,6 +18,7 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
     private val PROFILE_PIC = "PROFILE_PIC"
     private val YOUR_CATEGORIES = "CATEGORIES"
     private val VERIFIED_EMAIL = "VERIFIED_EMAIL"
+    private val SHARED_POST = "SHARED_POST"
 //    private val CONTENT = "CONTENT"
 
 //    private var prefs = context.getSharedPreferences(Constants.SHARED_PREFS, Context.MODE_PRIVATE)
@@ -97,6 +98,14 @@ class SessionManager @Inject constructor(@ApplicationContext context: Context) {
 
     fun setProfilePic(profile: String) {
         editor.putString(PROFILE_PIC, profile).apply()
+    }
+
+    fun getSharedPost():Int{
+        return prefs.getInt(SHARED_POST, 0)
+    }
+
+    fun setSharedPost(postId:Int){
+        editor.putInt(SHARED_POST,postId).apply()
     }
 
     fun getCategories(): ArrayList<String>? {

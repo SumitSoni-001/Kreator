@@ -2,6 +2,7 @@ package com.blog.kreator.ui.onBoarding.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.text.method.LinkMovementMethod
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -50,6 +51,7 @@ class VerifyEmailFragment : Fragment() {
         requireActivity().window.navigationBarColor = resources.getColor(R.color.white)
         requireActivity().window.statusBarColor = resources.getColor(R.color.white)
 
+        binding.policy.movementMethod = LinkMovementMethod.getInstance()
         actionCodeSettings = ActionCodeSettings.newBuilder()    /** Setting Up Dynamic Link for Password-less Authentication(or Email Verification) */
             .setUrl("https://kreator.page.link/verifyemail")
 //                .setUrl("https://kreator.page.link")

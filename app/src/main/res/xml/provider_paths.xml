@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--This file is used for defining the paths from where we can fetch data from system.
-    In Kreator, it is used for fetching images from system for coverPhoto of article and Profile pics. -->
+<!-- File Provider is a part of content provider which is used specifically for sharing the app's internal data.
+    (In few cases you may want to share the files saved in your app's specific directories to the other apps. In
+    such scenario you can share it as content URI).
+    In Kreator, it is used as we are sending image (i.e coverPhoto of article and Profile pics) to server from system. -->
+
 <paths xmlns:android="http://schemas.android.com/apk/res/android">
     <external-path
         name="external"

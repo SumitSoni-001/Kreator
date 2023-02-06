@@ -3,7 +3,8 @@ package com.blog.kreator.utils
 class Constants {
 
     companion object {
-        const val BASE_URL = "http://192.168.35.65:9090"
+//        const val BASE_URL = "http://192.168.155.65:9090"
+        const val BASE_URL = "https://45de-2409-4051-4-f410-31cd-c60f-b3d8-a1fe.in.ngrok.io"
         const val AUTH_TOKEN = "Authorization"
         const val SHARED_PREFS = "SHARED_PREFS"
         const val REGISTER_USER = "/api/auth/register"
@@ -30,7 +31,7 @@ class Constants {
         const val GET_USER_BY_EMAIL = "api/auth/getUser/"
 
         /** Category Flow:- The Category list is saved in Constants in the same order as present on Server. So the id of Category on server is
-         *  the position of that category in list+1 as list starts from 0. */
+         *  the position of that category in listPos+1 as list index starts from 0. */
         val ALL_CATEGORIES = arrayOf(
             "Travel", "Food", "Psychology", "Books", "Science", "Education", "Android", "ios", "Technology",
             "Artificial Intelligence", "Movies", "Health", "Software Engineering", "Life", "Work", "Programming",

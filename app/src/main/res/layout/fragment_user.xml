@@ -81,6 +81,7 @@
         android:backgroundTint="@color/green"
         android:fontFamily="@font/poppins_semibold"
         android:gravity="center"
+        android:visibility="gone"
         android:text="Follow"
         android:textAllCaps="false"
         android:textColor="@color/white"

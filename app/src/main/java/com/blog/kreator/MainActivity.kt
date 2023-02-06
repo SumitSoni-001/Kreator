@@ -44,8 +44,9 @@ class MainActivity : AppCompatActivity() {
     private val authViewModel : AuthViewModel by viewModels()
     @Inject
     lateinit var sessionManager: SessionManager
+    private var timer : CountDownTimer? = null
 //    private lateinit var coroutinePoller: CoroutinePoller
-    private lateinit var timer : CountDownTimer
+//    private lateinit var timer : CountDownTimer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,9 +89,8 @@ class MainActivity : AppCompatActivity() {
                 is NetworkResponse.Success -> {
                     val token = it.data?.token
                     if (token != null) {
-                        timer.start()
+                        timer?.start()
                         sessionManager.setToken(token)
-//                        Toast.makeText(this, "new Token", Toast.LENGTH_SHORT).show()
                     }
                 }
                 is NetworkResponse.Error -> {}
@@ -150,6 +150,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        timer.cancel()
+        timer?.let {
+            it.cancel()
+        }
     }
 }

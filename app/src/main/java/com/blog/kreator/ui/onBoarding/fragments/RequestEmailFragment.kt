@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.R
 import com.blog.kreator.databinding.FragmentRequestEmailBinding
@@ -41,6 +42,7 @@ class RequestEmailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.etResetEmail.setText(sessionManager.getEmail()?:"")
         loader = KProgressHUD.create(requireActivity())
             .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
             .setLabel("Please wait...")
@@ -70,24 +72,30 @@ class RequestEmailFragment : Fragment() {
 
     private fun userObserver() {
         authViewModel.authResponseData.observe(viewLifecycleOwner) {
-            loader.dismiss()
-            when (it) {
-                is NetworkResponse.Success -> {
-                    val response = it.data
-                    Log.d("getUserByEmail",response.toString())
-                    sessionManager.setUserId(response?.user?.id.toString())
-                    sessionManager.setUserName(response?.user?.name.toString())
-                    sessionManager.setEmail(response?.user?.email.toString())
-                    sessionManager.setAbout(response?.user?.about.toString())
-                    sessionManager.setProfilePic(response?.user?.userImage.toString())
-                    val bundle = bundleOf("token" to "Bearer ${response?.token}")
-                    findNavController().navigate(R.id.action_requestEmailFragment_to_resetPasswordFragment, bundle)
-                }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    loader.show()
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                loader.dismiss()
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        val response = it.data
+                        Log.d("getUserByEmail", response.toString())
+                        sessionManager.setUserId(response?.user?.id.toString())
+                        sessionManager.setUserName(response?.user?.name.toString())
+                        sessionManager.setEmail(response?.user?.email.toString())
+                        sessionManager.setAbout(response?.user?.about.toString())
+                        sessionManager.setProfilePic(response?.user?.userImage.toString())
+                        val bundle = bundleOf("token" to "Bearer ${response?.token}")
+                        findNavController().navigate(
+                            R.id.action_requestEmailFragment_to_resetPasswordFragment,
+                            bundle
+                        )
+                    }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
+                            .show()
+                    }
+                    is NetworkResponse.Loading -> {
+                        loader.show()
+                    }
                 }
             }
         }

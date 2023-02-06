@@ -29,9 +29,10 @@
     <string name="sample_post_content">Pick the <b><i>Lottie</i></b> for your Android app. You may have your own or you may want to select one from the 1000s of <b>Lottie animations</b> available for free on LottieFiles.It\'s important to test your selected Lottie using the <i>LottieFiles</i> app for Android to make sure the animation you\'ve chosen will play the same Android as sometimes not all animations are built with features supported in the Lottie Android player.Just scan the QR code under the animation on LottieFiles with the app to preview the animation.Pick the <b><i>Lottie</i></b> for your Android app. You may have your own or you may want to select one from the 1000s of <b>Lottie animations</b> available for free on LottieFiles.It\'s important to test your selected Lottie using the <i>LottieFiles</i> app for Android to make sure the animation you\'ve chosen will play the same Android as sometimes not all animations are built with features supported in the Lottie Android player.Just scan the QR code under the animation on LottieFiles with the app to preview the animation.</string>
     <string name="delete">Delete</string>
     <string name="edit">Edit</string>
+    <string name="share">Share</string>
     <string name="add_profile_picture"><u>Add Profile Picture</u></string>
-    <string name="loading_snackbar"><b><font fgcolor="#2E296B" size="16">Unable to load this Post!!</font></b><font fgcolor="#2E296B" size="13">Check your Internet connection</font></string>
-    <string name="noConnection"><b><font fgcolor="#2E296B" size="16">Couldn\'t connect to internet!!</font></b><font fgcolor="#2E296B" size="13">\nPlease check your internet connection</font></string>
+    <string name="loading_snackbar"><b><font fgcolor="#2E296B"><big>Unable to load this Post!!</big></font></b><font fgcolor="#2E296B">Check your Internet connection</font></string>
+    <string name="noConnection"><b><font fgcolor="#2E296B"><big>Couldn\'t connect to internet!!</big></font></b><font fgcolor="#2E296B">\nPlease check your internet connection</font></string>
     <!--    <string name="tryAgain"><b><font size="14">Try Again</font></b></string>-->
     <string name="tryAgain"><b>Try Again</b></string>
     <string name="passwordConfirmed">New password \nconfirmed successfully</string>

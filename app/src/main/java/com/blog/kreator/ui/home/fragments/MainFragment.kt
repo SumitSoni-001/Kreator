@@ -7,9 +7,11 @@ import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -27,16 +29,17 @@ import com.blog.kreator.ui.home.models.PostDetails
 import com.blog.kreator.ui.home.viewModels.PostViewModel
 import com.blog.kreator.ui.profile.models.BookmarkResponse
 import com.blog.kreator.ui.profile.viewModels.BookmarkViewModel
-import com.blog.kreator.utils.Constants
-import com.blog.kreator.utils.CustomImage
-import com.blog.kreator.utils.NetworkListener
-import com.blog.kreator.utils.SessionManager
+import com.blog.kreator.utils.*
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import es.dmoral.toasty.Toasty
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -56,6 +59,7 @@ class MainFragment : Fragment() {
     private var bookmarkedPostPosition = -1
     private var postPosition = -1
     private var catId: Int = 0  // Default Category is "ALL"
+    private var sharedPostExist = false // check whether the shared post exist or not before loading
     @Inject
     lateinit var sessionManager: SessionManager
     @Inject
@@ -162,6 +166,18 @@ class MainFragment : Fragment() {
             }
         })
 
+        binding.mainScrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > 0){
+                if(binding.sharedPostLayout.isVisible) {
+                    binding.sharedPostLayout.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.slide_down_animation))
+                    CoroutineScope(Dispatchers.Main).launch {
+                        delay(2000)
+                        binding.sharedPostLayout.visibility = View.GONE
+                        binding.createBlogFAB.visibility = View.VISIBLE
+                    }
+                }
+            }
+        }
         binding.createBlogFAB.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_createPostFragment)
         }
@@ -177,17 +193,20 @@ class MainFragment : Fragment() {
                 findNavController().navigate(R.id.action_mainFragment_to_profileFragment)
             }
         }
+        binding.sharedPostLayout.setOnClickListener {
+            val bundle = bundleOf("id" to sessionManager.getSharedPost())
+            findNavController().navigate(R.id.action_mainFragment_to_viewPostFragment, bundle)
+        }
 
         postObserver()
         bookmarkObserver()
         bookmarkedPostsObserver()
     }
 
-    private fun postObserver() {
+    private fun postObserver() {  /** Fetch all posts */
         postViewModel.postData.observe(viewLifecycleOwner, Observer {
             /** It helps to overcome the observer bug (The observer is called automatically next time if once called) and create new observer everyTime. */
             if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
-//                binding.errorAnime.visibility = View.GONE
                 binding.noBlogFound.visibility = View.GONE
                 binding.btnRetry.visibility = View.GONE
 //            binding.categoryRCV.visibility = View.VISIBLE
@@ -198,7 +217,6 @@ class MainFragment : Fragment() {
                 when (it) {
                     is NetworkResponse.Success -> {
                         binding.categoryRCV.visibility = View.VISIBLE
-//                        binding.errorAnime.visibility = View.GONE
                         binding.btnRetry.visibility = View.GONE
                         binding.helloGroup.visibility = View.VISIBLE
                         binding.tvName.text = sessionManager.getUserName().toString()
@@ -207,11 +225,34 @@ class MainFragment : Fragment() {
                         if (it.data?.postDto != null && it.data.postDto.isNotEmpty()) {
                             postsList.clear()
                             postsList.addAll(it.data.postDto)
-//                        for (item in 0 until (it.data!!.postDto.size)) {
-//                            postsList.add(it.data.postDto[item])
-//                        }
                             postsAdapter.submitList(postsList)
-                            isDataLoaded=true
+                            isDataLoaded = true
+
+                            if (sessionManager.getSharedPost() > 0){
+                                postsList.forEach { postDetail ->
+                                    if (sessionManager.getSharedPost() == postDetail.postId) {
+                                        sharedPostExist = true
+                                        postDetail.apply {
+                                            binding.sharedPostTitle.text = postTitle
+                                            binding.sharedCatgName.text = category?.categoryTitle
+                                            binding.sharedPostTime.text = FormatTime.getFormattedTime(date.toString())
+                                            Picasso.get().load(CustomImage.downloadImage(image.toString())).placeholder(R.drawable.placeholder).into(binding.sharedpostImage)
+                                            binding.createBlogFAB.visibility = View.GONE
+                                            CoroutineScope(Dispatchers.Main).launch {
+                                                delay(2000)
+                                                binding.sharedPostLayout.visibility = View.VISIBLE
+                                                binding.sharedPostLayout.startAnimation(AnimationUtils.loadAnimation(requireContext(), R.anim.slide_up_animation))
+                                                sessionManager.setSharedPost(0)
+                                            }
+                                        }
+                                    }
+                                }
+                                if (!sharedPostExist){
+                                    Toasty.info(requireContext(), "Shared post doesn't exist", Toasty.LENGTH_SHORT,true).show()
+                                    sessionManager.setSharedPost(0)
+                                }
+                            }
+
                         } else {
                             binding.noBlogFound.visibility = View.VISIBLE
                             binding.btnRetry.visibility = View.VISIBLE

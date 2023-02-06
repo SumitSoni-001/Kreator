@@ -256,7 +256,7 @@
         android:fontFamily="@font/poppins_medium"
         android:text="You don't have any posts."
         android:textColor="@color/light_black"
-        android:textSize="18sp"
+        android:textSize="@dimen/_13ssp"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

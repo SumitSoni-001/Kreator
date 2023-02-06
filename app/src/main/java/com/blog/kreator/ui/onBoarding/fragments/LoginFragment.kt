@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.blog.kreator.R
@@ -55,7 +56,7 @@ class LoginFragment : Fragment() {
             .setCancellable(false)
             .setDimAmount(0.5f)
 
-        binding.securityLinks.movementMethod = LinkMovementMethod.getInstance()
+//        binding.securityLinks.movementMethod = LinkMovementMethod.getInstance()
         binding.backImg.setOnClickListener{
             findNavController().popBackStack()
         }
@@ -89,23 +90,26 @@ class LoginFragment : Fragment() {
 
     private fun authObserver() {
         authViewModel.authResponseData.observe(viewLifecycleOwner, Observer {
-            loader.dismiss()
-            when (it) {
-                is NetworkResponse.Success -> {
-                    sessionManager.setToken(it.data?.token.toString())
-                    sessionManager.setUserId(it.data?.user?.id.toString())
-                    sessionManager.setUserName(it.data?.user?.name.toString())
-                    sessionManager.setEmail(it.data?.user?.email.toString())
-                    sessionManager.setAbout(it.data?.user?.about.toString())
-                    sessionManager.setProfilePic(it.data?.user?.userImage?:"default.png")
-                    sessionManager.setVerifiedEmail(it.data?.user?.isVerified?:false)
-                    findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
-                }
-                is NetworkResponse.Error -> {
-                    Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true).show()
-                }
-                is NetworkResponse.Loading -> {
-                    loader.show()
+            if (viewLifecycleOwner.lifecycle.currentState == Lifecycle.State.RESUMED){
+                loader.dismiss()
+                when (it) {
+                    is NetworkResponse.Success -> {
+                        sessionManager.setToken(it.data?.token.toString())
+                        sessionManager.setUserId(it.data?.user?.id.toString())
+                        sessionManager.setUserName(it.data?.user?.name.toString())
+                        sessionManager.setEmail(it.data?.user?.email.toString())
+                        sessionManager.setAbout(it.data?.user?.about.toString())
+                        sessionManager.setProfilePic(it.data?.user?.userImage ?: "default.png")
+                        sessionManager.setVerifiedEmail(it.data?.user?.isVerified ?: false)
+                        findNavController().navigate(R.id.action_loginFragment_to_onBoardingFragment2)
+                    }
+                    is NetworkResponse.Error -> {
+                        Toasty.error(requireContext(), "${it.message}", Toasty.LENGTH_SHORT, true)
+                            .show()
+                    }
+                    is NetworkResponse.Loading -> {
+                        loader.show()
+                    }
                 }
             }
         })

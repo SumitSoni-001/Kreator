@@ -123,7 +123,6 @@ class CommentFragment : Fragment(), PopupMenu.OnMenuItemClickListener {
                             }
                             commentsList.clear()
                             commentsList.addAll(commentData)
-//                        commentAdapter.submitList(commentData)
                             commentAdapter.submitList(commentsList)
                         }
                     }
